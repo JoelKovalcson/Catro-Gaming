@@ -1,6 +1,16 @@
+import React from 'react'
+import { Router, Switch } from 'react-router-dom'
+import Header from '../components/header'
+import Footer from '../components/footer'
+
+
 function App() {
   return (
-    <div className="bg-slate-500 h-80 w-80"/>
+    <Router>
+      <Header></Header>
+      <Switch></Switch>
+      <Footer></Footer>
+    </Router>
   );
 }
 
