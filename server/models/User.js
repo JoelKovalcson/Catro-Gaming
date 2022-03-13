@@ -3,6 +3,34 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const bcrypt = require('bcrypt');
 
+const gameDictionary = require('../config/gameModels');
+
+function generateGameSchemas() {
+	// Storage for each game schema
+	let gameSchemas = {};
+	// For each game in the dictionary
+	for(let game in gameDictionary) {
+		// Make a new schema
+		let newSchema = new Schema({
+			// Give it all the stat trackers for that game
+			...gameDictionary[game]
+		});
+		gameSchemas[game] = newSchema;
+	}
+	return gameSchemas;
+}
+
+const ScoreSchema = new Schema({
+	// Holds total number of all games played
+	totalGames: {
+		type: Number,
+		required: true,
+		default: 0
+	},
+	// Setup fields for each game with their associated schema
+	...generateGameSchemas()
+});
+
 const userSchema = new Schema({
     username: {
         type: String,
@@ -32,10 +60,10 @@ const userSchema = new Schema({
     activeGames: [
         {
             type: Schema.Types.ObjectId,
-        ref: 'ActiveGame'
+        	  ref: 'ActiveGame'
         }
-    ]
-
+    ],
+		scores: ScoreSchema
 },
 {
     toJSON: {
