@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 const bcrypt = require('bcrypt');
-
 const gameDictionary = require('../config/gameModels');
 
 function generateGameSchemas() {
@@ -44,11 +43,11 @@ const userSchema = new Schema({
     },
     createdAt: {
         type: Date,
-        default: Date.now
+        default: Date.now,
     },
     lastLogin: {
         type: Date,
-        default: Date.now
+        default: Date.now,
     },
     friends: [
         {
