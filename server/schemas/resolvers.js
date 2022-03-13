@@ -34,15 +34,31 @@ const resolvers = {
 			// Make sure user is logged in
 			if(context.user) {
 				// Make sure user is in the game
-				const game = await ActiveGame.findOne({
-					_id: args.gameId,
-					participants: context.user._id
-				});
-				// If the game exists, return it
+				const game = await ActiveGame.findOneAndUpdate(
+					// Filters
+					{
+						_id: args.gameId,
+						participants: context.user._id
+					},
+					// Update
+					{
+						isComplete: true
+					}
+				);
+				// If the game exists, score and return the game id
 				if(game) {
-					return game;
+					// TODO: Insert scoring logic based on the game type here
+					switch(game.gameName) {
+						case 'tetris':
+
+							break;
+						default: 
+							throw new ForbiddenError('This is an invalid game type (How did this get here?)');
+					}
+
+					return game._id;
 				}
-				// Don't let users not part of a game end it
+				// Else the user wasn't part of that game
 				throw new ForbiddenError('You are not part of that game!');
 			}
 			throw new AuthenticationError('You need to be logged in!');
