@@ -6,7 +6,7 @@ function generateScoreFields() {
 	// For every game
 	for(let game in gameDictionary) {
 		// Register a new field in Score document
-		fieldStr += `${game}: ${game.charAt(0).toUpperCase() + game.slice(1)}\n`
+		fieldStr += `${game}: ${game.charAt(0).toUpperCase() + game.slice(1)}\n`;
 	}
 	return fieldStr;
 }
@@ -21,9 +21,9 @@ function generateGameDocuments() {
 		for(let tracker in gameDictionary[game]) {
 			// Register a field for that tracker
 			// Assumption that all trackers are a number for now
-			gameStr += `${tracker}: Int\n`
+			gameStr += `${tracker}: Int\n`;
 		}
-		gameStr += '}\n'
+		gameStr += '}\n';
 	}
 	return gameStr;
 }
