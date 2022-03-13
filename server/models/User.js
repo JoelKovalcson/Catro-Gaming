@@ -14,7 +14,10 @@ function generateGameSchemas() {
 			// Give it all the stat trackers for that game
 			...gameDictionary[game]
 		});
-		gameSchemas[game] = newSchema;
+		gameSchemas[game] = {
+			type: newSchema,
+			default: () => ({})
+		};
 	}
 	return gameSchemas;
 }
@@ -62,7 +65,10 @@ const userSchema = new Schema({
         	  ref: 'ActiveGame'
         }
     ],
-		scores: ScoreSchema
+		scores: {
+			type: ScoreSchema,
+			default: () => ({})
+		}
 },
 {
     toJSON: {

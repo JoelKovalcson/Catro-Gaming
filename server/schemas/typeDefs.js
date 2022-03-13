@@ -8,7 +8,6 @@ function generateScoreFields() {
 		// Register a new field in Score document
 		fieldStr += `${game}: ${game.charAt(0).toUpperCase() + game.slice(1)}\n`
 	}
-	console.log(fieldStr);
 	return fieldStr;
 }
 
@@ -26,7 +25,6 @@ function generateGameDocuments() {
 		}
 		gameStr += '}\n'
 	}
-	console.log(gameStr);
 	return gameStr;
 }
 
@@ -53,18 +51,23 @@ const typeDefs = gql`
 	}
 
 	type Score {
-		totalGame: Int
+		totalGames: Int
 		${generateScoreFields()}
 	}
 
 	${generateGameDocuments()}
+
+	type Auth {
+		token: ID!
+		user: User
+	}
 
 	type Query {
 		users: [User]
 	}
 
 	type Mutation {
-		addUser(username: String!, password: String!): User
+		addUser(username: String!, password: String!): Auth
 	}
 `;
 
