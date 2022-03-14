@@ -8,7 +8,14 @@ const resolvers = {
 			return User.find()
 			.select('-__v -password')
 			.populate('friends');
-		}
+		},
+		getGame: async (_, args, context) => {
+			if(context.user) {
+				const game = await ActiveGame.find({_id: args.gameId})
+				return game
+			}
+			throw new AuthenticationError('You must be logged in to check for an active game!')
+			}
 	},
 	Mutation: {
 		addUser: async (_, args) => {
@@ -78,6 +85,13 @@ const resolvers = {
 
 			const token = signToken(user);
 			return {token, user};
+		},
+		getProfile: async(_, args, context) => {
+			if(context.user) {
+				const profile = await User.find({_id: args.userId})
+				return profile;
+			}
+			throw new AuthenticationError('You must be logged in to search for a users profile!')
 		}
 	}
 }
