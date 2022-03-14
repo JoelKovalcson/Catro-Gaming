@@ -11,11 +11,18 @@ const resolvers = {
 		},
 		getGame: async (_, args, context) => {
 			if(context.user) {
-				const game = await ActiveGame.find({_id: args.gameId})
+				const game = await ActiveGame.findById(args.gameId)
 				return game
 			}
 			throw new AuthenticationError('You must be logged in to check for an active game!')
+		},
+		getProfile: async(_, args, context) => {
+			if(context.user) {
+				const profile = await User.findById(args.userId)
+				return profile;
 			}
+			throw new AuthenticationError('You must be logged in to search for a users profile!')
+		}
 	},
 	Mutation: {
 		addUser: async (_, args) => {
@@ -29,8 +36,9 @@ const resolvers = {
 				// Make a game type of their choosing with that user having the first turn
 				const game = await ActiveGame.create({
 					gameName: args.gameType,
-					turn: context.user._id,
-					$push: { participants: context.user._id }
+					turn: 0,
+					participants: [context.user._id],
+					maxPlayers: (args.maxPlayers ? args.maxPlayers : 1)
 				});
 
 				return game;
@@ -86,12 +94,47 @@ const resolvers = {
 			const token = signToken(user);
 			return {token, user};
 		},
-		getProfile: async(_, args, context) => {
+		updateGameState: async(_, args, context) => {
 			if(context.user) {
-				const profile = await User.find({_id: args.userId})
-				return profile;
+				// Get the game
+				let game = await ActiveGame.findOne({
+					_id: args.gameId
+				});
+				
+				if (!game) {
+					throw new ForbiddenError('Game not found');
+				}
+
+				// Get turn information
+				let participants = game.get('participants');
+				let turn = game.get('turn');
+				let maxPlayers = game.get('maxPlayers');
+				let index = turn % maxPlayers;
+
+				// Throw error if not their turn
+				if(!participants[index].equals(context.user._id)) {
+					throw new ForbiddenError('It is not your turn!');
+				}
+				
+				// Update game state and turn count
+				game = await ActiveGame.findOneAndUpdate(
+					{
+						_id: args.gameId
+					},
+					{
+						$inc: {
+							turn: 1
+						},
+						gameState: args.gameState
+					}, 
+					{ 
+						new: true
+					}
+				);
+				
+				// Return updated game
+				return game;
 			}
-			throw new AuthenticationError('You must be logged in to search for a users profile!')
 		}
 	}
 }

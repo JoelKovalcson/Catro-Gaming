@@ -8,8 +8,8 @@ const ActiveGameSchema = new Schema({
         required: true,
     },
     turn: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
+        type: Number,
+        default: 0
     },
     participants: [
         {
@@ -29,7 +29,11 @@ const ActiveGameSchema = new Schema({
     ],
     gameState: {
         type: String
-    }
+    },
+		maxPlayers: {
+			type: Number,
+			default: 1
+		}
 })
 
 const ActiveGame = mongoose.model('ActiveGame', ActiveGameSchema);

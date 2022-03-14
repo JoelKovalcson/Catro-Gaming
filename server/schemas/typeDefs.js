@@ -43,11 +43,12 @@ const typeDefs = gql`
 	type ActiveGame {
 		_id: ID
 		gameName: String
-		turn: [User]
+		turn: Int
 		participants: [User]
 		isComplete: Boolean
 		scores: [Int]
 		gameState: String
+		maxPlayers: Int
 	}
 
 	type Score {
@@ -64,7 +65,7 @@ const typeDefs = gql`
 
 	type Query {
 		users: [User]
-		getGame(gameId: Id!): ActiveGame
+		getGame(gameId: ID!): ActiveGame
 		getProfile(user: ID!): User
 	}
 
@@ -73,6 +74,7 @@ const typeDefs = gql`
 		startGame(gameType: String!): ActiveGame
 		endGame(gameId: ID!): ID
 		login(userId: ID!, password: String!): Auth
+		updateGameState(gameId: ID!, gameState: String!): ActiveGame
 	}
 `;
 
