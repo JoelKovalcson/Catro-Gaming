@@ -25,7 +25,11 @@ const resolvers = {
 		},
 		getJoinableGames: async () => {
 			// get all games where user isn't already a participant
-			const games = await ActiveGame.find({})
+			const games = await ActiveGame.find(
+				{},
+				{},
+				{}
+			)
 			// if there are no games throw error
 			if(!games){
 				throw new ForbiddenError('No joinable games')
@@ -106,20 +110,20 @@ const resolvers = {
 			const token = signToken(user);
 			return {token, user};
 		},
-		logout: async (_, args, context) => {
+		updateLastLogin: async (_, args, context) => {
 			// check to see if user is logged in
 			if(!context.user) {
 				throw new ForbiddenError('You must be logged in!')
 			}
 			// find user in db by _id
-			let user = await User.findOne(
+			let user = await User.findOneAndUpdate(
 				{_id: args.user._id},
 				// Set lastLogin to now
 				{lastLogin: Date.now()},
 				// return _ID of user that logged out
 				{ new: true }
 			)
-			return user;
+			return user.get('_id');
 		},
 		updateGameState: async(_, args, context) => {
 			if(context.user) {

@@ -77,6 +77,7 @@ const typeDefs = gql`
 		login(userId: ID!, password: String!): Auth
 		logout(userId: ID!): ID
 		updateGameState(gameId: ID!, gameState: String!): ActiveGame
+		updateLastLogin(userId: ID!): ID
 	}
 `;
 
