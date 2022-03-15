@@ -24,7 +24,7 @@ const resolvers = {
 			throw new AuthenticationError('You must be logged in to search for a users profile!')
 		},
 		getJoinableGames: async () => {
-			// get all games 
+			// get all games where user isn't already a participant
 			const games = await ActiveGame.find({})
 			// if there are no games throw error
 			if(!games){
