@@ -56,7 +56,7 @@ function signUpForm() {
                 ease-in-out
                 m-0
                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="confirmPassword"
-                placeholder="Confrim Password"/>
+                placeholder="Confirm Password"/>
             </div>
                 <button type="submit" class="
                 w-full

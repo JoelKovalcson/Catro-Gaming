@@ -11,7 +11,7 @@ module.exports = {
 				'color-3' : 'F4AC45',
 			},
 			backgroundImage: {
-				'banner': "url('/src/assets/banner-background.jpg')"
+				/*'banner': "url('/src/assets/banner-background.jpg')"*/
 			}
 		},
   },
