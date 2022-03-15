@@ -22,7 +22,19 @@ const resolvers = {
 				return profile;
 			}
 			throw new AuthenticationError('You must be logged in to search for a users profile!')
+		},
+		getJoinableGames: async () => {
+			// get all games 
+			const games = await ActiveGame.find({})
+			// if there are no games throw error
+			if(!games){
+				throw new ForbiddenError('No joinable games')
+			} else {
+				// filter through games and find joinable games
+				games.filter()
+			}
 		}
+		
 	},
 	Mutation: {
 		addUser: async (_, args) => {
@@ -93,6 +105,21 @@ const resolvers = {
 
 			const token = signToken(user);
 			return {token, user};
+		},
+		logout: async (_, args, context) => {
+			// check to see if user is logged in
+			if(!context.user) {
+				throw new ForbiddenError('You must be logged in!')
+			}
+			// find user in db by _id
+			let user = await User.findOne(
+				{_id: args.user._id},
+				// Set lastLogin to now
+				{lastLogin: Date.now()},
+				// return _ID of user that logged out
+				{ new: true }
+			)
+			return user;
 		},
 		updateGameState: async(_, args, context) => {
 			if(context.user) {

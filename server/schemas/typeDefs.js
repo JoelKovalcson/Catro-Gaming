@@ -67,6 +67,7 @@ const typeDefs = gql`
 		users: [User]
 		getGame(gameId: ID!): ActiveGame
 		getProfile(user: ID!): User
+		getJoinableGames(): [ActiveGame] 
 	}
 
 	type Mutation {
@@ -74,6 +75,7 @@ const typeDefs = gql`
 		startGame(gameType: String!): ActiveGame
 		endGame(gameId: ID!): ID
 		login(userId: ID!, password: String!): Auth
+		logout(userId: ID!): ID
 		updateGameState(gameId: ID!, gameState: String!): ActiveGame
 	}
 `;
