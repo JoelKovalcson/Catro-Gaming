@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 //import SignUpForm from "../components/SignUpForm";
 //import LoginForm from "../components/LoginForm";
+import { useMutation } from '@apollo/client';
+import { ADD_USER, LOGIN_USER } from "../utils/mutations";
+import auth from "../utils/auth";
 
 const SignUp = () => {
   
-	const [formState, setFormState] = useState({formType: 'signup', username: '', password: '', confirmPassword: '', error: ''})
+	const [formState, setFormState] = useState({formType: 'signup', username: '', password: '', confirmPassword: '', error: ''});
+
+    // ADD_USER mutation
+    const [addUser, { error }] = useMutation(ADD_USER);
 	
+    // check to see if sign up or login
 	const changeForm = (event) => {
 		if(event.target.id === 'tabs-signup-tab') {
 			setFormState(prevState => {
@@ -27,11 +34,12 @@ const SignUp = () => {
 		
 	}
 
-	const handleFormSubmit = (event) => {
+	const handleFormSubmit = async (event) => {
         console.log(formState.username)
         console.log(formState.confirmPassword)
         console.log(formState.password)
 		event.preventDefault();
+        // client side validation
         if (formState.formType === 'signup' && !(formState.password === formState.confirmPassword)){
             setFormState( prevState => {
                 return{ ...prevState, error: 'Password must match'}
@@ -52,12 +60,23 @@ const SignUp = () => {
             })
             return;
         } else {
-            console.log('login in init');
-            // //set error to empty
-            // setFormState(prevState => {
-            //     return { ...prevState, error: '' }
-            // })
-            // // try to login
+            // if ok try to addUser
+            console.log('add user init');
+            // try to add user
+            try {
+              const { data } = await addUser({
+                variables: { ...formState },
+              });
+
+              auth.login(data.addUser.token);
+
+              //set error to empty
+              setFormState((prevState) => {
+                return { ...prevState, error: "" };
+              });
+            }catch (e) {
+                console.log(e)
+            }
         }
 		
 	}
@@ -192,6 +211,7 @@ const SignUp = () => {
 					</button>
 					<div>
 						{formState.error}
+                        {error && <div>Signup Failed</div>}
 					</div>
 				</form>
 			</div>
