@@ -113,7 +113,7 @@ const SignUp = () => {
 						<label htmlFor="username" className="form-label inline-block mb-2 text-gray-700" >
 							Username
 						</label>
-						<input type="username" onChange={handleChange} value={formState.username} className="form-control
+						<input name="username" type="username" onChange={handleChange} value={formState.username} className="form-control
 							block
 							w-full
 							px-3
@@ -134,7 +134,7 @@ const SignUp = () => {
 						<label htmlFor="password" className="form-label inline-block mb-2 text-gray-700" >
 							Password
 						</label>
-						<input type="password" onChange={handleChange} value={formState.password} className="form-control block
+						<input name="password" type="password" onChange={handleChange} value={formState.password} className="form-control block
 								w-full
 								px-3
 								py-1.5
@@ -154,7 +154,7 @@ const SignUp = () => {
             <label htmlFor="confirmPassword" className="form-label inline-block mb-2 text-gray-700">
 							Confirm Password
 						</label>
-            <input type="password" onChange={handleChange} value={formState.confirmPassword} className="form-control block
+            <input name="confirmPassword" type="password" onChange={handleChange} value={formState.confirmPassword} className="form-control block
                 w-full
                 px-3
                 py-1.5
