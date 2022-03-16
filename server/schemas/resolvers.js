@@ -101,7 +101,7 @@ const resolvers = {
 				throw new AuthenticationError('Incorrect credentials');
 			}
 
-			const correctPw = await user.isCorrectPassword(password);
+			const correctPw = await user.isCorrectPassword(args.password);
 
 			if(!correctPw) {
 				throw new AuthenticationError('Incorrect credentials');
@@ -148,21 +148,14 @@ const resolvers = {
 				}
 				
 				// Update game state and turn count
-				game = await ActiveGame.findOneAndUpdate(
-					{
-						_id: args.gameId
-					},
-					{
-						$inc: {
-							turn: 1
-						},
-						gameState: args.gameState
-					}, 
-					{ 
-						new: true
-					}
-				);
-				
+				game.set({
+					turn: ++turn,
+					gameState: args.gameState
+				});
+
+				// Save changes to the database
+				await game.save();
+
 				// Return updated game
 				return game;
 			}
