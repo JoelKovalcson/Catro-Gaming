@@ -19,13 +19,46 @@ const SignUp = () => {
 		}
 	}
 
-	const handleChange = () => {
-		
+	const handleChange = (event) => {
+		const { name, value } = event.target;
+        setFormState( prevState => {
+            return {...prevState, [name]: value};
+        })
 		
 	}
 
 	const handleFormSubmit = (event) => {
+        console.log(formState.username)
+        console.log(formState.confirmPassword)
+        console.log(formState.password)
 		event.preventDefault();
+        if (formState.formType === 'signup' && !(formState.password === formState.confirmPassword)){
+            setFormState( prevState => {
+                return{ ...prevState, error: 'Password must match'}
+                
+            })
+            return;
+            
+        }
+        else if (!formState.username.length){
+            setFormState( prevState => {
+                return{ ...prevState, error: 'Username field cannot be empty'}
+            })
+            return;
+        }
+        else if (formState.password.length < 5){
+            setFormState( prevState => {
+                return{ ...prevState, error: 'Password must be at least 5 characters'}
+            })
+            return;
+        } else {
+            console.log('login in init');
+            // //set error to empty
+            // setFormState(prevState => {
+            //     return { ...prevState, error: '' }
+            // })
+            // // try to login
+        }
 		
 	}
 
