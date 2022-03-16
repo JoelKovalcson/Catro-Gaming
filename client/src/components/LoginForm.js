@@ -1,6 +1,6 @@
 import react from "react";
 
-function loginForm() {
+const LoginForm = async () => {
     
     return(
         <form>
@@ -63,4 +63,4 @@ function loginForm() {
     )
 };
 
-export default loginForm;
+export default LoginForm;

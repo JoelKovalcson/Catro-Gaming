@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SignUpForm from "../components/SignUpForm";
 import LoginForm from "../components/LoginForm";
 
-function SignUp() {
+const SignUp = () => {
     
     const [form, setForm] = useState(SignUpForm)
     
@@ -56,4 +56,3 @@ function SignUp() {
 };
 
 export default SignUp;
-

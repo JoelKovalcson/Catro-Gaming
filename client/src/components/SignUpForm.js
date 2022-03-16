@@ -1,6 +1,6 @@
 import react from "react";
 
-function signUpForm() {
+const signUpForm = async () => {
     return(
         <form>
             <div class="form-group mb-6">
