@@ -1,6 +1,6 @@
 import react from "react";
 
-const LoginForm = async () => {
+const LoginForm = () => {
     
     return(
         <form>

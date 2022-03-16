@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Footer = async () => {
+const Footer = () => {
 	return (
 		<>
-
+			
 		</>
 	)
 }

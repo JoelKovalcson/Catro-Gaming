@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Homepage = async () => {
+const Homepage = () => {
 	return (
 		<>
 

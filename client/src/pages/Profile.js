@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Profile = async () => {
+const Profile = () => {
 	return (
 		<>
 

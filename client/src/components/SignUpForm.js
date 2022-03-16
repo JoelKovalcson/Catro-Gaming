@@ -1,6 +1,6 @@
 import react from "react";
 
-const signUpForm = async () => {
+const SignUpForm = () => {
     return(
         <form>
             <div class="form-group mb-6">
@@ -80,4 +80,4 @@ const signUpForm = async () => {
     )
 };
 
-export default signUpForm;
+export default SignUpForm;
