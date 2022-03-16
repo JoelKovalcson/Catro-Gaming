@@ -1,31 +1,33 @@
 import React, { useState } from "react";
 // import apollo server
 
-const LoginForm = (props) => {
+const LoginForm = () => {
     // initialize state for username and password
-    const [formState, setFormState] = useState({ username: '', password: ''});
+    // const [formState, setFormState] = useState({ username: '', password: ''});
     // initialize graphql mutation LOGIN
     // const [login, { error }] = useMutation(LOGIN);
 
     const handleFormSubmit = async (event) => {
+			console.log('submit');
         event.preventDefault();
         // add try/catch to login.. if ok add jwt token
     };
 
     const handleChange = (event) => {
-        const { name, value } = event.target;
-        setFormState({
-            ...formState,
-            [name]: value,
-        });
+			console.log('Change');
+        // const { name, value } = event.target;
+        // setFormState({
+        //     ...formState,
+        //     [name]: value,
+        // });
     };
   
 
     return(
         <form onSubmit={handleFormSubmit}>
             <div className="form-group mb-6">
-            <label for="exampleInputEmail2" className="form-label inline-block mb-2 text-gray-700" >Username</label>
-            <input type="username" onChange={handleChange}value={formState.username}className="username form-control
+            <label htmlFor="username" className="form-label inline-block mb-2 text-gray-700" >Username</label>
+            <input type="username" onChange={handleChange} className="form-control
                 block
                 w-full
                 px-3
@@ -39,12 +41,12 @@ const LoginForm = (props) => {
                 transition
                 ease-in-out
                 m-0
-                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id='username'
+                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="username"
                 aria-describedby="emailHelp" placeholder="Enter username"/>
             </div>
             <div className="form-group mb-6">
-            <label for="exampleInputPassword2" className="form-label inline-block mb-2 text-gray-700" >Password</label>
-            <input type="password" id='password'value={formState.password} onChange={handleChange}className="password form-control block
+            <label htmlFor="password" className="form-label inline-block mb-2 text-gray-700" >Password</label>
+            <input type="password" onChange={handleChange} className="form-control block
                 w-full
                 px-3
                 py-1.5
@@ -57,7 +59,7 @@ const LoginForm = (props) => {
                 transition
                 ease-in-out
                 m-0
-                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" 
+                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="password"
                 placeholder="Password"/>
             </div>
                 <button type="submit"  className="

@@ -49,7 +49,6 @@ const SignUp = () => {
             </ul>
             <div>
             {form}
-            {setForm}
             </div>
         </div>
     )

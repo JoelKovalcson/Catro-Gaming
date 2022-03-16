@@ -4,7 +4,7 @@ const SignUpForm = () => {
     return(
         <form>
             <div className="form-group mb-6">
-            <label for="exampleInputEmail2" className="form-label inline-block mb-2 text-gray-700">Username</label>
+            <label htmlFor="exampleInputEmail2" className="form-label inline-block mb-2 text-gray-700">Username</label>
             <input type="username" className="form-control
                 block
                 w-full
@@ -23,7 +23,7 @@ const SignUpForm = () => {
                 aria-describedby="emailHelp" placeholder="Enter username"/>
             </div>
             <div className="form-group mb-6">
-            <label for="Password" className="form-label inline-block mb-2 text-gray-700">Password</label>
+            <label htmlFor="Password" className="form-label inline-block mb-2 text-gray-700">Password</label>
             <input type="password" className="form-control block
                 w-full
                 px-3
@@ -41,7 +41,7 @@ const SignUpForm = () => {
                 placeholder="Password"/>
             </div>
             <div className="form-group mb-6">
-            <label for="confirmPassword" className="form-label inline-block mb-2 text-gray-700">Confirm Password</label>
+            <label htmlFor="confirmPassword" className="form-label inline-block mb-2 text-gray-700">Confirm Password</label>
             <input type="password" className="form-control block
                 w-full
                 px-3
