@@ -3,9 +3,9 @@ import react from "react";
 const SignUpForm = () => {
     return(
         <form>
-            <div class="form-group mb-6">
-            <label for="exampleInputEmail2" class="form-label inline-block mb-2 text-gray-700">Username</label>
-            <input type="username" class="form-control
+            <div className="form-group mb-6">
+            <label for="exampleInputEmail2" className="form-label inline-block mb-2 text-gray-700">Username</label>
+            <input type="username" className="form-control
                 block
                 w-full
                 px-3
@@ -22,9 +22,9 @@ const SignUpForm = () => {
                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="exampleInputEmail2"
                 aria-describedby="emailHelp" placeholder="Enter username"/>
             </div>
-            <div class="form-group mb-6">
-            <label for="Password" class="form-label inline-block mb-2 text-gray-700">Password</label>
-            <input type="password" class="form-control block
+            <div className="form-group mb-6">
+            <label for="Password" className="form-label inline-block mb-2 text-gray-700">Password</label>
+            <input type="password" className="form-control block
                 w-full
                 px-3
                 py-1.5
@@ -40,9 +40,9 @@ const SignUpForm = () => {
                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="Password"
                 placeholder="Password"/>
             </div>
-            <div class="form-group mb-6">
-            <label for="confirmPassword" class="form-label inline-block mb-2 text-gray-700">Confirm Password</label>
-            <input type="password" class="form-control block
+            <div className="form-group mb-6">
+            <label for="confirmPassword" className="form-label inline-block mb-2 text-gray-700">Confirm Password</label>
+            <input type="password" className="form-control block
                 w-full
                 px-3
                 py-1.5
@@ -58,7 +58,7 @@ const SignUpForm = () => {
                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="confirmPassword"
                 placeholder="Confirm Password"/>
             </div>
-                <button type="submit" class="
+                <button type="submit" className="
                 w-full
                 px-6
                 py-2.5
