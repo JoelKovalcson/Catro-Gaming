@@ -1,7 +1,7 @@
 import React from 'react';
 import '../utils/tetris/tetris.css';
 import { TetrisProvider } from '../utils/tetris/TetrisState';
-import TetrisGame from '../components/TetrisGame';
+import TetrisGame from '../components/game/tetris/TetrisGame';
 
 const Tetris = () => {
 	

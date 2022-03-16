@@ -15,16 +15,11 @@ import {
 
 export const reducer = (state, action) => {
 	const {
-		score,
 		board,
 		shape,
 		rotation,
 		x,
-		y,
-		nextShape,
-		nextRotation,
-		isRunning,
-		gameOver
+		y
 	} = state;
 	switch(action.type) {
 		case MOVE_LEFT:

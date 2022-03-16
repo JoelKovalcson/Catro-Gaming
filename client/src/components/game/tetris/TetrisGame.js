@@ -1,9 +1,9 @@
 import React from 'react';
-import { MOVE_LEFT, MOVE_DOWN, MOVE_RIGHT, ROTATE_CCW, ROTATE_CW, START_GAME, END_GAME } from '../utils/tetris/actions';
-import { tetrisConfig } from '../utils/tetris/tetrisHelpers';
-import { useTetrisContext } from '../utils/tetris/TetrisState';
-import Grid from './Grid';
-import Score from './Score';
+import { MOVE_LEFT, MOVE_DOWN, MOVE_RIGHT, ROTATE_CCW, ROTATE_CW, START_GAME, END_GAME } from '../../../utils/tetris/actions';
+import { tetrisConfig } from '../../../utils/tetris/tetrisHelpers';
+import { useTetrisContext } from '../../../utils/tetris/TetrisState';
+import Grid from '../Grid';
+import Score from '../../Score';
 
 const TetrisGame = () => {
 	// Use the game's context
