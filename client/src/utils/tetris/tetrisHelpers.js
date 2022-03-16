@@ -147,15 +147,14 @@ export const tetrisConfig = {
 }
 
 export function canMove() {
-	return false;
+	return true;
 }
 
 export function randomBlock() {
 	let blockIndex = Math.floor(Math.random() * tetrisConfig.TETRIS_BLOCKS.length);
 	let block = tetrisConfig.TETRIS_BLOCKS[blockIndex];
 	let rotationIndex = Math.floor(Math.random() * block.length);
-	let rotation = block[rotationIndex];
-	return rotation;
+	return [block, rotationIndex];
 }
 
 export function defaultBoard() {
@@ -167,4 +166,8 @@ export function defaultBoard() {
 		}
 	}
 	return grid;
+}
+
+export function getNextRotation(shape, rotation) {
+	return (rotation+1) % shape.length;
 }

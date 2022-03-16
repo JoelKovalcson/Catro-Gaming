@@ -17,7 +17,7 @@ function Grid (props) {
 
 	return(
 		<>
-			<div className={`flex ${props?.gridPadding}`}>
+			<div className={`flex justify-center ${(props.gridPadding)? props.gridPadding :''}`}>
 				{grid}
 			</div>
 		</>
