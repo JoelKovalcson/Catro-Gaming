@@ -82,8 +82,8 @@ const SignUp = () => {
 	}
 
 	return ( 
-		<div className="block p-6 rounded-lg shadow-lg bg-white max-w-sm">
-			<ul className="nav nav-tabs flex flex-col md:flex-row flex-wrap list-none border-b-0 pl-0 mb-4" id="tabs-tab"
+		<div className="block mx-auto my-12 p-6 rounded-lg shadow-lg bg-white max-w-sm">
+			<ul className="nav nav-tabs flex justify-around flex-wrap list-none border-b-0 pl-0 mb-4" id="tabs-tab"
 				role="tablist">
 				<li className="nav-item" role="presentation">
 					<button href="#tabs-signup" className="
