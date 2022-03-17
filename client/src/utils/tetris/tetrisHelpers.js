@@ -147,7 +147,6 @@ export const tetrisConfig = {
 }
 
 export function canMove(board, shape, rotation, x, y) {
-	console.log(board, shape, rotation, x, y);
 	const block = shape[rotation];
 	for(let r = 0; r < block.length; r++) {
 		for(let c = 0; c < block[r].length; c++) {
@@ -191,4 +190,77 @@ export function defaultBoard() {
 		}
 	}
 	return grid;
+}
+
+export function mergeBlock(board, shape, rotation, x, y) {
+	let gameOver = false;
+	const block = shape[rotation];
+	for(let r = 0; r < block.length; r++) {
+		for(let c = 0; c < block[r].length; c++) {
+			if(block[r][c]) {
+				// Found a part of the block above the board
+				if(r + y < 0) {
+					gameOver = true;
+				} else {
+					// Set the board to the color of the block
+					board[r+y][c+x] = block[r][c];
+				}
+			}
+		}
+	}
+	return gameOver;
+}
+
+export function scoreBoard(board) {
+	let points = false;
+	let newBoard = [...board];
+	let scoredRows = 0;
+	let done = false;
+	// Start at bottom of board and move up
+	for(let r = board.length-1; r >= 0; r--) {
+		for(let c = 0; c < board[r].length; c++) {
+			// If an spot on that row is empty, there is nothing to score anymore
+			if(!board[r][c]) {
+				done = true;
+				break;
+			}
+		}
+		// If we are done scoring, don't check any higher rows
+		if(done) {
+			break;
+		}
+		// Otherwise, we did score, add one to row count
+		scoredRows++;
+	}
+
+	// shift board if we scored any rows
+	if (scoredRows) {
+		// Using original scoring for Tetris
+		switch(scoredRows) {
+			case 1:
+				points = 40;
+				break;
+			case 2:
+				points = 100;
+				break;
+			case 3:
+				points = 300;
+				break;
+			case 4:
+				points = 1200;
+				break;
+			default:
+				// This should never happen
+				points = 0;
+				break;
+		}
+		// Shift rows down, starting at the bottom
+		for(let r = newBoard.length-1; r >= scoredRows; r--) {
+			// If we are shifting from above the board, add empty rows,
+			if (r-scoredRows < 0) newBoard[r] = Array(newBoard[r].length).fill('');
+			else newBoard[r] = newBoard[r-scoredRows];
+		}
+	}
+
+	return [points, newBoard];
 }

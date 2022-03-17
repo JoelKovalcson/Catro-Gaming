@@ -9,7 +9,7 @@ import {
 	END_GAME
 } from "./actions";
 import {
-	canMove
+	canMove, mergeBlock, randomBlock, tetrisConfig, scoreBoard
 } from "./tetrisHelpers";
 
 
@@ -21,7 +21,10 @@ export const reducer = (state, action) => {
 		x,
 		y,
 		gameOver,
-		isRunning
+		isRunning,
+		nextShape,
+		nextRotation,
+		score
 	} = state;
 	switch(action.type) {
 		case MOVE_LEFT:
@@ -54,7 +57,35 @@ export const reducer = (state, action) => {
 					y: y + 1
 				};
 			}
-			return state;
+			
+			// Merge the block since you can't move it down
+			if(mergeBlock(board, shape, rotation, x, y)) {
+				return {
+					...state,
+					gameOver: true
+				}
+			}
+
+			// Get a new random shape
+			const [newShape, newRotation] = randomBlock();
+
+			const [points, newBoard] = scoreBoard(board);
+
+			return {
+				...state,
+				// If the user scored, there is a new board and an amount of points to add to score
+				score: (points) ? points + score : score,
+				board: (newBoard) ? newBoard : board,
+				// Set cur shape to next shape
+				shape: nextShape,
+				rotation: nextRotation,
+				// Reset x and y
+				x: Math.floor(tetrisConfig.grid.cols/2),
+				y: -4,
+				// Set next shape to the new shape
+				nextShape: newShape,
+				nextRotation: newRotation
+			};
 		case ROTATE_CW:
 			if (!isRunning || gameOver) return state;
 			// Check if you can rotate cw

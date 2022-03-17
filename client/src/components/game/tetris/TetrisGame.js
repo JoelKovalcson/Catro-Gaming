@@ -24,7 +24,7 @@ const TetrisGame = () => {
 			const shapeY = row - gameState.y;
 			// Check if the shape is drawn at this location, if so replace the empty string with the block's string
 			if(shapeX >= 0 && shapeX < tetrisConfig.nextBlock.cols && shapeY >= 0 && shapeY < tetrisConfig.nextBlock.rows) {
-				return (gameState.shape[gameState.rotation][shapeY][shapeX]) ? gameState.shape[gameState.rotation][shapeY][shapeX] : '';
+				return (gameState.shape[gameState.rotation][shapeY][shapeX]) ? gameState.shape[gameState.rotation][shapeY][shapeX] : block;
 			}
 			// Else return the default grid
 			else return block;
