@@ -24,7 +24,7 @@ export const reducer = (state, action) => {
 	switch(action.type) {
 		case MOVE_LEFT:
 			// Check if you can move left
-			if ( canMove() ) {
+			if ( canMove(board, shape, rotation, x-1, y) ) {
 				return {
 					...state,
 					x: x - 1
@@ -32,7 +32,7 @@ export const reducer = (state, action) => {
 			}
 		case MOVE_RIGHT:
 			// Check if you can move right
-			if ( canMove() ) {
+			if ( canMove(board, shape, rotation, x+1, y) ) {
 				return {
 					...state,
 					x: x + 1
@@ -40,7 +40,7 @@ export const reducer = (state, action) => {
 			}
 		case MOVE_DOWN:
 			// Check if you can move down
-			if ( canMove() ) {
+			if ( canMove(board, shape, rotation, x, y+1) ) {
 					return {
 					...state,
 					y: y + 1
@@ -48,7 +48,7 @@ export const reducer = (state, action) => {
 			}
 		case ROTATE_CW:
 			// Check if you can rotate
-			if ( canMove() ) {
+			if ( canMove(board, shape, (rotation+1) % shape.length, x, y) ) {
 				return {
 					...state,
 					rotation: (rotation+1) % shape.length
@@ -58,7 +58,7 @@ export const reducer = (state, action) => {
 			// Get the next rotation
 
 			// Check if you can rotate
-			if ( canMove() ) {
+			if ( canMove(board, shape, ((rotation-1 < 0) ? shape.length-1 : rotation-1), x, y )) {
 					return {
 					...state,
 					rotation: (rotation-1 < 0) ? shape.length-1 : rotation-1
@@ -72,7 +72,8 @@ export const reducer = (state, action) => {
 		case END_GAME:
 			return {
 				...state,
-				isRunning: false
+				isRunning: false,
+				gameOver: true
 			};
 		default: 
 			return state;

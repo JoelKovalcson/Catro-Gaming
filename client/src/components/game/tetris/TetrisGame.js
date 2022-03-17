@@ -3,7 +3,7 @@ import { MOVE_LEFT, MOVE_DOWN, MOVE_RIGHT, ROTATE_CCW, ROTATE_CW, START_GAME, EN
 import { tetrisConfig } from '../../../utils/tetris/tetrisHelpers';
 import { useTetrisContext } from '../../../utils/tetris/TetrisState';
 import Grid from '../Grid';
-import Score from '../../Score';
+import Score from '../Score';
 
 const TetrisGame = () => {
 	// Use the game's context
@@ -16,11 +16,23 @@ const TetrisGame = () => {
 			dispatch({type: START_GAME});
 		}
 	}
+	const gameBoard = gameState.board.map((colArr, col) => {
+		return colArr.map((block, row) => {
+			// Get possible index into shape array
+			const shapeX = col - gameState.x;
+			const shapeY = row - gameState.y;
+			//console.log(shapeX, shapeY)
+			if(shapeX >= 0 && shapeX < tetrisConfig.nextBlock.cols && shapeY >= 0 && shapeY < tetrisConfig.nextBlock.rows) {
+				return (gameState.shape[gameState.rotation][shapeX][shapeY]) ? gameState.shape[gameState.rotation][shapeX][shapeY] : '';
+			}
+			else return '';
+		});
+	});
 
 	return (
 		<div className='flex flex-wrap justify-around w-3/4 md:w-4/5 lg:w-3/5'>
 			<div>
-				<Grid gridPadding={'mr-1'} gridInfo={gameState.board} name={'Tetris'} rows={tetrisConfig.grid.rows} cols={tetrisConfig.grid.cols} classInfo={'h-4 w-4 sm:h-6 sm:w-6 ml-1 mt-1'}/>
+				<Grid gridPadding={'mr-1'} gridInfo={gameBoard} name={'Tetris'} rows={tetrisConfig.grid.rows} cols={tetrisConfig.grid.cols} classInfo={'h-4 w-4 sm:h-6 sm:w-6 ml-1 mt-1'}/>
 				<div className='w-full mt-3'>
 					<div className='grid justify-center text-center text-4xl'>
 						<div>
