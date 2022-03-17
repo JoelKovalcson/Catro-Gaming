@@ -16,16 +16,19 @@ const TetrisGame = () => {
 			dispatch({type: START_GAME});
 		}
 	}
+
+	// gameBoard has the existing board overlayed with the current falling shape
 	const gameBoard = gameState.board.map((colArr, col) => {
 		return colArr.map((block, row) => {
 			// Get possible index into shape array
 			const shapeX = col - gameState.x;
 			const shapeY = row - gameState.y;
-			//console.log(shapeX, shapeY)
+			// Check if the shape is drawn at this location, if so replace the empty string with the block's string
 			if(shapeX >= 0 && shapeX < tetrisConfig.nextBlock.cols && shapeY >= 0 && shapeY < tetrisConfig.nextBlock.rows) {
 				return (gameState.shape[gameState.rotation][shapeX][shapeY]) ? gameState.shape[gameState.rotation][shapeX][shapeY] : '';
 			}
-			else return '';
+			// Else return the default grid
+			else return block;
 		});
 	});
 
