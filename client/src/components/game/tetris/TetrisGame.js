@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import { MOVE_LEFT, MOVE_DOWN, MOVE_RIGHT, ROTATE_CCW, ROTATE_CW, START_GAME, END_GAME } from '../../../utils/tetris/actions';
 import { tetrisConfig } from '../../../utils/tetris/tetrisHelpers';
 import { useTetrisContext } from '../../../utils/tetris/TetrisState';
@@ -8,6 +8,9 @@ import Score from '../Score';
 const TetrisGame = () => {
 	// Use the game's context
 	const [gameState, dispatch] = useTetrisContext();
+	const renderBoardTick = useRef();
+	const curTimeRef = useRef(0);
+	const prevTimeRef = useRef(0);
 	
 	const toggleRunning = () => {
 		if(gameState.isRunning) {
@@ -30,6 +33,37 @@ const TetrisGame = () => {
 			else return block;
 		});
 	});
+
+	// Game tick processing
+	const gameTick = (time) => {
+		// Setup next render tick call
+		renderBoardTick.current = requestAnimationFrame(gameTick);
+		// If the game isn't running or is over, do nothing
+		if (!gameState.isRunning || gameState.gameOver) {
+			return;
+		}
+		// If there is no previous time yet, set it to current time
+		if (!prevTimeRef.current) {
+			prevTimeRef.current = time;
+		}
+		// Get difference between now and previous time by summing up differences
+		curTimeRef.current += time - prevTimeRef.current;
+		// If that time exceeds the game update speed (default 1000ms)
+		if(curTimeRef.current > gameState.speed) {
+			// Move the block down
+			dispatch({type: MOVE_DOWN});
+			// Reset timer
+			curTimeRef.current = 0;
+		}
+		// Set prev time to cur time
+		prevTimeRef.current = time;
+	}
+
+	// Register the game tick
+	useEffect(() => {
+		renderBoardTick.current = requestAnimationFrame(gameTick);
+		return () => cancelAnimationFrame(renderBoardTick.current);
+	}, [gameState.isRunning]);
 
 	return (
 		<div className='flex flex-wrap justify-around w-3/4 md:w-4/5 lg:w-3/5'>

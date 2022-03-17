@@ -18,8 +18,8 @@ const TetrisProvider = ({ value = [], ...props}) => {
 		nextShape: nextShape, 
 		nextRotation: nextRotation,
 		isRunning: false,
-		gameOver: false
-		// speed: 1000, To implement later
+		gameOver: false,
+		speed: 1000
 	});
 
 	return <Provider value={[gameState, dispatch]} {...props}/>;
