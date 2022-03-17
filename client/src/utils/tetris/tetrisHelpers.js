@@ -215,25 +215,33 @@ export function scoreBoard(board) {
 	let points = false;
 	let newBoard = [...board];
 	let scoredRows = 0;
-	let done = false;
+	
 	// Start at bottom of board and move up
-	for(let r = board.length-1; r >= 0; r--) {
-		for(let c = 0; c < board[r].length; c++) {
-			// If an spot on that row is empty, there is nothing to score anymore
-			if(!board[r][c]) {
-				done = true;
+	for(let r = newBoard.length-1; r >= 0; r--) {
+		let scoredRow = true;
+		for(let c = 0; c < newBoard[r].length; c++) {
+			// If any spot on that row is empty, there is nothing to score on this row
+			if(!newBoard[r][c]) {
+				scoredRow = false;
 				break;
 			}
 		}
-		// If we are done scoring, don't check any higher rows
-		if(done) {
-			break;
+		// If we scored on this row...
+		if (scoredRow) {
+			scoredRows++;
+			// Starting at the current row, replace all rows with the previous row
+			for(let newR = r; newR >= 0; newR--) {
+				// If we hit the top, make a new row
+				if(newR - 1 < 0) newBoard[newR] = Array(newBoard[newR].length).fill('');
+				// Otherwise, use the previous row to shift everything down one
+				else newBoard[newR] = newBoard[newR-1];
+			}
+			// And put the row back where it was to check again
+			r++;
 		}
-		// Otherwise, we did score, add one to row count
-		scoredRows++;
 	}
 
-	// shift board if we scored any rows
+	// If we scored any rows
 	if (scoredRows) {
 		// Using original scoring for Tetris
 		switch(scoredRows) {
@@ -253,12 +261,6 @@ export function scoreBoard(board) {
 				// This should never happen
 				points = 0;
 				break;
-		}
-		// Shift rows down, starting at the bottom
-		for(let r = newBoard.length-1; r >= scoredRows; r--) {
-			// If we are shifting from above the board, add empty rows,
-			if (r-scoredRows < 0) newBoard[r] = Array(newBoard[r].length).fill('');
-			else newBoard[r] = newBoard[r-scoredRows];
 		}
 	}
 
