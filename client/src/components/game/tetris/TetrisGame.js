@@ -16,16 +16,15 @@ const TetrisGame = () => {
 			dispatch({type: START_GAME});
 		}
 	}
-
 	// gameBoard has the existing board overlayed with the current falling shape
-	const gameBoard = gameState.board.map((colArr, col) => {
-		return colArr.map((block, row) => {
+	const gameBoard = gameState.board.map((rowArr, row) => {
+		return rowArr.map((block, col) => {
 			// Get possible index into shape array
 			const shapeX = col - gameState.x;
 			const shapeY = row - gameState.y;
 			// Check if the shape is drawn at this location, if so replace the empty string with the block's string
 			if(shapeX >= 0 && shapeX < tetrisConfig.nextBlock.cols && shapeY >= 0 && shapeY < tetrisConfig.nextBlock.rows) {
-				return (gameState.shape[gameState.rotation][shapeX][shapeY]) ? gameState.shape[gameState.rotation][shapeX][shapeY] : '';
+				return (gameState.shape[gameState.rotation][shapeY][shapeX]) ? gameState.shape[gameState.rotation][shapeY][shapeX] : '';
 			}
 			// Else return the default grid
 			else return block;
@@ -35,11 +34,15 @@ const TetrisGame = () => {
 	return (
 		<div className='flex flex-wrap justify-around w-3/4 md:w-4/5 lg:w-3/5'>
 			<div>
-				<Grid gridPadding={'mr-1'} gridInfo={gameBoard} name={'Tetris'} rows={tetrisConfig.grid.rows} cols={tetrisConfig.grid.cols} classInfo={'h-4 w-4 sm:h-6 sm:w-6 ml-1 mt-1'}/>
+				<Grid gridPadding={'mr-1'} gridInfo={gameBoard} name={'Tetris'} rows={tetrisConfig.grid.rows} cols={tetrisConfig.grid.cols} classInfo={'h-4 w-4 sm:h-10 sm:w-10 ml-1 mt-1'}/>
 				<div className='w-full mt-3'>
 					<div className='grid justify-center text-center text-4xl'>
 						<div>
-							<button onClick={toggleRunning} className='bg-slate-300 rounded-lg mb-4 text-2xl w-full'>{(gameState.isRunning) ? 'End Game' : 'Start Game'}</button>
+							<button disabled={gameState.gameOver} onClick={toggleRunning} className='bg-slate-300 rounded-lg mb-4 text-2xl w-full'>
+								{
+									(gameState.gameOver) ? ('Game Over') : (gameState.isRunning ? 'End Game' : 'Start Game' )
+								}
+							</button>
 						</div>
 						<div className='mb-3'>
 							<button onClick={() => dispatch({type: ROTATE_CCW})} className='bg-slate-300 rounded-lg w-12 px-1 mr-2'>
