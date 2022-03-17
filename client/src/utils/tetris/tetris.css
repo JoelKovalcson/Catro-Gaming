@@ -1,0 +1,39 @@
+/* Coloring Styles for pieces */
+
+:root {
+	--J-color: #CC0000;
+	--L-color: #00CC00;
+	--T-color: #0000DD;
+	--I-color: #DDDD00;
+	--Z-color: #00AAAA;
+	--S-color: #CC00FF;
+	--O-color: #DD7700;
+}
+
+.J {
+	background-color: var(--J-color);
+}
+
+.L {
+	background-color: var(--L-color);
+}
+
+.T {
+	background-color: var(--T-color);
+}
+
+.I {
+	background-color: var(--I-color);
+}
+
+.Z {
+	background-color: var(--Z-color);
+}
+
+.S {
+	background-color: var(--S-color);
+}
+
+.O {
+	background-color: var(--O-color);
+}

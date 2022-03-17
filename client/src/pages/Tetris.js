@@ -1,12 +1,18 @@
-import {sample} from '../utils/tetrisGame';
 import React from 'react';
-import TetrisGrid from '../components/TetrisGrid';
+import '../utils/tetris/tetris.css';
+import { TetrisProvider } from '../utils/tetris/TetrisState';
+import TetrisGame from '../components/game/tetris/TetrisGame';
 
 const Tetris = () => {
+	
+	// Wrap the game in a provider to maintain global state for the game
 	return (
 		<>
-		<div>tetris</div>
-		<TetrisGrid/>
+			<TetrisProvider>
+				<div className='flex flex-wrap justify-center'>
+					<TetrisGame/>
+				</div>
+			</TetrisProvider>
 		</>
 	)
 }
