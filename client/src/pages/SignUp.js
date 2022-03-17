@@ -3,7 +3,7 @@ import React, { useState } from "react";
 //import LoginForm from "../components/LoginForm";
 import { useMutation } from '@apollo/client';
 import { ADD_USER, LOGIN_USER } from "../utils/mutations";
-import auth from "../utils/auth";
+import Auth from "../utils/auth";
 
 const SignUp = () => {
   
@@ -64,19 +64,26 @@ const SignUp = () => {
             console.log('add user init');
             // try to add user
             try {
-              const { data } = await addUser({
-                variables: { ...formState },
+                
+              const mutationResponse = await addUser({
+                variables: { 
+                    username: formState.username,
+                    password: formState.password
+                 },
               });
+              console.log(mutationResponse);
+              const token = mutationResponse.data.addUser.token;
 
-              auth.login(data.addUser.token);
-
+              Auth.login(token);
+              
+            }catch (error) {
+                console.log(error);
+            }
+            console.log('Login successful on front-end')
               //set error to empty
               setFormState((prevState) => {
                 return { ...prevState, error: "" };
               });
-            }catch (e) {
-                console.log(e)
-            }
         }
 		
 	}
