@@ -4,6 +4,13 @@ module.exports = {
 		"./node_modules/tw-elements/dist/js/**/*.js"
 	],
   theme: {
+	screens: {
+		'sm': '460px',
+
+		'md': '',
+
+		'lg': ''
+	},
     extend: {
 			colors: {
 				'color-1' : '#EF3054',
