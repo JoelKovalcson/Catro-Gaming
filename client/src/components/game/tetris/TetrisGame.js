@@ -75,28 +75,28 @@ const TetrisGame = () => {
 				<div className='w-full mt-3'>
 					<div className='grid justify-center text-center text-4xl'>
 						<div>
-							<button disabled={gameState.gameOver} onClick={toggleRunning} className='bg-slate-300 rounded-lg mb-4 text-2xl w-full'>
+							<button disabled={gameState.gameOver} onClick={toggleRunning} className='bg-dark-blue rounded-lg mb-4 text-2xl w-full'>
 								{
 									(gameState.gameOver) ? ('Game Over') : (gameState.isRunning ? 'End Game' : 'Start Game' )
 								}
 							</button>
 						</div>
 						<div className='mb-3'>
-							<button onClick={() => dispatch({type: ROTATE_CCW})} className='bg-slate-300 rounded-lg w-12 px-1 mr-2'>
+							<button onClick={() => dispatch({type: ROTATE_CCW})} className='bg-dark-blue rounded-lg w-12 px-1 mr-2'>
 								↺
 							</button>
-							<button onClick={() => dispatch({type: ROTATE_CW})} className='bg-slate-300 rounded-lg w-12 px-1 ml-2'>
+							<button onClick={() => dispatch({type: ROTATE_CW})} className='bg-dark-blue rounded-lg w-12 px-1 ml-2'>
 								↻
 							</button>
 						</div>
 						<div>
-							<button onClick={() => dispatch({type: MOVE_LEFT})} className='bg-slate-300 rounded-lg w-12 px-1 mr-2'>
+							<button onClick={() => dispatch({type: MOVE_LEFT})} className='bg-dark-blue rounded-lg w-12 px-1 mr-2'>
 								⇦
 							</button>
-							<button onClick={() => dispatch({type: MOVE_DOWN})} className='bg-slate-300 rounded-lg w-12 px-1 mr-2'>
+							<button onClick={() => dispatch({type: MOVE_DOWN})} className='bg-dark-blue rounded-lg w-12 px-1 mr-2'>
 								⇩
 							</button>
-							<button onClick={() => dispatch({type: MOVE_RIGHT})} className='bg-slate-300 rounded-lg w-12 px-1'>
+							<button onClick={() => dispatch({type: MOVE_RIGHT})} className='bg-dark-blue rounded-lg w-12 px-1'>
 								⇨
 							</button>
 						</div>

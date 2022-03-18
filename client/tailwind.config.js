@@ -17,7 +17,7 @@ module.exports = {
 				'error' : '#CF6679'
 			},
 			backgroundImage: {
-				/*'banner': "url('/src/assets/banner-background.jpg')"*/
+				'chuck-norris': "url('/src/assets/images/ChuckNorrisIpsum.png')"
 			}
 		},
   },

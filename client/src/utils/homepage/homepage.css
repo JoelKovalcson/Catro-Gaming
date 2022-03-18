@@ -1,0 +1,12 @@
+.card-text {
+    visibility: hidden;
+}
+
+.card-image:hover {
+    opacity: 80%;
+}
+
+.card-image:hover .card-text {
+    opacity: 100%;
+    visibility: visible;
+}
