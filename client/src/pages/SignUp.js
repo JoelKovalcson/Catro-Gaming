@@ -99,7 +99,7 @@ const SignUp = () => {
 	}
 
 	return ( 
-		<div className="block mx-auto my-12 p-6 rounded-lg shadow-lg bg-white max-w-sm">
+		<div className="block mx-auto my-12 p-6 rounded-lg shadow-lg bg-light-background max-w-sm">
 			<ul className="nav nav-tabs flex justify-around flex-wrap list-none border-b-0 pl-0 mb-4" id="tabs-tab"
 				role="tablist">
 				<li className="nav-item" role="presentation">
@@ -114,7 +114,7 @@ const SignUp = () => {
 						px-6
 						py-3
 						my-2
-						hover:border-transparent hover:bg-gray-100
+						hover:border-transparent hover:bg-light-background
 						focus:border-transparent
 						active
 						" id="tabs-signup-tab" data-bs-toggle="pill" data-bs-target="#tabs-signup" role="tab" aria-controls="tabs-signup"
@@ -134,7 +134,7 @@ const SignUp = () => {
 						px-6
 						py-3
 						my-2
-						hover:border-transparent hover:bg-gray-100
+						hover:border-transparent hover:bg-light-background
 						focus:border-transparent
 						active
 						" id="tabs-login-tab" data-bs-toggle="pill" data-bs-target="#tabs-login" role="tab" aria-controls="tabs-login"
@@ -146,7 +146,7 @@ const SignUp = () => {
 			<div>
 				<form onSubmit={handleFormSubmit}>
 					<div className="form-group mb-6">
-						<label htmlFor="username" className="form-label inline-block mb-2 text-gray-700" >
+						<label htmlFor="username" className="form-label inline-block mb-2 text-light-blue" >
 							Username
 						</label>
 						<input name="username" type="username" onChange={handleChange} value={formState.username} className="form-control
@@ -156,18 +156,18 @@ const SignUp = () => {
 							py-1.5
 							text-base
 							font-normal
-							text-gray-700
-							bg-white bg-clip-padding
-							border border-solid border-gray-300
+							text-light-blue
+							bg-light-background bg-clip-padding
+							border border-solid border-light-blue
 							rounded
 							transition
 							ease-in-out
 							m-0
-							focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="username"
+							focus:text-gray-700 focus:bg-light-background focus:border-blue-600 focus:outline-none" id="username"
 							aria-describedby="emailHelp" placeholder="Enter username"/>
 					</div>
 					<div className="form-group mb-6">
-						<label htmlFor="password" className="form-label inline-block mb-2 text-gray-700" >
+						<label htmlFor="password" className="form-label inline-block mb-2 text-light-blue" >
 							Password
 						</label>
 						<input name="password" type="password" onChange={handleChange} value={formState.password} className="form-control block
@@ -176,18 +176,18 @@ const SignUp = () => {
 								py-1.5
 								text-base
 								font-normal
-								text-gray-700
-								bg-white bg-clip-padding
-								border border-solid border-gray-300
+								text-light-blue
+								bg-light-background bg-clip-padding
+								border border-solid border-light-blue
 								rounded
 								transition
 								ease-in-out
 								m-0
-								focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="password"
+								focus:text-gray-700 focus:bg-light-background focus:border-light-blue focus:outline-none" id="password"
 								placeholder="Password"/>
 					</div>
 					{ /*Check if signup is checked*/ (formState.formType === 'signup') && (<div className="form-group mb-6">
-            <label htmlFor="confirmPassword" className="form-label inline-block mb-2 text-gray-700">
+            <label htmlFor="confirmPassword" className="form-label inline-block mb-2 text-light-blue">
 							Confirm Password
 						</label>
             <input name="confirmPassword" type="password" onChange={handleChange} value={formState.confirmPassword} className="form-control block
@@ -196,21 +196,21 @@ const SignUp = () => {
                 py-1.5
                 text-base
                 font-normal
-                text-gray-700
-                bg-white bg-clip-padding
-                border border-solid border-gray-300
+                text-light-blue
+                bg-light-background bg-clip-padding
+                border border-solid border-light-blue
                 rounded
                 transition
                 ease-in-out
                 m-0
-                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="confirmPassword"
+                focus:text-gray-700 focus:bg-light-background focus:border-light-blue focus:outline-none" id="confirmPassword"
                 placeholder="Confirm Password"/>
           </div>)}
 					<button type="submit"  className="
 						w-full
 						px-6
 						py-2.5
-						bg-blue-600
+						bg-light-blue
 						text-white
 						font-medium
 						text-xs
@@ -218,8 +218,8 @@ const SignUp = () => {
 						uppercase
 						rounded
 						shadow-md
-						hover:bg-blue-700 hover:shadow-lg
-						focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
+						hover:bg-dark-blue hover:shadow-lg
+						focus:bg-dark-blue focus:shadow-lg focus:outline-none focus:ring-0
 						active:bg-blue-800 active:shadow-lg
 						transition
 						duration-150

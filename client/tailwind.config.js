@@ -9,9 +9,12 @@ module.exports = {
 			  'sm': '475px'
 		  },
 		  colors: {
-				'color-1' : '#EF3054',
-				'color-2' : '28502E',
-				'color-3' : 'F4AC45',
+				'pastel-purple' : '#BB86FC',
+				'dark-blue' : '#3700B3',
+				'light-blue' : '#03DAC6',
+				'background' : '#12121A',
+				'light-background' : '#131313',
+				'error' : '#CF6679'
 			},
 			backgroundImage: {
 				/*'banner': "url('/src/assets/banner-background.jpg')"*/
