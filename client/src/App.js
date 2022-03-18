@@ -12,6 +12,7 @@ import Profile from './pages/Profile';
 import SignUp from './pages/SignUp';
 import Tetris from './pages/Tetris';
 import Singleplayer from './components/Singleplayer';
+import Multiplayer from './components/Multiplayer';
 
 const httpLink = createHttpLink({
 	uri: '/graphql',
@@ -44,6 +45,7 @@ function App() {
 					<Route exact path="/profile/:username?" component={Profile}/>
 					<Route exact path="/tetris" component={Tetris}/>
 					<Route exact path="/singleplayer" component={Singleplayer}/>
+					<Route exact path="/multiplayer" component={Multiplayer}/>
 
 					<Route component={Homepage}/>
 				</Switch>
