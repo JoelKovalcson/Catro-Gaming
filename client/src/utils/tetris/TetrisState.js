@@ -13,12 +13,13 @@ const TetrisProvider = ({ value = [], ...props}) => {
 		board: defaultBoard(), 
 		shape: shape, 
 		rotation: rotation, 
-		x: Math.floor(tetrisConfig.cols/2), 
+		x: Math.floor(tetrisConfig.grid.cols/2) - Math.floor(tetrisConfig.nextBlock.cols/2), 
 		y: -4, 
 		nextShape: nextShape, 
 		nextRotation: nextRotation,
-		isRunning: false
-		// speed: 1000, To implement later
+		isRunning: false,
+		gameOver: false,
+		speed: 1000
 	});
 
 	return <Provider value={[gameState, dispatch]} {...props}/>;

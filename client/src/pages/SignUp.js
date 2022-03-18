@@ -3,7 +3,7 @@ import React, { useState } from "react";
 //import LoginForm from "../components/LoginForm";
 import { useMutation } from '@apollo/client';
 import { ADD_USER, LOGIN_USER } from "../utils/mutations";
-import auth from "../utils/auth";
+import Auth from "../utils/auth";
 
 const SignUp = () => {
   
@@ -11,6 +11,8 @@ const SignUp = () => {
 
     // ADD_USER mutation
     const [addUser, { error }] = useMutation(ADD_USER);
+		// LOGIN_USER mutation
+		const [login, { e }] = useMutation(LOGIN_USER);
 	
     // check to see if sign up or login
 	const changeForm = (event) => {
@@ -35,9 +37,6 @@ const SignUp = () => {
 	}
 
 	const handleFormSubmit = async (event) => {
-        console.log(formState.username)
-        console.log(formState.confirmPassword)
-        console.log(formState.password)
 		event.preventDefault();
         // client side validation
         if (formState.formType === 'signup' && !(formState.password === formState.confirmPassword)){
@@ -63,20 +62,38 @@ const SignUp = () => {
             // if ok try to addUser
             console.log('add user init');
             // try to add user
-            try {
-              const { data } = await addUser({
-                variables: { ...formState },
-              });
+						if (formState.formType === "signup") {
+              try {
+                const mutationResponse = await addUser({
+                  variables: {
+                    username: formState.username,
+                    password: formState.password,
+                  },
+                });
+                const token = mutationResponse.data.addUser.token;
 
-              auth.login(data.addUser.token);
-
+                Auth.login(token);
+              } catch (error) {
+                console.log(error);
+              }
+            } else if (formState.formType === "login") {
+							try {
+								const mutationResponse = await login({
+									variables: {
+										username: formState.username,
+										password: formState.password
+									}
+								})
+								const token = mutationResponse.data.login.token;
+								Auth.login(token)
+							}catch (e) {
+								console.log(e);
+							}
+						}
               //set error to empty
               setFormState((prevState) => {
                 return { ...prevState, error: "" };
               });
-            }catch (e) {
-                console.log(e)
-            }
         }
 		
 	}
@@ -212,6 +229,7 @@ const SignUp = () => {
 					<div>
 						{formState.error}
                         {error && <div>Signup Failed</div>}
+												{e && <div>Login Failed </div>}
 					</div>
 				</form>
 			</div>

@@ -3,21 +3,21 @@ import Block from "./Block";
 
 function Grid (props) {
 	let grid = [];
-	for(let c = 0; c < props.cols; c++) {
+	for(let r = 0; r < props.rows; r++) {
 			grid.push([]);
-			for (let r = 0; r < props.rows; r++) {
-					grid[c].push(<Block key={`${props.name}-${c}-${r}`} classInfo={`${props.classInfo} ${(props?.gridInfo[c][r]) ? props.gridInfo[c][r] : 'bg-slate-500'}`}/>)
+			for (let c = 0; c < props.cols; c++) {
+					grid[r].push(<Block key={`${props.name}-${r}-${c}`} classInfo={`${props.classInfo} ${(props?.gridInfo[r][c]) ? props.gridInfo[r][c] : 'bg-slate-500'}`}/>)
 			}
 	}
 	
-	grid = grid.map((col, i) => {
-		return <div key={`${props.name}-${i}`}>{col}</div>;
+	grid = grid.map((row, i) => {
+		return <div className="flex justify-center w-100" key={`${props.name}-${i}`}>{row}</div>;
 	});
 
 
 	return(
 		<>
-			<div className={`flex justify-center ${(props.gridPadding)? props.gridPadding :''}`}>
+			<div className={`${(props.gridPadding)? props.gridPadding :''}`}>
 				{grid}
 			</div>
 		</>

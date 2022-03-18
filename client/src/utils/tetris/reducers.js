@@ -9,7 +9,7 @@ import {
 	END_GAME
 } from "./actions";
 import {
-	canMove, getNextRotation
+	canMove, mergeBlock, randomBlock, tetrisConfig, scoreBoard
 } from "./tetrisHelpers";
 
 
@@ -19,51 +19,93 @@ export const reducer = (state, action) => {
 		shape,
 		rotation,
 		x,
-		y
+		y,
+		gameOver,
+		isRunning,
+		nextShape,
+		nextRotation,
+		score
 	} = state;
 	switch(action.type) {
 		case MOVE_LEFT:
+			// If the game isn't running or it's game over, don't let the controls work
+			if (!isRunning || gameOver) return state;
 			// Check if you can move left
-			if ( canMove() ) {
+			if ( canMove(board, shape, rotation, x-1, y) ) {
 				return {
 					...state,
 					x: x - 1
 				};
 			}
+			return state;
 		case MOVE_RIGHT:
+			if (!isRunning || gameOver) return state;
 			// Check if you can move right
-			if ( canMove() ) {
+			if ( canMove(board, shape, rotation, x+1, y) ) {
 				return {
 					...state,
 					x: x + 1
 				};
 			}
+			return state;
 		case MOVE_DOWN:
+			if (!isRunning || gameOver) return state;
 			// Check if you can move down
-			if ( canMove() ) {
+			if ( canMove(board, shape, rotation, x, y+1) ) {
 					return {
 					...state,
 					y: y + 1
 				};
 			}
+			
+			// Merge the block since you can't move it down
+			if(mergeBlock(board, shape, rotation, x, y)) {
+				return {
+					...state,
+					gameOver: true
+				}
+			}
+
+			// Get a new random shape
+			const [newShape, newRotation] = randomBlock();
+
+			const [points, newBoard] = scoreBoard(board);
+
+			return {
+				...state,
+				// If the user scored, there is a new board and an amount of points to add to score
+				score: (points) ? points + score : score,
+				board: (newBoard) ? newBoard : board,
+				// Set cur shape to next shape
+				shape: nextShape,
+				rotation: nextRotation,
+				// Reset x and y
+				x: Math.floor(tetrisConfig.grid.cols/2) - Math.floor(tetrisConfig.nextBlock.cols/2),
+				y: -4,
+				// Set next shape to the new shape
+				nextShape: newShape,
+				nextRotation: newRotation
+			};
 		case ROTATE_CW:
-			// Check if you can rotate
-			if ( canMove() ) {
+			if (!isRunning || gameOver) return state;
+			// Check if you can rotate cw
+			if ( canMove(board, shape, (rotation+1) % shape.length, x, y) ) {
 				return {
 					...state,
 					rotation: (rotation+1) % shape.length
 				};
 			}
+			return state;
 		case ROTATE_CCW:
-			// Get the next rotation
-
-			// Check if you can rotate
-			if ( canMove() ) {
+			if (!isRunning || gameOver) return state;
+			// Check if you can rotate ccw
+			if ( canMove(board, shape, ((rotation-1 < 0) ? shape.length-1 : rotation-1), x, y )) {
 					return {
 					...state,
 					rotation: (rotation-1 < 0) ? shape.length-1 : rotation-1
 				};
 			}
+			return state;
 		case START_GAME:
 			return {
 				...state,
@@ -72,7 +114,8 @@ export const reducer = (state, action) => {
 		case END_GAME:
 			return {
 				...state,
-				isRunning: false
+				isRunning: false,
+				gameOver: true
 			};
 		default: 
 			return state;
