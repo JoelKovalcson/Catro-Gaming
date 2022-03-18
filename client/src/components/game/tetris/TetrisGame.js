@@ -8,10 +8,12 @@ import Score from '../Score';
 const TetrisGame = () => {
 	// Use the game's context
 	const [gameState, dispatch] = useTetrisContext();
+	// Variables to store information that does not cause render updates
 	const renderBoardTick = useRef();
 	const curTimeRef = useRef(0);
 	const prevTimeRef = useRef(0);
 	
+	// Sets the game to start if it's not started, and end the game if it was running
 	const toggleRunning = () => {
 		if(gameState.isRunning) {
 			dispatch({type: END_GAME});
@@ -19,7 +21,8 @@ const TetrisGame = () => {
 			dispatch({type: START_GAME});
 		}
 	}
-	// gameBoard has the existing board overlayed with the current falling shape
+
+	// Overlay the block on the grid
 	const gameBoard = gameState.board.map((rowArr, row) => {
 		return rowArr.map((block, col) => {
 			// Get possible index into shape array
@@ -68,7 +71,7 @@ const TetrisGame = () => {
 	return (
 		<div className='flex flex-wrap justify-around w-3/4 md:w-4/5 lg:w-3/5'>
 			<div>
-				<Grid gridPadding={'mr-1'} gridInfo={gameBoard} name={'Tetris'} rows={tetrisConfig.grid.rows} cols={tetrisConfig.grid.cols} classInfo={'h-4 w-4 sm:h-10 sm:w-10 ml-1 mt-1'}/>
+				<Grid gridPadding={'mr-1'} gridInfo={gameBoard} name={'Tetris'} rows={tetrisConfig.grid.rows} cols={tetrisConfig.grid.cols} classInfo={'h-4 w-4 sm:h-6 sm:w-6 ml-1 mt-1'}/>
 				<div className='w-full mt-3'>
 					<div className='grid justify-center text-center text-4xl'>
 						<div>
