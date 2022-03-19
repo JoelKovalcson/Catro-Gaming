@@ -26,17 +26,19 @@ const resolvers = {
 		getJoinableGames: async () => {
 			// get all games where user isn't already a participant
 			const games = await ActiveGame.find(
-				{},
-				{},
-				{}
+				{
+					maxPlayers: {$gt:1},
+					isComplete: false,
+					$where: "this.participants.length<this.maxPlayers"
+				}
 			)
 			// if there are no games throw error
 			if(!games){
 				throw new ForbiddenError('No joinable games')
-			} else {
-				// filter through games and find joinable games
-				games.filter()
-			}
+			} 
+			
+			return games;
+			
 		}
 		
 	},

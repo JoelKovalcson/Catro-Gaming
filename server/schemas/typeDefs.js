@@ -72,7 +72,7 @@ const typeDefs = gql`
 
 	type Mutation {
 		addUser(username: String!, password: String!): Auth
-		startGame(gameType: String!): ActiveGame
+		startGame(gameType: String!, maxPlayers: Int): ActiveGame
 		endGame(gameId: ID!): ActiveGame
 		login(username: String!, password: String!): Auth
 		updateGameState(gameId: ID!, gameState: String!): ActiveGame
