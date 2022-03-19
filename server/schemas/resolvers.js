@@ -106,7 +106,6 @@ const resolvers = {
 					
 					user.set({scores: scores});
 					user.save();
-					console.log(user);
 					
 					return game;
 				}
