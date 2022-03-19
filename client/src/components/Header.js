@@ -43,7 +43,7 @@ const Header = () => {
 				</div>	
 				{/* <Navigator/> */}
 				{/* <Link to='/' className='sm:w-full h-48 bg-logo bg-center bg-contain bg-no-repeat text-center border-b-4 border-double border-pastel-purple p-4 '></Link>
-				<Navigator/> */}
+				<Navigator/> */} 
 			</header>
 		)
 	}
