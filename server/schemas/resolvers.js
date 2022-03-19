@@ -37,22 +37,6 @@ const resolvers = {
 				// filter through games and find joinable games
 				games.filter()
 			}
-		},
-		getAllMessage: async (_, args, context) => {
-			// check if user is logged in
-			if(context.user) {
-				// get list of user's conversations
-			const messages = await Message.find(
-				// find messages where user is either sender or recipient
-				{},
-				// include User model and id/ username
-				{},
-				// is raw = true work in graphql?
-				// sort messages in descending order by ID so that most recent is first
-				{}
-			)
-			}
-			
 		}
 		
 	},
