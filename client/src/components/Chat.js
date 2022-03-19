@@ -3,7 +3,14 @@ import React from "react";
 const Chat = () => {
     return(
         <>
-        <div>Chat will go here</div>    
+            <div>
+                <div>
+                    Tabs will go here
+                </div>
+                <div>
+                    Chat will go here
+                </div>
+            </div>    
         </>
     )
 }
