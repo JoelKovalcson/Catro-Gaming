@@ -99,23 +99,22 @@ const SignUp = () => {
 	}
 
 	return ( 
-		<div className="block mx-auto my-12 p-6 rounded-lg shadow-lg bg-light-background max-w-sm">
+		<div className="mx-auto my-12 p-6 rounded-lg bg-light-background max-w-sm border border-4 border-double border-light-blue">
 			<ul className="nav nav-tabs flex justify-around flex-wrap list-none border-b-0 pl-0 mb-4" id="tabs-tab"
 				role="tablist">
 				<li className="nav-item" role="presentation">
 					<button href="#tabs-signup" className="
-						nav-link
-						block
+						rounded
 						font-medium
 						text-xs
-						leading-tight
+						text-light-blue
 						uppercase
-						border-x-0 border-t-0 border-b-2 border-transparent
+						border-x-0 border-t-0 border-b-2 border-light-blue
 						px-6
 						py-3
 						my-2
-						hover:border-transparent hover:bg-light-background
-						focus:border-transparent
+						hover:border-light-blue hover:bg-dark-blue
+						focus:border-light-blue
 						active
 						" id="tabs-signup-tab" data-bs-toggle="pill" data-bs-target="#tabs-signup" role="tab" aria-controls="tabs-signup"
 						aria-selected="true" onClick={changeForm}>
@@ -124,18 +123,17 @@ const SignUp = () => {
 				</li>
 				<li className="nav-item" role="presentation">
 					<button href="#tabs-login" className="
-						nav-link
-						block
+						rounded
 						font-medium
 						text-xs
-						leading-tight
+						text-light-blue
 						uppercase
-						border-x-0 border-t-0 border-b-2 border-transparent
+						border-x-0 border-t-0 border-b-2 border-light-blue
 						px-6
 						py-3
 						my-2
-						hover:border-transparent hover:bg-light-background
-						focus:border-transparent
+						hover:border-light-blue hover:bg-dark-blue
+						focus:border-light-blue
 						active
 						" id="tabs-login-tab" data-bs-toggle="pill" data-bs-target="#tabs-login" role="tab" aria-controls="tabs-login"
 						aria-selected="false" onClick={changeForm}>
@@ -154,16 +152,15 @@ const SignUp = () => {
 							w-full
 							px-3
 							py-1.5
-							text-base
 							font-normal
-							text-light-blue
+							text-blue-500
 							bg-light-background bg-clip-padding
 							border border-solid border-light-blue
 							rounded
 							transition
 							ease-in-out
 							m-0
-							focus:text-gray-700 focus:bg-light-background focus:border-blue-600 focus:outline-none" id="username"
+							focus:text-blue-500 focus:bg-light-background focus:border-light-blue focus:outline-none" id="username"
 							aria-describedby="emailHelp" placeholder="Enter username"/>
 					</div>
 					<div className="form-group mb-6">
@@ -176,14 +173,14 @@ const SignUp = () => {
 								py-1.5
 								text-base
 								font-normal
-								text-light-blue
+								text-blue-500
 								bg-light-background bg-clip-padding
 								border border-solid border-light-blue
 								rounded
 								transition
 								ease-in-out
 								m-0
-								focus:text-gray-700 focus:bg-light-background focus:border-light-blue focus:outline-none" id="password"
+								focus:text-blue-500 focus:bg-light-background focus:border-light-blue focus:outline-none" id="password"
 								placeholder="Password"/>
 					</div>
 					{ /*Check if signup is checked*/ (formState.formType === 'signup') && (<div className="form-group mb-6">
@@ -196,14 +193,14 @@ const SignUp = () => {
                 py-1.5
                 text-base
                 font-normal
-                text-light-blue
+                text-blue-500
                 bg-light-background bg-clip-padding
                 border border-solid border-light-blue
                 rounded
                 transition
                 ease-in-out
                 m-0
-                focus:text-gray-700 focus:bg-light-background focus:border-light-blue focus:outline-none" id="confirmPassword"
+                focus:text-blue-500 focus:bg-light-background focus:border-light-blue focus:outline-none" id="confirmPassword"
                 placeholder="Confirm Password"/>
           </div>)}
 					<button type="submit"  className="
@@ -211,9 +208,10 @@ const SignUp = () => {
 						px-6
 						py-2.5
 						bg-light-blue
-						text-white
+						text-blue-500
 						font-medium
-						text-xs
+						text-sm
+						font-bold
 						leading-tight
 						uppercase
 						rounded
