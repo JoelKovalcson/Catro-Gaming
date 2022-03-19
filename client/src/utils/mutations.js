@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const LOGIN_USER = gql`
+export const GQL_LOGIN_USER = gql`
 	mutation login($username: String!, $password: String!) {
 		login(username: $username, password: $password) {
 			token
@@ -11,7 +11,7 @@ export const LOGIN_USER = gql`
 	}
 `;
 
-export const UPDATE_LAST_LOGIN = gql`
+export const GQL_UPDATE_LAST_LOGIN = gql`
 	mutation updateLastLogin($userId: ID!){
 		updateLastLogin(userId: $userId){
 			token
@@ -22,7 +22,7 @@ export const UPDATE_LAST_LOGIN = gql`
 	}
 `;
 
-export const ADD_USER = gql`
+export const GQL_ADD_USER = gql`
 	mutation addUser($username: String!, $password: String!) {
 		addUser(username: $username, password: $password)
 		{
@@ -35,36 +35,26 @@ export const ADD_USER = gql`
 	}
 `;
 
-export const START_GAME = gql`
+export const GQL_START_GAME = gql`
 	mutation startGame($gameType: String!){
 		startGame(gameType: $gameType){
-			ActiveGame {
-				_id
-				gameName
-			}
+			_id
 		}
 	}
 `;
 
-export const END_GAME = gql`
-	mutation endGame($gameType: String!){
-		endGame(gameType: $gameType){
-			ActiveGame {
-				_id
-				gameName
-			}
+export const GQL_END_GAME = gql`
+	mutation endGame($gameId: ID!){
+		endGame(gameId: $gameId) {
+			_id
 		}
 	}
 `;
 
-export const UPDATE_GAME_STATE = gql`
+export const GQL_UPDATE_GAME_STATE = gql`
 	mutation updateGameState($gameId: ID!, $gameState: String!){
 		updateGameState(gameId: $gameId, gameState: $gameState){
-			ActiveGame {
-				_id
-				gameName
-				gameState
-			}
+			_id
 		}
 	}
 `;
