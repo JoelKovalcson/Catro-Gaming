@@ -1,4 +1,6 @@
+import { useMutation } from '@apollo/client';
 import React, {useEffect, useRef} from 'react';
+import { GQL_END_GAME, GQL_START_GAME, GQL_UPDATE_GAME_STATE } from '../../../utils/mutations';
 import { MOVE_LEFT, MOVE_DOWN, MOVE_RIGHT, ROTATE_CCW, ROTATE_CW, START_GAME, END_GAME } from '../../../utils/tetris/actions';
 import { tetrisConfig } from '../../../utils/tetris/tetrisHelpers';
 import { useTetrisContext } from '../../../utils/tetris/TetrisState';
@@ -12,13 +14,55 @@ const TetrisGame = () => {
 	const renderBoardTick = useRef();
 	const curTimeRef = useRef(0);
 	const prevTimeRef = useRef(0);
+
+	const [startGame] = useMutation(GQL_START_GAME);
+	const [endGame] = useMutation(GQL_END_GAME);
+	const [updateGame] = useMutation(GQL_UPDATE_GAME_STATE);
 	
 	// Sets the game to start if it's not started, and end the game if it was running
-	const toggleRunning = () => {
+	const toggleRunning =  () => {
 		if(gameState.isRunning) {
 			dispatch({type: END_GAME});
+			updateGame({
+				variables: {
+					gameId: gameState.gameId,
+					gameState: JSON.stringify(gameState)
+				}
+			})
+			.then(response => {
+				console.log(response);
+				endGame({
+					variables: {
+						gameId: gameState.gameId
+					}
+				})
+				.then(response => {
+					console.log(response);
+					// Tell the user their stats were saved
+				})
+				.catch(err => {
+					// Do something if there's an error
+					console.log(err);
+				})
+			})
+			.catch(err => {
+				// Do something if there's an error
+				console.log(err);
+			})
+			
+			
 		} else {
-			dispatch({type: START_GAME});
+			startGame({
+				variables: {
+					gameType: 'tetris'
+				}
+			})
+				.then(response => {
+					dispatch({type: START_GAME, gameId: response.data.startGame._id});
+				})
+				.catch(error => {
+					// Do something to the page if there's an error starting a game
+				});
 		}
 	}
 
@@ -104,7 +148,7 @@ const TetrisGame = () => {
 				</div>
 			</div>
 			<div className='grid content-center text-center'>
-				<Score score={gameState.score}/>
+				<Score score={gameState.score} rowsCleared={gameState.rowsCleared} gameType={'tetris'}/>
 				<span className='mt-2 sm:mt-16'>Next Block</span>
 				<Grid gridInfo={gameState.nextShape[gameState.nextRotation]} name={'NextBlock'} rows={tetrisConfig.nextBlock.rows} cols={tetrisConfig.nextBlock.cols} classInfo={'h-4 w-4 sm:h-6 sm:w-6 ml-1 mt-1'}/>
 			</div>
