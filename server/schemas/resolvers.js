@@ -49,6 +49,7 @@ const resolvers = {
 		startGame: async (_, args, context) => {
 			// Make sure user is logged in
 			if(context.user) {
+				console.log('start game');
 				// Make a game type of their choosing with that user having the first turn
 				const game = await ActiveGame.create({
 					gameName: args.gameType,
@@ -87,7 +88,7 @@ const resolvers = {
 							throw new ForbiddenError('This is an invalid game type (How did this get here?)');
 					}
 
-					return game._id;
+					return game;
 				}
 				// Else the user wasn't part of that game
 				throw new ForbiddenError('You are not part of that game!');
