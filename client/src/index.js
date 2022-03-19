@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import 'tw-elements';
 import App from './App';
+import 'flowbite';
 
 ReactDOM.render(
   <React.StrictMode>
