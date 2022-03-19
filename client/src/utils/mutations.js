@@ -11,6 +11,17 @@ export const LOGIN_USER = gql`
 	}
 `;
 
+export const UPDATE_LAST_LOGIN = gql`
+	mutation updateLastLogin($userId: ID!){
+		updateLastLogin(userId: $userId){
+			token
+			user {
+				_id
+			}
+		}
+	}
+`;
+
 export const ADD_USER = gql`
 	mutation addUser($username: String!, $password: String!) {
 		addUser(username: $username, password: $password)
@@ -25,10 +36,34 @@ export const ADD_USER = gql`
 `;
 
 export const START_GAME = gql`
-	mutation startGame(gameType: String!){
+	mutation startGame($gameType: String!){
 		startGame(gameType: $gameType){
-			activeGame {
+			ActiveGame {
 				_id
+				gameName
+			}
+		}
+	}
+`;
+
+export const END_GAME = gql`
+	mutation endGame($gameType: String!){
+		endGame(gameType: $gameType){
+			ActiveGame {
+				_id
+				gameName
+			}
+		}
+	}
+`;
+
+export const UPDATE_GAME_STATE = gql`
+	mutation updateGameState($gameId: ID!, $gameState: String!){
+		updateGameState(gameId: $gameId, gameState: $gameState){
+			ActiveGame {
+				_id
+				gameName
+				gameState
 			}
 		}
 	}
