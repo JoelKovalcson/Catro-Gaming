@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const QUERY_USERS = gql`
+export const GQL_QUERY_USERS = gql`
   {
     username
     friends {
@@ -20,7 +20,7 @@ export const QUERY_USERS = gql`
 `;
 // could add more to this ^
 
-export const GET_GAME = gql`
+export const GQL_GET_GAME = gql`
   query getGame($gameId: ID!) {
     getGame(gameId: $gameId) {
       _id
@@ -32,28 +32,33 @@ export const GET_GAME = gql`
   }
 `;
 
-export const GET_PROFILE = gql`
-  query getProfile($user: ID!) {
-    getProfile(user: $user) {
-      Username
+export const GQL_GET_PROFILE = gql`
+  query getProfile($userId: ID!) {
+    getProfile(userId: $userId) {
+      username
 			_id
       friends {
-        User {
-          username
-					_id
-        }
+        _id
+				username
       }
       activeGames {
-        ActiveGame {
-          gameName
-        }
+        _id
+				gameName
+				isComplete
       }
-      scores
+      scores {
+				totalGames
+				tetris {
+					playedGames
+					rowsCleared
+					bestScore
+				}
+			}
     }
   }
 `;
 
-export const GET_JOINABLE_GAMES = gql`
+export const GQL_GET_JOINABLE_GAMES = gql`
   {
     gameName
     participants {
