@@ -13,8 +13,6 @@ const Profile = () => {
 		variables: {userId: (userId) ? userId : Auth.getProfile().data._id}
 	});
 
-	console.log(data.getProfile.scores.tetris.playedGames);
-
 	return (
 		<>
 			<h2>Stats:</h2>
