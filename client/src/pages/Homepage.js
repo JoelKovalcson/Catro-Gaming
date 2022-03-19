@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import '../utils/homepage/homepage.css';
 
 const Homepage = () => {
+
 	return (
 		<>
 			<div className='flex justify-center my-6'>

@@ -11,32 +11,36 @@ const resolvers = {
 		},
 		getGame: async (_, args, context) => {
 			if(context.user) {
-				const game = await ActiveGame.findById(args.gameId)
-				return game
+				const game = await ActiveGame.findById(args.gameId);
+				return game;
 			}
 			throw new AuthenticationError('You must be logged in to check for an active game!')
 		},
 		getProfile: async(_, args, context) => {
 			if(context.user) {
-				const profile = await User.findById(args.userId);
+				const profile = await User.findById(args.userId).select('-password -__v');
 				return profile;
 			}
 			throw new AuthenticationError('You must be logged in to search for a users profile!')
 		},
-		getJoinableGames: async () => {
+		getJoinableGames: async (_, __, context) => {
 			// get all games where user isn't already a participant
 			const games = await ActiveGame.find(
-				{},
-				{},
-				{}
-			)
+				{
+					isComplete: false,
+					$where: "this.participants.length<this.maxPlayers",
+					participants: {
+						$nin: [context.user._id]
+					}
+				}
+			).populate('participants', '-password -__v');
 			// if there are no games throw error
 			if(!games){
 				throw new ForbiddenError('No joinable games')
-			} else {
-				// filter through games and find joinable games
-				games.filter()
-			}
+			} 
+
+			return games;
+			
 		}
 		
 	},
@@ -46,10 +50,34 @@ const resolvers = {
 			const token = signToken(user);
 			return {token, user};
 		},
+		joinGame: async (_, args, context) => {
+			if(context.user) {
+				console.log('Joining game', args.gameId);
+
+				const game = await ActiveGame.findOneAndUpdate(
+					{
+						_id: args.gameId,
+						participants: {
+							$nin: [context.user._id]
+						},
+						$where: "this.participants.length<this.maxPlayers",
+						isComplete: false
+					}, 
+					{$addToSet: {participants: context.user._id}}, 
+					{new: true, runValidators: true}
+				).populate('participants', '-password -__v');
+
+				console.log(game);
+				if(!game) {
+					throw new ForbiddenError('Game is full or you are already in it!');
+				}
+				return game;
+			}
+			throw new AuthenticationError('You need to be logged in!');
+		},
 		startGame: async (_, args, context) => {
 			// Make sure user is logged in
 			if(context.user) {
-				console.log('start game');
 				// Make a game type of their choosing with that user having the first turn
 				const game = await ActiveGame.create({
 					gameName: args.gameType,
@@ -106,7 +134,6 @@ const resolvers = {
 					
 					user.set({scores: scores});
 					user.save();
-					console.log(user);
 					
 					return game;
 				}

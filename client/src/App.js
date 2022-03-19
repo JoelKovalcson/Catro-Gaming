@@ -11,8 +11,8 @@ import Homepage from './pages/Homepage';
 import Profile from './pages/Profile';
 import SignUp from './pages/SignUp';
 import Tetris from './pages/Tetris';
-import Singleplayer from './components/Singleplayer';
-import Multiplayer from './components/Multiplayer';
+import Singleplayer from './pages/Singleplayer';
+import Multiplayer from './pages/Multiplayer';
 import Yahtzee from './pages/Yahtzee';
 
 const httpLink = createHttpLink({
