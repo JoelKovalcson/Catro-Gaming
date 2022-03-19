@@ -1,23 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 function Dice(props) {
+    const [locked, setLocked] = useState()
+
     if(props.roll === 1){
-        return <button className='rounded m-1 w-14 h-14 bg-cover bg-center bg-dice1'></button>
+        return <button onClick={() => setLocked(locked)} className='rounded m-1 w-14 h-14 bg-cover bg-center bg-dice1'></button>
     }
     else if(props.roll === 2){
-        return <button className='rounded m-1 w-14 h-14 bg-cover bg-center bg-dice2'></button>
+        return <button onClick={() => setLocked(locked)} className='rounded m-1 w-14 h-14 bg-cover bg-center bg-dice2'></button>
     }
     else if(props.roll === 3){
-        return <button className='rounded m-1 w-14 h-14 bg-cover bg-center bg-dice3'></button>
+        return <button onClick={() => setLocked(locked)} className='rounded m-1 w-14 h-14 bg-cover bg-center bg-dice3'></button>
     }
     else if(props.roll === 4){
-        return <button className='rounded m-1 w-14 h-14 bg-cover bg-center bg-dice4'></button>
+        return <button onClick={() => setLocked(locked)} className='rounded m-1 w-14 h-14 bg-cover bg-center bg-dice4'></button>
     }
     else if(props.roll === 5){
-        return <button className='rounded m-1 w-14 h-14 bg-cover bg-center bg-dice5'></button>
+        return <button onClick={() => setLocked(locked)} className='rounded m-1 w-14 h-14 bg-cover bg-center bg-dice5'></button>
     }
     else if(props.roll === 6){
-        return <button className='rounded m-1 w-14 h-14 bg-cover bg-center bg-dice6'></button>
+        return <button onClick={() => setLocked(locked)} className='rounded m-1 w-14 h-14 bg-cover bg-center bg-dice6'></button>
     }
 }
 
