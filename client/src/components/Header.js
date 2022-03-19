@@ -39,10 +39,9 @@ const Header = () => {
 					>
 						<FontAwesomeIcon icon={faBars} />
 					</button>
-					<div id='dropdown' className='hidden z-50 py-4 flex justify-center sm:justify-end sm:p-0 w-full divide-y transition
+					<div id='dropdown' className='hidden z-50 py-4 flex justify-center sm:justify-end sm:p-0 w-full divide-y
 						
-						duration-450
-						ease-in-out '>
+						 '>
 						<Navigator/>
 
 					</div>
