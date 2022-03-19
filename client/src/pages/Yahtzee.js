@@ -1,7 +1,7 @@
 import React from 'react';
 import Lowerscore from '../components/game/yahtzee/Lowerscore';
+import Rolldice from '../components/game/yahtzee/Rolldice';
 import Upperscore from '../components/game/yahtzee/Upperscore';
-import Dice from '../components/game/yahtzee/Dice';
 
 const Yahtzee = () => {
 	return (
@@ -9,8 +9,18 @@ const Yahtzee = () => {
 			<div className='flex flex-wrap justify-evenly'>
 				<Upperscore/>
 				<Lowerscore/>
+<<<<<<< HEAD
 				<div className='flex flex-wrap flex-row sm:flex-row md:flex-col lg:flex-col justify-center m-4'>
 					<Dice/>
+=======
+				<div className='flex flex-row sm:flex-row md:flex-col lg:flex-col justify-center m-4'>
+					<Rolldice/>
+					<Rolldice/>
+					<Rolldice/>
+					<Rolldice/>
+					<Rolldice/>
+					<Rolldice/>
+>>>>>>> yahtzee
 				</div>	
 			</div>
 			<div className='flex justify-center'>
