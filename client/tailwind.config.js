@@ -18,7 +18,14 @@ module.exports = {
 			},
 			backgroundImage: {
 				'logo': "url('/src/assets/images/Arcatro_logo_4.png')",
-				'chuck-norris': "url('/src/assets/images/ChuckNorrisIpsum.png')"
+				'chuck-norris': "url('/src/assets/images/ChuckNorrisIpsum.png')",
+				'dice1': "url('/src/assets/images/dice1.jpg')",
+				'dice2': "url('/src/assets/images/dice2.jpg')",
+				'dice3': "url('/src/assets/images/dice3.jpg')",
+				'dice4': "url('/src/assets/images/dice4.jpg')",
+				'dice5': "url('/src/assets/images/dice5.jpg')",
+				'dice6': "url('/src/assets/images/dice6.jpg')",
+
 			}
 		},
   },
