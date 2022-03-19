@@ -62,6 +62,14 @@ const typeDefs = gql`
 		token: ID!
 		user: User
 	}
+	
+	type Message {
+		body
+		sender_id
+		recipient_id
+		read
+		room
+	}
 
 	type Query {
 		users: [User]
