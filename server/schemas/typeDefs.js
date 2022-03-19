@@ -74,6 +74,7 @@ const typeDefs = gql`
 		addUser(username: String!, password: String!): Auth
 		startGame(gameType: String!, maxPlayers: Int): ActiveGame
 		endGame(gameId: ID!): ActiveGame
+		joinGame(gameId: ID!): ActiveGame
 		login(username: String!, password: String!): Auth
 		updateGameState(gameId: ID!, gameState: String!): ActiveGame
 		updateLastLogin(userId: ID!): ID
