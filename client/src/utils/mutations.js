@@ -23,3 +23,11 @@ export const ADD_USER = gql`
 		}
 	}
 `;
+
+export const START_GAME = gql`
+	mutation startGame(gameType: String!){
+		startGame(gameType: $gameType){
+			activeGame
+		}
+	}
+`

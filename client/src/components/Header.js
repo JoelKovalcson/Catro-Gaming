@@ -12,7 +12,7 @@ const Header = () => {
 	if(!auth.loggedIn) {
 		return (
 			<header className='flex-col h-24 sm:flex sm:flex-row sm:h-1/3'>
-				<Link to='/' className='sm:w-full text-center bg-logo border-b p-4'>
+				<Link to='/' className='sm:w-full text-center bg-logo border-b-4 border-double border-pastel-purple p-4'>
 				
                 
             	
@@ -42,6 +42,8 @@ const Header = () => {
 					</button>
 				</div>	
 				{/* <Navigator/> */}
+				{/* <Link to='/' className='sm:w-full h-48 bg-logo bg-center bg-contain bg-no-repeat text-center border-b-4 border-double border-pastel-purple p-4 '></Link>
+				<Navigator/> */}
 			</header>
 		)
 	}

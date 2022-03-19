@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 
 const Navigator = () => {
   return (
-    <nav className='flex border justify-center w-full sm:w-1/3'>
+    <nav className='flex justify-center w-full sm:w-1/3  border-b-4 border-double border-pastel-purple'>
       <div className='flex flex-row w-full justify-around'>
-        <Link to="/Profile" className='p-2  w-1/2 m-auto border-2 hover:shadow-lg hover:shadow-blue-500 text-center'>Profile: {}</Link>
-        <Link to="/" className='p-2 w-1/2 my-auto border-2 hover:shadow-lg hover:shadow-blue-500 text-center'>Logout</Link>
+        <Link to="/Profile" className='text-light-blue p-2  w-1/2 m-auto rounded border-4 border-double border-pastel-purple hover:bg-dark-blue text-center'>Profile: {}</Link>
+        <Link to="/" className='text-light-blue p-2  w-1/2 m-auto rounded border-4 border-double border-pastel-purple hover:bg-dark-blue text-center'>Logout</Link>
         {/* <Link to="/"></Link> */}
       </div>
     </nav>
