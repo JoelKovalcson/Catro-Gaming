@@ -1,15 +1,16 @@
 import React from 'react'
 
-const Dice = () => {
+function Dice() {
+
     return (
-        <div className='flex bg-dice1'>
-            <div className='bg-dice1'>1</div>
-            <div className='bg-dice2'>2</div>
-            <div className='bg-dice3'>3</div>
-            <div className='bg-dice4'>4</div>
-            <div className='bg-dice5'>5</div>
-            <div className='bg-dice6'>6</div>
-        </div>
+        <>
+            <button className='rounded m-1 w-14 h-14 bg-cover bg-center bg-dice1'></button>
+            <button className='rounded m-1 w-14 h-14 bg-cover bg-center bg-dice2'></button>
+            <button className='rounded m-1 w-14 h-14 bg-cover bg-center bg-dice3'></button>
+            <button className='rounded m-1 w-14 h-14 bg-cover bg-center bg-dice4'></button>
+            <button className='rounded m-1 w-14 h-14 bg-cover bg-center bg-dice5'></button>
+            <button className='rounded m-1 w-14 h-14 bg-cover bg-center bg-dice6'></button>
+        </>    
     )
 }
 
