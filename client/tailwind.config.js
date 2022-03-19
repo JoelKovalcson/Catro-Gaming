@@ -17,6 +17,7 @@ module.exports = {
 				'error' : '#CF6679'
 			},
 			backgroundImage: {
+				'logo': "url('/src/assets/images/Arcatro_logo_4.png')",
 				'chuck-norris': "url('/src/assets/images/ChuckNorrisIpsum.png')"
 			}
 		},
