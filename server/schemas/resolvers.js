@@ -18,7 +18,7 @@ const resolvers = {
 		},
 		getProfile: async(_, args, context) => {
 			if(context.user) {
-				const profile = await User.findById(args.userId)
+				const profile = await User.findById(args.userId);
 				return profile;
 			}
 			throw new AuthenticationError('You must be logged in to search for a users profile!')
@@ -96,14 +96,34 @@ const resolvers = {
 				// If the game exists, score and return the game id
 				if(game) {
 					// TODO: Insert scoring logic based on the game type here
-					switch(game.gameName) {
+
+					const gameState = JSON.parse(game.gameState);
+					const user = await User.findOne({_id: context.user._id});
+					const scores = user.get('scores');
+					
+					scores.set({totalGames: scores.totalGames+1});
+
+					switch(game.get('gameName')) {
 						case 'tetris':
+							const {rowsCleared, score} = gameState;
+
+							const tetris = scores.get('tetris');
+							tetris.set({
+								rowsCleared: tetris.rowsCleared+rowsCleared,
+								bestScore: (tetris.bestScore < score) ? score : tetris.bestScore,
+								playedGames: tetris.playedGames + 1
+							});
+							scores.set({tetris:tetris});
 
 							break;
 						default: 
 							throw new ForbiddenError('This is an invalid game type (How did this get here?)');
 					}
-
+					
+					user.set({scores: scores});
+					user.save();
+					console.log(user);
+					
 					return game;
 				}
 				// Else the user wasn't part of that game

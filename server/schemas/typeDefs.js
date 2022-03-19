@@ -74,7 +74,7 @@ const typeDefs = gql`
 	type Query {
 		users: [User]
 		getGame(gameId: ID!): ActiveGame
-		getProfile(user: ID!): User
+		getProfile(userId: ID!): User
 		getJoinableGames: [ActiveGame] 
 	}
 
