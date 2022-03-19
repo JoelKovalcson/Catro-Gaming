@@ -25,8 +25,8 @@ const Header = () => {
 	else {
 		return (
 			<header className='flex flex-col sm:flex sm:flex-row sm:h-48'>
-				<Link to='/' className='sm:w-full h-48 bg-logo bg-center bg-contain bg-no-repeat text-center border-b p-4 '></Link>
-				<div className='flex border justify-center w-full sm:w-1/12'>
+				<Link to='/' className='sm:w-full h-48 bg-logo bg-center bg-contain bg-no-repeat text-center border-b-4 border-double border-pastel-purple p-4 '></Link>
+				<div className='flex justify-center w-full sm:w-1/12 border-b-4 border-double border-pastel-purple p-4'>
 					<button className='text-4xl m-auto hover:text-dark-blue hover:shadow-lg
 						focus:text-dark-blue focus:shadow-lg focus:outline-none focus:ring-0
 						active:text-blue-800 active:shadow-lg
