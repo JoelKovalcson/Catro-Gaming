@@ -3,7 +3,9 @@ import React from 'react';
 const Footer = () => {
 	return (
 		<>
-			<h3> Temporary footer area. LOL </h3>
+			<div className='flex justify-end border-t-4 border-double border-pastel-purple'>
+				<span className='text-light-blue'>Catro™2022</span>
+			</div>
 			
 		</>
 	)

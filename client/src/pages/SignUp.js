@@ -99,7 +99,7 @@ const SignUp = () => {
 	}
 
 	return ( 
-		<div className="mx-auto my-12 p-6 rounded-lg bg-light-background max-w-sm border border-4 border-double border-light-blue">
+		<div className="mx-auto my-12 p-6 rounded-lg bg-light-background max-w-sm border border-4 border-double border-pastel-purple">
 			<ul className="nav nav-tabs flex justify-around flex-wrap list-none border-b-0 pl-0 mb-4" id="tabs-tab"
 				role="tablist">
 				<li className="nav-item" role="presentation">
@@ -207,8 +207,11 @@ const SignUp = () => {
 						w-full
 						px-6
 						py-2.5
-						bg-light-blue
-						text-blue-500
+						bg-light-background
+						border-4
+						border-double
+						border-light-blue
+						text-light-blue
 						font-medium
 						text-sm
 						font-bold
