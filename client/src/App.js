@@ -39,18 +39,21 @@ function App() {
 		<ApolloProvider client={client}>
 			<Router>
 				<Header/>
-				<Switch>
-					<Redirect from="/" to="/login" exact/>
-					<Route exact path="/login" component={SignUp}/>
-					<Route exact path="/homepage" component={Homepage}/>
-					<Route exact path="/profile/:username?" component={Profile}/>
-					<Route exact path="/tetris" component={Tetris}/>
-					<Route exact path="/singleplayer" component={Singleplayer}/>
-					<Route exact path="/multiplayer" component={Multiplayer}/>
-					<Route exact path="/yahtzee" component={Yahtzee}/>
+				<div className='overflow-auto'>
 
-					<Route component={Homepage}/>
-				</Switch>
+					<Switch>
+						<Redirect from="/" to="/login" exact/>
+						<Route exact path="/login" component={SignUp}/>
+						<Route exact path="/homepage" component={Homepage}/>
+						<Route exact path="/profile/:username?" component={Profile}/>
+						<Route exact path="/tetris" component={Tetris}/>
+						<Route exact path="/singleplayer" component={Singleplayer}/>
+						<Route exact path="/multiplayer" component={Multiplayer}/>
+						<Route exact path="/yahtzee" component={Yahtzee}/>
+
+						<Route component={Homepage}/>
+					</Switch>
+				</div>
 				<Footer/>
 			</Router>
 		</ApolloProvider>
