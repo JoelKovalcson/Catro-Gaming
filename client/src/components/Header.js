@@ -1,8 +1,10 @@
 import React from 'react';
 import Navigator from './Navigator';
 import { Link } from 'react-router-dom';
-import logo from '../assets/images/Arcatro_logo_4.png'
-import auth from '../utils/auth'
+import auth from '../utils/auth';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+ 
 
 
 
@@ -23,11 +25,36 @@ const Header = () => {
 	else {
 		return (
 			<header className='flex flex-col sm:flex sm:flex-row sm:h-48'>
-				<Link to='/' className='sm:w-full h-48 bg-logo bg-center bg-contain bg-no-repeat text-center border-b-4 border-double border-pastel-purple p-4 '></Link>
-				<Navigator/>
+				<Link to='/' className='sm:w-full h-48 bg-logo bg-center bg-contain bg-no-repeat text-center border-b p-4 '></Link>
+				<div className='flex border justify-center w-full sm:w-1/12'>
+					<button className='text-4xl m-auto hover:text-dark-blue hover:shadow-lg
+						focus:text-dark-blue focus:shadow-lg focus:outline-none focus:ring-0
+						active:text-blue-800 active:shadow-lg
+						transition
+						duration-150
+						ease-in-out'
+						onClick={() => {
+							console.log("click");
+							displayNavbar();
+
+						}} >
+						<FontAwesomeIcon icon={faBars} />
+					</button>
+				</div>	
+				{/* <Navigator/> */}
+				{/* <Link to='/' className='sm:w-full h-48 bg-logo bg-center bg-contain bg-no-repeat text-center border-b-4 border-double border-pastel-purple p-4 '></Link>
+				<Navigator/> */} 
 			</header>
 		)
 	}
 }
+
+const displayNavbar = () => {
+	return (
+		// <Navigator/>
+		console.log('Hey')
+	)
+}
+
 
 export default Header;

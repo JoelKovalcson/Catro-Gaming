@@ -2,7 +2,7 @@ import React, { useState } from "react";
 //import SignUpForm from "../components/SignUpForm";
 //import LoginForm from "../components/LoginForm";
 import { useMutation } from '@apollo/client';
-import { ADD_USER, LOGIN_USER } from "../utils/mutations";
+import { GQL_ADD_USER, GQL_LOGIN_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
 
 const SignUp = () => {
@@ -10,9 +10,9 @@ const SignUp = () => {
 	const [formState, setFormState] = useState({formType: 'signup', username: '', password: '', confirmPassword: '', error: ''});
 
     // ADD_USER mutation
-    const [addUser, { error }] = useMutation(ADD_USER);
+    const [addUser, { error }] = useMutation(GQL_ADD_USER);
 		// LOGIN_USER mutation
-		const [login, { e }] = useMutation(LOGIN_USER);
+		const [login, { e }] = useMutation(GQL_LOGIN_USER);
 	
     // check to see if sign up or login
 	const changeForm = (event) => {

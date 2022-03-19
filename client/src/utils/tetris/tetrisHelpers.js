@@ -264,5 +264,5 @@ export function scoreBoard(board) {
 		}
 	}
 
-	return [points, newBoard];
+	return [points, newBoard, scoredRows];
 }

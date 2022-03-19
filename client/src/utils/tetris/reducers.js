@@ -24,8 +24,10 @@ export const reducer = (state, action) => {
 		isRunning,
 		nextShape,
 		nextRotation,
-		score
+		score,
+		rowsCleared
 	} = state;
+
 	switch(action.type) {
 		case MOVE_LEFT:
 			// If the game isn't running or it's game over, don't let the controls work
@@ -69,7 +71,7 @@ export const reducer = (state, action) => {
 			// Get a new random shape
 			const [newShape, newRotation] = randomBlock();
 
-			const [points, newBoard] = scoreBoard(board);
+			const [points, newBoard, rowCount] = scoreBoard(board);
 
 			return {
 				...state,
@@ -84,7 +86,8 @@ export const reducer = (state, action) => {
 				y: -4,
 				// Set next shape to the new shape
 				nextShape: newShape,
-				nextRotation: newRotation
+				nextRotation: newRotation,
+				rowsCleared: rowsCleared + rowCount
 			};
 		case ROTATE_CW:
 			if (!isRunning || gameOver) return state;
@@ -109,7 +112,8 @@ export const reducer = (state, action) => {
 		case START_GAME:
 			return {
 				...state,
-				isRunning: true
+				isRunning: true,
+				gameId: action.gameId
 			};
 		case END_GAME:
 			return {

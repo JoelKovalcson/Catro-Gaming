@@ -1,68 +1,65 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const QUERY_USERS = gql`
-	{
-		User {
-			username
-			friends {
-				username
-			}
-			activeGames {
-				ActiveGame {
-					gameName
-					participants {
-						User {
-							username
-						}
-					}
-				}
-			}
-		}
-	}
-`
+  {
+    username
+    friends {
+      username
+    }
+    activeGames {
+      ActiveGame {
+        gameName
+        participants {
+          User {
+            username
+          }
+        }
+      }
+    }
+  }
+`;
 // could add more to this ^
 
 export const GET_GAME = gql`
-	query getGame($gameId: ID!){
-		getGame(gameId: $gameId){
-			ActiveGame{
-				gameName
-			}
-			participants {
-				username
-			}
-		}
-	}
+  query getGame($gameId: ID!) {
+    getGame(gameId: $gameId) {
+      _id
+			gameName
+      participants {
+        username
+      }
+    }
+  }
 `;
 
 export const GET_PROFILE = gql`
-	query getProfile($user: ID!){
-		getProfile(user: $user){
-			Username
-			friends {
-				User {
-					username
-				}
-			}
-			activeGames {
-				ActiveGame {
-					gameName
-				}
-			}
-			scores
-		}
-	}
-`
+  query getProfile($user: ID!) {
+    getProfile(user: $user) {
+      Username
+			_id
+      friends {
+        User {
+          username
+					_id
+        }
+      }
+      activeGames {
+        ActiveGame {
+          gameName
+        }
+      }
+      scores
+    }
+  }
+`;
 
 export const GET_JOINABLE_GAMES = gql`
- {
-	 ActiveGame {
-		 gameName
-		 participants {
-			 User {
-				 username
-			 }
-		 }
-	 }
- }
-`
+  {
+    gameName
+    participants {
+      User {
+        username
+      }
+    }
+  }
+`;
