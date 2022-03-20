@@ -99,11 +99,7 @@ const SignUp = () => {
 	}
 
 	return ( 
-<<<<<<< HEAD
 		<div className="mx-auto p-6 rounded-lg bg-light-background max-w-sm border border-4 border-double border-pastel-purple">
-=======
-		<div className="mx-auto my-12 p-6 rounded-lg bg-light-background max-w-sm border-4 border-double border-pastel-purple">
->>>>>>> bfb2f0cd37be20831f406a6a6cb4908e2c933cd8
 			<ul className="nav nav-tabs flex justify-around flex-wrap list-none border-b-0 pl-0 mb-4" id="tabs-tab"
 				role="tablist">
 				<li className="nav-item" role="presentation">
