@@ -1,12 +1,13 @@
 module.exports = {
   content: [
 		"./src/**/*.{js,jsx}",
-		"./node_modules/tw-elements/dist/js/**/*.js"
+		"./node_modules/tw-elements/dist/js/**/*.js",
+		"./node_modules/flowbite/**/*.js"
 	],
   theme: {
 	  extend: {
 		  screens: {
-			  'sm': '475px'
+			// 'lg':'960px'
 		  },
 		  colors: {
 				'pastel-purple' : '#BB86FC',
@@ -14,11 +15,14 @@ module.exports = {
 				'light-blue' : '#03DAC6',
 				'background' : '#12121A',
 				'light-background' : '#131313',
+				'pastel-green' : '#77DD77',
 				'error' : '#CF6679'
 			},
 			backgroundImage: {
 				'logo': "url('/src/assets/images/Arcatro_logo_4.png')",
+				'filler': "url('/src/assets/images/filler_logo.png')",
 				'chuck-norris': "url('/src/assets/images/ChuckNorrisIpsum.png')",
+				'tetris' : "url('/src/assets/images/tetris.png')",
 				'dice1': "url('/src/assets/images/dice1.jpg')",
 				'dice2': "url('/src/assets/images/dice2.jpg')",
 				'dice3': "url('/src/assets/images/dice3.jpg')",
@@ -30,6 +34,7 @@ module.exports = {
 		},
   },
   plugins: [
-		require('tw-elements/dist/plugin')
+		require('tw-elements/dist/plugin'),
+		require('flowbite/plugin')
 	],
 }
