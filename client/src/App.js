@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import io from 'socket.io-client'
+import Messages from '../src/components/Messages';
+import MessageInput from '../src/components/MessageInput';
 // import apollo
 import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from '@apollo/client';
 import { BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
@@ -35,33 +38,50 @@ const client = new ApolloClient({
 });
 
 function App() {
+	const [socket, setSocket] = useState(null);
+	
+  useEffect(() => {
+    const newSocket = io(`http://${window.location.hostname}:3000`);
+    setSocket(newSocket);
+    return () => newSocket.close();
+  }, [setSocket]);
   return (
-		<ApolloProvider client={client}>
-			<Router>
-				<div className='grid content-between h-screen'>
-					<div>
-						<Header/>
-					</div>
-					<div>
-						<Switch>
-							<Redirect from="/" to="/login" exact/>
-							<Route exact path="/login" component={SignUp}/>
-							<Route exact path="/homepage" component={Homepage}/>
-							<Route exact path="/profile/:username?" component={Profile}/>
-							<Route exact path="/tetris" component={Tetris}/>
-							<Route exact path="/singleplayer" component={Singleplayer}/>
-							<Route exact path="/multiplayer" component={Multiplayer}/>
-							<Route exact path="/yahtzee" component={Yahtzee}/>
+    <ApolloProvider client={client}>
+      <Router>
+        <div className="grid content-between h-screen">
+          <div>
+            <Header />
+          </div>
+          <div>
+            <Switch>
+              <Redirect from="/" to="/login" exact />
+              <Route exact path="/login" component={SignUp} />
+              <Route exact path="/homepage" component={Homepage} />
+              <Route exact path="/profile/:username?" component={Profile} />
+              <Route exact path="/tetris" component={Tetris} />
+              <Route exact path="/singleplayer" component={Singleplayer} />
+              <Route exact path="/multiplayer" component={Multiplayer} />
+              <Route exact path="/yahtzee" component={Yahtzee} />
 
-							<Route component={Homepage}/>
-						</Switch>
-					</div>
-					<div>
-						<Footer/>
-					</div>
-				</div>
-			</Router>
-		</ApolloProvider>
+              <Route component={Homepage} />
+            </Switch>
+          </div>
+          <div>
+            {socket ? (
+              <div className="chat-container">
+                <Messages socket={socket} />
+                <MessageInput socket={socket} />
+              </div>
+            ) : (
+              <div>Not Connected</div>
+            )}
+          </div>
+          <div>
+            <Footer />
+          </div>
+        </div>
+      </Router>
+    </ApolloProvider>
   );
 }
 

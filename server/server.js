@@ -8,6 +8,11 @@ const db = require('./config/connection');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+io.use((socket, next) => {
+  sessionMiddleware(socket.request, socket.request.res || {}, next);
+});
 
 const startServer = async () => {
 	const server = new ApolloServer({
