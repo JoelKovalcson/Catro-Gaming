@@ -5,14 +5,11 @@ const path = require('path');
 const {typeDefs, resolvers} = require('./schemas');
 const {authMiddleware} = require('./utils/auth');
 const db = require('./config/connection');
+const chat = require('./utils/chat');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
-io.use((socket, next) => {
-  sessionMiddleware(socket.request, socket.request.res || {}, next);
-});
+var socketio = require('socket.io');
 
 const startServer = async () => {
 	const server = new ApolloServer({
@@ -20,6 +17,13 @@ const startServer = async () => {
 		resolvers,
 		context: authMiddleware
 	});
+	const io = socketio(server, {
+		cors: {
+			origin: '*',
+			methods: ['GET', 'POST']
+		}
+	});
+	chat(io)
 	await server.start();
 	server.applyMiddleware({ app });
 	console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
