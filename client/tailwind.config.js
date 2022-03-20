@@ -22,6 +22,7 @@ module.exports = {
 				'logo': "url('/src/assets/images/Arcatro_logo_4.png')",
 				'filler': "url('/src/assets/images/filler_logo.png')",
 				'chuck-norris': "url('/src/assets/images/ChuckNorrisIpsum.png')",
+				'tetris' : "url('/src/assets/images/tetris.png')",
 				'dice1': "url('/src/assets/images/dice1.jpg')",
 				'dice2': "url('/src/assets/images/dice2.jpg')",
 				'dice3': "url('/src/assets/images/dice3.jpg')",

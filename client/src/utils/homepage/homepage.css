@@ -3,10 +3,10 @@
 }
 
 .card-image:hover {
-    opacity: 80%;
+    opacity: 75%;
 }
 
 .card-image:hover .card-text {
-    opacity: 100%;
     visibility: visible;
+    font-weight: bold;
 }
