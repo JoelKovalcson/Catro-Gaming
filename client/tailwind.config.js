@@ -15,6 +15,7 @@ module.exports = {
 				'light-blue' : '#03DAC6',
 				'background' : '#12121A',
 				'light-background' : '#131313',
+				'pastel-green' : '#77DD77',
 				'error' : '#CF6679'
 			},
 			backgroundImage: {
