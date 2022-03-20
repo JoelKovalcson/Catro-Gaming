@@ -18,7 +18,7 @@ const resolvers = {
 		},
 		getProfile: async(_, args, context) => {
 			if(context.user) {
-				const profile = await User.findById(args.userId).select('-password -__v');
+				const profile = await User.findOne({username:args.username}).select('-password -__v');
 				return profile;
 			}
 			throw new AuthenticationError('You must be logged in to search for a users profile!')
@@ -31,6 +31,11 @@ const resolvers = {
 					$where: "this.participants.length<this.maxPlayers",
 					participants: {
 						$nin: [context.user._id]
+					},
+					maxPlayers: {
+						$not: {
+							$eq: 1
+						}
 					}
 				}
 			).populate('participants', '-password -__v');
@@ -52,7 +57,6 @@ const resolvers = {
 		},
 		joinGame: async (_, args, context) => {
 			if(context.user) {
-				console.log('Joining game', args.gameId);
 
 				const game = await ActiveGame.findOneAndUpdate(
 					{
@@ -67,7 +71,6 @@ const resolvers = {
 					{new: true, runValidators: true}
 				).populate('participants', '-password -__v');
 
-				console.log(game);
 				if(!game) {
 					throw new ForbiddenError('Game is full or you are already in it!');
 				}

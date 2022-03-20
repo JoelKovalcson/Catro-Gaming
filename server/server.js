@@ -25,15 +25,13 @@ startServer();
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
-/* When front-end is ready to build we will use this to serve it
-if(process.env.NODE_ENV === 'production') {
+/*if(process.env.NODE_ENV === 'production') {
 	app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, '../client/build/index.html'));
-});
-*/
+});*/
 
 db.once('open', () => {
 	app.listen(PORT, () => {

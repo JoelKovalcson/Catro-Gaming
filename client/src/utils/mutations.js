@@ -36,8 +36,8 @@ export const GQL_ADD_USER = gql`
 `;
 
 export const GQL_START_GAME = gql`
-	mutation startGame($gameType: String!){
-		startGame(gameType: $gameType){
+	mutation startGame($gameType: String!, $maxPlayers: Int){
+		startGame(gameType: $gameType, maxPlayers: $maxPlayers){
 			_id
 		}
 	}
@@ -59,3 +59,10 @@ export const GQL_UPDATE_GAME_STATE = gql`
 	}
 `;
 
+export const GQL_JOIN_GAME = gql`
+	mutation joinGame($gameId: ID!) {
+		joinGame(gameId: $gameId) {
+			_id
+		}
+	}
+`;

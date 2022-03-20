@@ -8,12 +8,12 @@ import Auth from '../utils/auth';
 
 const Profile = () => {
 
-	const {username: userId} = useParams();
+	const {username: username} = useParams();
 	
 	const {loading, data} = useQuery(GQL_GET_PROFILE, {
-		variables: {userId: (userId) ? userId : Auth.getProfile().data._id}
+		variables: {username: (username) ? username : Auth.getProfile().data.username}
 	});
-
+	
 	// console.log(data.getProfile.scores.tetris.playedGames);
 	if(loading) {
 		return<div>loading</div>

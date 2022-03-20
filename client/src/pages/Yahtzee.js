@@ -3,7 +3,10 @@ import Lowerscore from '../components/game/yahtzee/Lowerscore';
 import Rolldice from '../components/game/yahtzee/Rolldice';
 import Upperscore from '../components/game/yahtzee/Upperscore';
 
-const Yahtzee = () => {
+const Yahtzee = (props) => {
+
+	console.log(props.location.state);
+
 	return (
 		<>
 			<div className='flex flex-row flex-wrap justify-center m-4'>
