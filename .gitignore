@@ -6,3 +6,5 @@ build/
 
 # Generated files
 package-lock.json
+
+.vscode/
