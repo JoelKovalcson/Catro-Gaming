@@ -4,7 +4,7 @@ import {MULTIPLAYER_GAMES} from '../utils/homepage/games';
 
 const Multiplayer = () => {
 
-	const [gameSelection, setGameSelection] = useState({game: 'yahtzee', maxPlayers: 2, showModal: false, gameId: '', MIN: 1, MAX: 5});
+	const [gameSelection, setGameSelection] = useState({game: '', maxPlayers: 2, showModal: false, gameId: '', MIN: 1, MAX: 4});
 	const [joinGameArr, setJoinGameArr] = useState([]);
 	
 	const handleFormSubmit = (event) => {
@@ -31,7 +31,20 @@ const Multiplayer = () => {
 
 	const createGame = (event) => {
 		event.preventDefault();
-		console.log(MULTIPLAYER_GAMES);
+		let curElement = event.target;
+		// Go up til we hit the anchor element for the game
+		while (curElement.tagName.toLowerCase() !== 'a') {
+			curElement = curElement.parentElement;
+		}
+
+		setGameSelection({
+			...gameSelection,
+			showModal: true,
+			MIN: curElement.getAttribute('data-min-players') ? curElement.getAttribute('data-min-players') : 1,
+			MAX: curElement.getAttribute('data-max-players') ? curElement.getAttribute('data-max-players') : 4,
+			game: curElement.name ? curElement.name : 'What is this?'
+		})
+
 	}
 
 	return (
@@ -61,11 +74,12 @@ const Multiplayer = () => {
 						>
 							{gameSelection.game.charAt(0).toUpperCase() + gameSelection.game.slice(1)}
 						</div>
-						
-						<label htmlFor="maxPlayers" className="text-center inline-block mb-2 text-light-blue">
+						<label htmlFor="maxPlayers" className={`${(gameSelection.showModal && gameSelection.MIN !== gameSelection.MAX) ? 'visible' : 'invisible'} text-center inline-block mb-2 text-light-blue`}>
 							Max Players ({`${gameSelection.MIN}-${gameSelection.MAX}`})
 						</label>
-						<input name="maxPlayers" min={gameSelection.MIN} max={gameSelection.MAX} type="number" onChange={handleChange} value={gameSelection.maxPlayers} className="form-control
+						<input name="maxPlayers" min={gameSelection.MIN} max={gameSelection.MAX} type="number" onChange={handleChange} value={gameSelection.maxPlayers} 
+						  className={`${(gameSelection.showModal && gameSelection.MIN !== gameSelection.MAX) ? 'visible' : 'invisible'} 
+							form-control
 							text-center
 							px-3
 							py-1.5
@@ -78,7 +92,7 @@ const Multiplayer = () => {
 							ease-in-out
 							m-0
 							focus:outline-none
-							mb-6" 
+							mb-6`}
 							id="maxPlayers"
 							placeholder="1"/>
 						<button type="submit"  className="
