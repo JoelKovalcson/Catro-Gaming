@@ -1,55 +1,76 @@
 import React from "react";
 
-const Lowerscore = () => {
+const Lowerscore = (props) => {
     return (
-        <>
-        <table className="table-fixed rounded border border-light-blue m-4 text-center border-separate">
-            <thead>
-                <tr>
-                    <th className="rounded border border-light-blue p-1">Lower Section</th>
-                    <th className="rounded border border-light-blue p-1">Player</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td className="rounded border border-light-blue">3 of a Kind</td>
-                    <td className="rounded border border-light-blue">3</td>
-                </tr>
-                <tr>
-                    <td className="rounded border border-light-blue">4 of a Kind</td>
-                    <td className="rounded border border-light-blue">4</td>
-                </tr>
-                <tr>
-                    <td className="rounded border border-light-blue">Full House</td>
-                    <td className="rounded border border-light-blue">25</td>
-                </tr>
-                <tr>
-                    <td className="rounded border border-light-blue">SM Straight</td>
-                    <td className="rounded border border-light-blue">30</td>
-                </tr>
-                <tr>
-                    <td className="rounded border border-light-blue">LG Straight</td>
-                    <td className="rounded border border-light-blue">40</td>
-                </tr>
-                <tr>
-                    <td className="rounded border border-light-blue">Yahtzee</td>
-                    <td className="rounded border border-light-blue">50</td>
-                </tr>
-                <tr>
-                    <td className="rounded border border-light-blue">Chance</td>
-                    <td className="rounded border border-light-blue">?</td>
-                </tr>
-                <tr>
-                    <td className="rounded border border-light-blue">Yahtzee Bonus</td>
-                    <td className="rounded border border-light-blue">100</td>
-                </tr>
-                <tr>
-                    <td className="rounded border border-light-blue">Lower Total</td>
-                    <td className="rounded border border-light-blue">Your total</td>
-                </tr>
-            </tbody>
-        </table>
-        </>
+			<>
+			<section className="flex m-0.5 sm:m-4 text-lg text-pastel-purple rounded border border-light-blue border-separate p-0.5">
+				{/* Labels */}
+				<section className="flex-col">
+					<div className="whitespace-nowrap text-center font-bold rounded border border-light-blue p-1 w-full">
+							Lower Section
+					</div>
+					<div>
+						<button className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full bg-dark-blue/50 hover:bg-dark-blue ease-in-out transition duration-150">
+							3 of a Kind
+						</button>
+					</div>
+					<div>
+						<button className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full bg-dark-blue/50 hover:bg-dark-blue ease-in-out transition duration-150">
+							4 of a Kind
+						</button>
+					</div>
+					<div>
+						<button className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full bg-dark-blue/50 hover:bg-dark-blue ease-in-out transition duration-150">
+							Full House
+						</button>
+					</div>
+					<div>
+						<button className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full bg-dark-blue/50 hover:bg-dark-blue ease-in-out transition duration-150">
+							SM Straight
+						</button>
+					</div>
+					<div>
+						<button className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full bg-dark-blue/50 hover:bg-dark-blue ease-in-out transition duration-150">
+							LG Straight
+						</button>
+					</div>
+					<div>
+						<button className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full bg-dark-blue/50 hover:bg-dark-blue ease-in-out transition duration-150">
+							Yahtzee
+						</button>
+					</div>
+					<div>
+						<button className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full bg-dark-blue/50 hover:bg-dark-blue ease-in-out transition duration-150">
+							Chance
+						</button>
+					</div>
+					<div>
+						<button className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full bg-dark-blue/50 hover:bg-dark-blue ease-in-out transition duration-150">
+							Yahtzee Bonus
+						</button>
+					</div>
+					<div className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full">
+						Lower Total
+					</div>
+				</section>
+				{props.players.map((player, index) => {
+					return (
+						<section key={`${player.name}--${index}`} className={`flex-col text-center flex ml-0.5 ${(index+1 === props.playerNum) ? 'bg-light-blue/20 rounded' : ''}`}>
+							<div className="font-bold rounded border border-light-blue p-1">
+								{(index+1 === props.playerNum) ? 'You' : `P${index+1}`}
+							</div>
+							{player.lowerScore.map((value, index) => {
+								return (
+									<div key={`${value}---${index}`} className="rounded border border-light-blue mt-0.5">
+										{(value) ? value : <br></br>}
+									</div>
+								)
+							})}
+						</section>
+					)
+				})}
+			</section>        
+		 </> 
     )
 }
 

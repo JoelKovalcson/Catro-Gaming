@@ -14,6 +14,9 @@ const Rolldice = (props) => {
 			}
 			setRoll(Math.floor(Math.random()*5)+1);
 		}, 100);
+		return () => {
+			clearInterval(interval);
+		}
 	}, [props.isIsolated]);
 
     return (
