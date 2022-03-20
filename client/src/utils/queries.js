@@ -32,6 +32,22 @@ export const GQL_GET_GAME = gql`
   }
 `;
 
+export const GQL_GET_GAME_DETAILS = gql`
+  query getGame($gameId: ID!) {
+    getGame(gameId: $gameId) {
+			turn
+      participants {
+        username
+				_id
+      }
+			isComplete
+			scores
+			gameState
+			maxPlayers
+    }
+  }
+`;
+
 export const GQL_GET_PROFILE = gql`
   query getProfile($username: String!) {
     getProfile(username: $username) {

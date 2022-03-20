@@ -53,22 +53,22 @@ const Lowerscore = (props) => {
 						Lower Total
 					</div>
 				</section>
-				{props.players.map((player, index) => {
-					return (
-						<section key={`${player.name}--${index}`} className={`flex-col text-center flex ml-0.5 ${(index+1 === props.playerNum) ? 'bg-light-blue/20 rounded' : ''}`}>
-							<div className="font-bold rounded border border-light-blue p-1">
-								{(index+1 === props.playerNum) ? 'You' : `P${index+1}`}
-							</div>
-							{player.lowerScore.map((value, index) => {
-								return (
-									<div key={`${value}---${index}`} className="rounded border border-light-blue mt-0.5">
-										{(value) ? value : <br></br>}
-									</div>
-								)
-							})}
-						</section>
-					)
-				})}
+				{props.players.map((player, playerIndex) => {
+						return (
+							<section key={`${player.name}--${playerIndex}`} className={`flex-col text-center flex ml-0.5 ${(playerIndex+1 === props.playerNum) ? 'bg-light-blue/20 rounded' : ''}`}>
+								<div className="font-bold rounded border border-light-blue p-1">
+									{(playerIndex+1 === props.playerNum) ? 'You' : `P${playerIndex+1}`}
+								</div>
+								{player.lowerScore.map((value, scoreIndex) => {
+									return (
+										<div key={`${value}---${scoreIndex}`} className={`${(value) ? '' : 'text-slate-400'} rounded border border-light-blue mt-0.5`}>
+											{(value) ? value : ((playerIndex+1===props.playerNum) ? player.possibleLower[scoreIndex] : <br/>)}
+										</div>
+									)
+								})}
+							</section>
+						)
+					})}
 			</section>        
 		 </> 
     )
