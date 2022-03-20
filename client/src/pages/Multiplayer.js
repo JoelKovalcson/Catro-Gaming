@@ -2,14 +2,15 @@ import { useMutation, useQuery } from "@apollo/client";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {MULTIPLAYER_GAMES} from '../utils/homepage/games';
-import { GQL_START_GAME } from "../utils/mutations";
+import { GQL_JOIN_GAME, GQL_START_GAME } from "../utils/mutations";
 import { GQL_GET_JOINABLE_GAMES } from "../utils/queries";
 
 const Multiplayer = () => {
 
 	const [gameSelection, setGameSelection] = useState({game: '', maxPlayers: '2', showModal: false, gameId: '', MIN: 1, MAX: 4, curPlayers: 1});
 
-	const {loading, data: joinableGamesQuery} = useQuery(GQL_GET_JOINABLE_GAMES);
+	const {loading, data: joinableGamesQuery, refetch: refetchJoinableGames} = useQuery(GQL_GET_JOINABLE_GAMES);
+	const [joinGameQuery] = useMutation(GQL_JOIN_GAME);
 	const [startGame] = useMutation(GQL_START_GAME);
 	
 	const handleFormSubmit = (event) => {
@@ -18,13 +19,11 @@ const Multiplayer = () => {
 
 	const closeModal = (event) => {
 		event.preventDefault();
-		if(event.target.name === 'background') {
-			setGameSelection({
-				...gameSelection,
-				showModal: false
-			});
 		
-		}
+		setGameSelection({
+			...gameSelection,
+			showModal: false
+		});
 	}
 
 	const handleChange = (event) => {
@@ -69,12 +68,10 @@ const Multiplayer = () => {
 			...gameSelection,
 			gameId: response.data.startGame._id
 		});
-		
-		event.target.textContent = 'Join Game';
-		event.target.removeAttribute('disabled');
 	}
 
-	const joinGame = (event) => {
+	const joinGame = async (event) => {
+
 		event.preventDefault();
 		let curElement = event.target;
 		// Go up til we hit the anchor element for the game
@@ -82,6 +79,13 @@ const Multiplayer = () => {
 			curElement = curElement.parentElement;
 		}
 		// data-game-id, data-max-players, data-cur-players
+
+		const response = await joinGameQuery({
+			variables: {
+				gameId: curElement.getAttribute('data-game-id')
+			}
+		})
+
 		setGameSelection({
 			...gameSelection,
 			gameId: curElement.getAttribute('data-game-id'),
@@ -90,14 +94,23 @@ const Multiplayer = () => {
 			maxPlayers: curElement.getAttribute('data-cur-players'),
 			game: curElement.getAttribute('data-game-name').charAt(0).toUpperCase() + curElement.getAttribute('data-game-name').slice(1)
 		});
+
+		refetchJoinableGames();
 	}
 
 	return (
 		<>
 			{/* Modal */}
-			<a href="#0" onClick={closeModal} name="background" className={`${(gameSelection.showModal) ? "" : "hidden"} grid z-40 bg-background/[.85] fixed top-0 bottom-0 right-0 left-0 justify-center items-center overflow-y-auto overflow-x-hidden h-modal md:h-full md:inset-0`}>
-				<form onSubmit={handleFormSubmit} className="z-50 p-5 bg-light-background rounded-lg max-w-sm border-4 border-double border-pastel-purple">
-					<div className="grid">
+
+
+			
+
+			<div className={`${(gameSelection.showModal) ? "" : "hidden"} grid z-40 bg-background/[.85] fixed top-0 bottom-0 right-0 left-0 justify-center items-center overflow-y-auto overflow-x-hidden h-modal md:h-full md:inset-0`}>
+				<form onSubmit={handleFormSubmit} className="relative z-50 p-5 bg-light-background rounded-lg max-w-sm border-4 border-double border-pastel-purple">
+					<button type="button" class="absolute top-1 right-1 transition ease-in-out duration-150 border border-pastel-purple text-light-blue bg-background hover:bg-dark-blue text-right rounded-lg text-sm p-1.5  items-center" onClick={closeModal}>
+						<svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
+					</button>
+					<div className="grid mt-5">
 						<div className="text-center inline-block mb-2 text-light-blue border-b border-pastel-purple">
 							Game Selected
 						</div>
@@ -141,17 +154,22 @@ const Multiplayer = () => {
 							id="maxPlayers"
 							placeholder="1"/>}
 						{gameSelection.gameId ? (
-							<Link to={{pathname: `/${gameSelection.game.toLowerCase()}`, state: gameSelection}}
-								className="
-								w-full px-6 py-2.5 bg-light-background border-4 border-double border-light-blue
-								text-light-blue text-sm font-bold leading-tight uppercase rounded shadow-md
-								hover:bg-dark-blue hover:shadow-lg
-								focus:bg-dark-blue focus:shadow-lg focus:outline-none focus:ring-0
-								active:bg-blue-800 active:shadow-lg
-								transition duration-150 ease-in-out
-							">
-								Join Game
-							</Link>
+							<>
+								<Link to={{pathname: `/${gameSelection.game.toLowerCase()}`, state: gameSelection}}
+									className="
+									w-full px-6 py-2.5 bg-light-background border-4 border-double border-light-blue
+									text-light-blue text-sm font-bold leading-tight uppercase rounded shadow-md
+									hover:bg-dark-blue hover:shadow-lg
+									focus:bg-dark-blue focus:shadow-lg focus:outline-none focus:ring-0
+									active:bg-blue-800 active:shadow-lg
+									transition duration-150 ease-in-out
+								">
+									Join Game
+								</Link>
+								<div className="mt-2 text-center">
+									Game Created!
+								</div>
+							</>
 						) : 
 						(<button type="submit" onClick={createGame} className="
 							w-full px-6 py-2.5 bg-light-background border-4 border-double border-light-blue
@@ -166,7 +184,7 @@ const Multiplayer = () => {
 						}
 					</div>
 				</form>
-			</a>
+			</div>
 			
 			{/* Game Selection */}
 			<section>

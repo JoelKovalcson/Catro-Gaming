@@ -57,7 +57,6 @@ const resolvers = {
 		},
 		joinGame: async (_, args, context) => {
 			if(context.user) {
-				console.log('Joining game', args.gameId);
 
 				const game = await ActiveGame.findOneAndUpdate(
 					{
@@ -72,7 +71,6 @@ const resolvers = {
 					{new: true, runValidators: true}
 				).populate('participants', '-password -__v');
 
-				console.log(game);
 				if(!game) {
 					throw new ForbiddenError('Game is full or you are already in it!');
 				}

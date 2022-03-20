@@ -59,3 +59,10 @@ export const GQL_UPDATE_GAME_STATE = gql`
 	}
 `;
 
+export const GQL_JOIN_GAME = gql`
+	mutation joinGame($gameId: ID!) {
+		joinGame(gameId: $gameId) {
+			_id
+		}
+	}
+`;
