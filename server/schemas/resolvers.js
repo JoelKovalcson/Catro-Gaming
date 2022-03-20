@@ -18,7 +18,7 @@ const resolvers = {
 		},
 		getProfile: async(_, args, context) => {
 			if(context.user) {
-				const profile = await User.findById(args.userId).select('-password -__v');
+				const profile = await User.findOne({username:args.username}).select('-password -__v');
 				return profile;
 			}
 			throw new AuthenticationError('You must be logged in to search for a users profile!')
