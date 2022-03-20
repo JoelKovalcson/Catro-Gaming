@@ -9,5 +9,8 @@
         @apply bg-background;
         @apply text-pastel-purple;
         @apply border-dark-blue;
+    },
+    [role="tab"].active {
+        @apply text-dark-blue bg-pastel-green
     }
 }
