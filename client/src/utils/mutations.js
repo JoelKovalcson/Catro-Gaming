@@ -59,3 +59,10 @@ export const GQL_UPDATE_GAME_STATE = gql`
 	}
 `;
 
+export const SEND_MESSAGE = gql`
+	mutation sendMessage($from: String!, $text: String!){
+		sendMessage(from: $from, text: $text){
+			[Message]
+		}
+	}
+`

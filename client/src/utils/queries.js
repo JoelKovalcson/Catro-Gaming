@@ -68,3 +68,13 @@ export const GQL_GET_JOINABLE_GAMES = gql`
     }
   }
 `;
+
+export const GET_MESSAGES = gql`
+	subscription{
+		messages {
+			_id
+			username
+			text
+		}
+	}
+`
