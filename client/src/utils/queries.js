@@ -59,12 +59,14 @@ export const GQL_GET_PROFILE = gql`
 `;
 
 export const GQL_GET_JOINABLE_GAMES = gql`
-  {
-    gameName
-    participants {
-      User {
-        username
-      }
-    }
+  query getJoinableGames{
+		getJoinableGames{
+			_id
+			maxPlayers
+			gameName
+			participants {
+				username
+			}
+		}
   }
 `;

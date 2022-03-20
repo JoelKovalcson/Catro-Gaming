@@ -31,6 +31,11 @@ const resolvers = {
 					$where: "this.participants.length<this.maxPlayers",
 					participants: {
 						$nin: [context.user._id]
+					},
+					maxPlayers: {
+						$not: {
+							$eq: 1
+						}
 					}
 				}
 			).populate('participants', '-password -__v');
