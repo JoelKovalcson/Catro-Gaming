@@ -9,7 +9,7 @@ const Tetris = () => {
 	return (
 		<>
 			<TetrisProvider>
-				<div className='flex flex-wrap justify-center'>
+				<div className='flex flex-wrap justify-center py-12'>
 					<TetrisGame/>
 				</div>
 			</TetrisProvider>
