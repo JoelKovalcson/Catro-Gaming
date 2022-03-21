@@ -52,8 +52,8 @@ export const GQL_END_GAME = gql`
 `;
 
 export const GQL_UPDATE_GAME_STATE = gql`
-	mutation updateGameState($gameId: ID!, $gameState: String!){
-		updateGameState(gameId: $gameId, gameState: $gameState){
+	mutation updateGameState($gameId: ID!, $gameState: String!, $nextTurn: Int, $score: Int){
+		updateGameState(gameId: $gameId, gameState: $gameState, nextTurn: $nextTurn, score: $score){
 			_id
 		}
 	}

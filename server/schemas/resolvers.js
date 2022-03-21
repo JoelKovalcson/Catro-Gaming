@@ -67,7 +67,7 @@ const resolvers = {
 						$where: "this.participants.length<this.maxPlayers",
 						isComplete: false
 					}, 
-					{$addToSet: {participants: context.user._id}}, 
+					{$addToSet: {participants: context.user._id}, $push: {scores: 0}}, 
 					{new: true, runValidators: true}
 				).populate('participants', '-password -__v');
 
@@ -86,7 +86,8 @@ const resolvers = {
 					gameName: args.gameType,
 					turn: 0,
 					participants: [context.user._id],
-					maxPlayers: (args.maxPlayers ? args.maxPlayers : 1)
+					maxPlayers: (args.maxPlayers ? args.maxPlayers : 1),
+					$push: {scores: 0}
 				});
 
 				return game;
@@ -110,7 +111,7 @@ const resolvers = {
 				);
 				// If the game exists, score and return the game id
 				if(game) {
-					// TODO: Insert scoring logic based on the game type here
+					// TODO: SET ARRAY OF USERS FROM PARTICIPANTS AND GET THEIR SCORES
 
 					const gameState = JSON.parse(game.gameState);
 					const user = await User.findOne({_id: context.user._id});
@@ -198,9 +199,23 @@ const resolvers = {
 					throw new ForbiddenError('It is not your turn!');
 				}
 				
+				// Set score if score passed in
+				if (args.score) {
+					let scores = game.get('scores');
+					scores[index] = args.score;
+					game.set({
+						scores: scores
+					});
+				}
+
+				if (args.nextTurn) {
+					game.set({
+						turn: ++turn
+					});
+				}
+
 				// Update game state and turn count
 				game.set({
-					turn: ++turn,
 					gameState: args.gameState
 				});
 

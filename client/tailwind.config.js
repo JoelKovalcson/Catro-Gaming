@@ -15,12 +15,14 @@ module.exports = {
 				'light-blue' : '#03DAC6',
 				'background' : '#12121A',
 				'light-background' : '#131313',
+				'pastel-green' : '#77DD77',
 				'error' : '#CF6679'
 			},
 			backgroundImage: {
 				'logo': "url('/src/assets/images/Arcatro_logo_4.png')",
 				'filler': "url('/src/assets/images/filler_logo.png')",
 				'chuck-norris': "url('/src/assets/images/ChuckNorrisIpsum.png')",
+				'tetris' : "url('/src/assets/images/tetris.png')",
 				'dice1': "url('/src/assets/images/dice1.jpg')",
 				'dice2': "url('/src/assets/images/dice2.jpg')",
 				'dice3': "url('/src/assets/images/dice3.jpg')",

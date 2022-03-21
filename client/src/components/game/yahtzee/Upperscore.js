@@ -1,54 +1,74 @@
 import React from "react";
 
-const Upperscore = () => {
+const Upperscore = (props) => {
+
+	// These will actually be from the players
+	
     return (
        <>
-        <table className="table-fixed rounded border border-light-blue m-4 text-center border-separate">
-            <thead>
-                <tr>
-                    <th className="rounded border border-light-blue p-1">Upper Section</th>
-                    <th className="rounded border border-light-blue p-1">Player</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td className="rounded border border-light-blue">Aces</td>
-                    <td className="rounded border border-light-blue">1</td>
-                </tr>
-                <tr>
-                    <td className="rounded border border-light-blue">Twos</td>
-                    <td className="rounded border border-light-blue">2</td>
-                </tr>
-                <tr>
-                    <td className="rounded border border-light-blue">Threes</td>
-                    <td className="rounded border border-light-blue">3</td>
-                </tr>
-                <tr>
-                    <td className="rounded border border-light-blue">Fours</td>
-                    <td className="rounded border border-light-blue">4</td>
-                </tr>
-                <tr>
-                    <td className="rounded border border-light-blue">Fives</td>
-                    <td className="rounded border border-light-blue">5</td>
-                </tr>
-                <tr>
-                    <td className="rounded border border-light-blue">Sixes</td>
-                    <td className="rounded border border-light-blue">6</td>
-                </tr>
-                <tr>
-                    <td className="rounded border border-light-blue">Total</td>
-                    <td className="rounded border border-light-blue">Your total</td>
-                </tr>
-                <tr>
-                    <td className="rounded border border-light-blue">Bonus</td>
-                    <td className="rounded border border-light-blue">Your total</td>
-                </tr>
-                <tr>
-                    <td className="rounded border border-light-blue">Upper Total</td>
-                    <td className="rounded border border-light-blue">Your total</td>
-                </tr>
-            </tbody>
-        </table>
+				<section className="flex m-0.5 sm:m-4 text-lg text-pastel-purple rounded border border-light-blue border-separate p-0.5">
+					{/* Labels */}
+					<section className="flex-col">
+						<div className="whitespace-nowrap text-center font-bold rounded border border-light-blue p-1 w-full">
+								Upper Section
+						</div>
+						<div>
+							<button className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full bg-dark-blue/50 hover:bg-dark-blue ease-in-out transition duration-150">
+								Aces
+							</button>
+						</div>
+						<div>
+							<button className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full bg-dark-blue/50 hover:bg-dark-blue ease-in-out transition duration-150">
+								Twos
+							</button>
+						</div>
+						<div>
+							<button className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full bg-dark-blue/50 hover:bg-dark-blue ease-in-out transition duration-150">
+								Threes
+							</button>
+						</div>
+						<div>
+							<button className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full bg-dark-blue/50 hover:bg-dark-blue ease-in-out transition duration-150">
+								Fours
+							</button>
+						</div>
+						<div>
+							<button className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full bg-dark-blue/50 hover:bg-dark-blue ease-in-out transition duration-150">
+								Fives
+							</button>
+						</div>
+						<div>
+							<button className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full bg-dark-blue/50 hover:bg-dark-blue ease-in-out transition duration-150">
+								Sixes
+							</button>
+						</div>
+						<div className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full">
+							Total Score
+						</div>
+						<div className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full">
+							Bonus
+						</div>
+						<div className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full">
+							Upper Total
+						</div>
+					</section>
+					{props.players.map((player, playerIndex) => {
+						return (
+							<section key={`${player.name}--${playerIndex}`} className={`flex-col text-center flex ml-0.5 ${(playerIndex+1 === props.playerNum) ? 'bg-light-blue/20 rounded' : ''}`}>
+								<div className="font-bold rounded border border-light-blue p-1">
+									{(playerIndex+1 === props.playerNum) ? 'You' : `P${playerIndex+1}`}
+								</div>
+								{player.upperScore.map((value, scoreIndex) => {
+									return (
+										<div key={`${value}---${scoreIndex}`} className={`${(value) ? '' : 'text-slate-400'} rounded border border-light-blue mt-0.5`}>
+											{(value) ? value : ((playerIndex+1===props.playerNum) ? player.possibleUpper[scoreIndex] : <br/>)}
+										</div>
+									)
+								})}
+							</section>
+						)
+					})}
+				</section>        
        </> 
     )
 }

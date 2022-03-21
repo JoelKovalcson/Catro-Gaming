@@ -76,7 +76,7 @@ const typeDefs = gql`
 		endGame(gameId: ID!): ActiveGame
 		joinGame(gameId: ID!): ActiveGame
 		login(username: String!, password: String!): Auth
-		updateGameState(gameId: ID!, gameState: String!): ActiveGame
+		updateGameState(gameId: ID!, gameState: String!, nextTurn: Int, score: Int): ActiveGame
 		updateLastLogin(userId: ID!): ID
 	}
 `;
