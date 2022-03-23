@@ -11,7 +11,7 @@ const resolvers = {
 		},
 		getGame: async (_, args, context) => {
 			if(context.user) {
-				const game = await ActiveGame.findById(args.gameId);
+				const game = await ActiveGame.findById(args.gameId).populate('participants').select('-__v -password');
 				return game;
 			}
 			throw new AuthenticationError('You must be logged in to check for an active game!')

@@ -1,6 +1,5 @@
 const SINGLE_PLAYER_GAMES = [
 	{
-		// Insert any information I would need to start tetris here
 		name: 'Tetris',
 		difficulty: [
 			{difficulty: 'Easy', boardX: 12, boardY: 20, speed: 1000},
@@ -16,14 +15,17 @@ const MULTIPLAYER_GAMES = [
 		name: 'Yahtzee',
 		minPlayers: 1,
 		maxPlayers: 4,
-		route: '/yahtzee'
-	},
+		route: '/yahtzee',
+		imageName: ''
+	}
+	/*
 	{
 		name: 'ChattleShip',
 		minPlayers: 2,
 		maxPlayers: 2,
 		route: '/chattleship'
-	}
+	},
+	*/
 ]
 
 

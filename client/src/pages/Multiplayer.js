@@ -207,7 +207,7 @@ const Multiplayer = () => {
 						MULTIPLAYER_GAMES.map((game) => {
 							return (
 								<a key={game.name} name={game.name} data-min-players={game.minPlayers} data-max-players={game.maxPlayers} data-route={game.route} onClick={openModal} href="#0" 
-									className="card-image flex flex-col justify-center mx-4 mt-4 h-48 w-48 rounded bg-cover bg-center bg-chuck-norris">    
+									className={`card-image flex flex-col justify-center mx-4 mt-4 h-48 w-48 rounded bg-cover bg-center bg-${game.name.toLowerCase()}`}>    
 									<div className="card-text self-center text-bold text-xl">{game.name}</div>
 								</a>
 							)

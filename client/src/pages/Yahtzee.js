@@ -8,7 +8,6 @@ import { GQL_GET_GAME_DETAILS } from '../utils/queries';
 import Auth from '../utils/auth';
 
 const Yahtzee = (props) => {
-
 	// State to hold local data for game display
 	const [diceSelected, setDiceSelected] = useState(
 		{
@@ -18,7 +17,9 @@ const Yahtzee = (props) => {
 		}
 	);
 	// State to hold data as it goes to and from the database
-	const [gameState, setGameState] = useState({});
+	const [gameState, setGameState] = useState({
+		players: []
+	});
 	const [updateGame] = useMutation(GQL_UPDATE_GAME_STATE);
 
 	const {loading, data: gameData} = useQuery(GQL_GET_GAME_DETAILS, {
@@ -26,19 +27,65 @@ const Yahtzee = (props) => {
 			gameId: props.location?.state?.gameId
 		},
 		onCompleted: (data) => {
-			// If there is no existing game state, initialize it and send a update to the server
+			// If there is no existing game state and the host joined, initialize it and send a update to the server
 			if(!data.getGame.gameState && Auth.getProfile().data._id === data.getGame.participants[0]._id) {
 				
-				for(let i = 0; i < data.getGame.maxPlayers; i++) {
-					
-				}
+				const playerArr = [];
 
+				for(let i = 0; i < data.getGame.maxPlayers; i++) {
+					playerArr.push({
+						name: '',
+						upperScore: [0,0,0,0,0,0,0,0,0],
+						possibleUpper: [0,0,0,0,0,0,0,0,0],
+						lowerScore: [0,0,0,0,0,0,0,0,0],
+						possibleLower: [0,0,0,0,0,0,0,0,0],
+						rollsLeft: 3,
+						score: 0,
+						currentDice: [1, 1, 1, 1, 1]
+					});
+				}
+				console.log({players: playerArr});
+				// Send the new game data to the server, where the else below will catch on update and set state
+				updateGame({
+					variables: {
+						gameId: data.getGame._id,
+						gameState: JSON.stringify({players: playerArr})
+					}
+				});
+				return;
+			}
+			// Else we aren't the host, but the game isn't started yet
+			else if (!data.getGame.gameState) {
+				// Display a modal saying that you're waiting for the host to join
+				console.log("Waiting on host to join...");
+				return;
+			}
+			// There is a game state, so set current game state to the one just pulled
+			else {
+				const newState = JSON.parse(data.getGame.gameState);
+				
+				// Then check if the number of participants is maxPlayers to display a modal if the game isn't full yet
+				if (data.getGame.participants.length < data.getGame.maxPlayers) {
+					console.log("Waiting on more players to join...");
+					return;
+				}
+				
+				// Setup names for each player, and get current player index in participants array
+				const playerArr = newState.players;
+				let playerNum = 0;
+				for (let i = 0; i < playerArr.length; i++) {
+					console.log(data.getGame.participants[i].username, Auth.getProfile().data.username);
+					if(data.getGame.participants[i].username === Auth.getProfile().data.username) playerNum = i+1;
+					playerArr[i].name = data.getGame.participants[i].username;
+				}
+				
 				setGameState({
-					
+					...newState,
+					playerNum
 				});
 			}
 		},
-		pollInterval: 2000
+		pollInterval: 10000
 	});
 	
 	useEffect(() => {
@@ -86,8 +133,38 @@ const Yahtzee = (props) => {
 		});		
 	}
 		
-		
 	
+	const scoreClickHandler = async (event) => {
+		const [section, index] = event.target.name.split('-');
+		const players = [...gameState.players];
+		console.log(section, index);
+		if (section === 'upper') {
+			// Do a check to make sure value doesn't already exist
+			players[gameState.playerNum-1].upperScore[index] = 1;//gameState.players[gameState.playerNum-1].possibleUpper[index];
+		}
+		else if (section === 'lower') {
+			// Do a check to make sure value doesn't already exist
+			players[gameState.playerNum-1].lowerScore[index] = 1;//gameState.players[gameState.playerNum-1].possibleLower[index];
+		}
+		else {
+			// Should never happen
+			console.error('scoreClickHandler called from invalid source');
+			return;
+		}
+		
+		await updateGame({
+			variables: {
+				gameId: gameData.getGame._id,
+				gameState: JSON.stringify({...gameState, players: players}),
+				nextTurn: true
+			}
+		});
+
+		setGameState({
+			...gameState,
+			players: players
+		});
+	}
 
 	const toggleSelect = (index) => {
 
@@ -152,7 +229,10 @@ const Yahtzee = (props) => {
 							})}
 						</div>
 						<div className='mt-2 flex flex-row justify-center'>
-							<button disabled={(diceSelected.rolling) ? true : false} onClick={rollDice} className='text-light-blue p-2 min-w-60 m-auto rounded border-4 border-double border-pastel-purple hover:bg-dark-blue text-center'>Roll Dice</button>	
+							<button disabled={(diceSelected.rolling) ? true : false} onClick={rollDice} 
+								className='text-light-blue p-2 min-w-60 m-auto rounded border-4 border-double border-pastel-purple hover:bg-dark-blue text-center'>
+									Roll Dice ({(gameState.players.length) ? gameState.players[gameState.playerNum-1].rollsLeft : 0})
+							</button>	
 						</div>
 				</div>
 				<table className='rounded border border-light-blue border-separate p-0.5 m-1'>
@@ -184,8 +264,8 @@ const Yahtzee = (props) => {
 			</div>
 				
 			<div className='flex flex-wrap justify-evenly mb-4'>	
-				<Upperscore players={tmpPlayers} playerNum={tmpPlayerNum}/>
-				<Lowerscore players={tmpPlayers} playerNum={tmpPlayerNum}/>
+				<Upperscore scoreClickHandler={scoreClickHandler} maxPlayers={props.location.state.maxPlayers} players={gameState.players} playerNum={gameState.playerNum}/>
+				<Lowerscore scoreClickHandler={scoreClickHandler} maxPlayers={props.location.state.maxPlayers} players={gameState.players} playerNum={gameState.playerNum}/>
 			</div>
 		</>
 	)
