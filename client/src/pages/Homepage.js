@@ -1,9 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../utils/homepage/homepage.css';
+import Auth from '../utils/auth';
 
 const Homepage = () => {
-
+	if(!Auth.loggedIn()) {
+		window.location.assign('/');
+		return <></>
+	}
 	return (
 		<>
 			<div className='flex justify-center my-6'>

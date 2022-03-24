@@ -1,7 +1,7 @@
 import React from 'react';
 // import apollo
 import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from '@apollo/client';
-import { BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect, Routes} from 'react-router-dom';
 import { setContext } from '@apollo/client/link/context';
 
 
@@ -43,18 +43,18 @@ function App() {
 						<Header/>
 					</div>
 					<div>
-						<Switch>
-							<Redirect from="/" to="/login" exact/>
-							<Route exact path="/login" component={SignUp}/>
-							<Route exact path="/homepage" component={Homepage}/>
-							<Route exact path="/profile/:username?" component={Profile}/>
-							<Route exact path="/tetris" component={Tetris}/>
-							<Route exact path="/singleplayer" component={Singleplayer}/>
-							<Route exact path="/multiplayer" component={Multiplayer}/>
-							<Route exact path="/yahtzee" component={Yahtzee}/>
-
-							<Route component={Homepage}/>
-						</Switch>
+						<Routes>
+							<Route path="/" element={<SignUp/>}/>
+							<Route path="/homepage" element={<Homepage/>}/>
+							<Route path="/profile" element={<Profile/>}>
+								<Route path=":username" element={<Profile/>}/>
+							</Route>
+							<Route path="/tetris" element={<Tetris/>}/>
+							<Route path="/singleplayer" element={<Singleplayer/>}/>
+							<Route path="/multiplayer" element={<Multiplayer/>}/>
+							<Route path="/yahtzee" element={<Yahtzee/>}/>
+							<Route path="/*" element={<Homepage/>}/>
+						</Routes>
 					</div>
 					<div>
 						<Footer/>

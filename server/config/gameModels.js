@@ -23,6 +23,11 @@ const gameDictionary = {
 			type: Number,
 			required: true,
 			default: 0
+		},
+		highestLevel: {
+			type: Number,
+			required: true,
+			default: 0
 		}
 	},
 	yahtzee: {

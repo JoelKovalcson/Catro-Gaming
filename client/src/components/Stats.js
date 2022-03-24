@@ -5,14 +5,15 @@ const Stats = (props) => {
 		<>
 			<div className='flex flex-col border-4 border-double border-pastel-purple m-4 p-2 rounded'>
 				<h4 className='self-center text-lg font-semibold'>Tetris</h4>
-					<p>Total games played:{props.tetrisgames}</p>
-					<p>Total rows cleared:{props.tetrisrows}</p>
-					<p>Highscore:{props.tetrishighscore}</p>
+					<p>Total games played: {props.scores.tetris.playedGames}</p>
+					<p>Total rows cleared: {props.scores.tetris.rowsCleared}</p>
+					<p>Highscore: {props.scores.tetris.bestScore}</p>
+					<p>Highest Level: {props.scores.tetris.highestLevel}</p>
 			</div>
 			<div className='flex flex-col border-4 border-double border-pastel-purple m-4 p-2 rounded'>
 				<h4 className='self-center text-lg font-semibold'>Yahtzee</h4>
-						<p>Total games played: 1</p>
-						<p>Highscore: 100</p>
+						<p>Total games played: {props.scores.yahtzee.playedGames}</p>
+						<p>Highscore: {props.scores.yahtzee.bestScore}</p>
 			</div>
 		</>
 	)

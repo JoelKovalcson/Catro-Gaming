@@ -35,6 +35,7 @@ export const GQL_GET_GAME = gql`
 export const GQL_GET_GAME_DETAILS = gql`
   query getGame($gameId: ID!) {
     getGame(gameId: $gameId) {
+			_id
 			turn
       participants {
         username
@@ -68,6 +69,11 @@ export const GQL_GET_PROFILE = gql`
 					playedGames
 					rowsCleared
 					bestScore
+					highestLevel
+				}
+				yahtzee {
+					playedGames
+					bestScore
 				}
 			}
     }
@@ -85,4 +91,18 @@ export const GQL_GET_JOINABLE_GAMES = gql`
 			}
 		}
   }
+`;
+
+export const GQL_GET_ACTIVE_GAMES = gql`
+	query getActiveGames {
+		getActiveGames {
+			gameName
+			_id
+			maxPlayers
+			participants {
+				username
+			}
+			turn
+		}
+	}
 `;

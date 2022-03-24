@@ -29,7 +29,7 @@ module.exports = {
 				'dice4': "url('/src/assets/images/dice4.jpg')",
 				'dice5': "url('/src/assets/images/dice5.jpg')",
 				'dice6': "url('/src/assets/images/dice6.jpg')",
-
+				'yahtzee': "url('/src/assets/images/yahtzee.png')"
 			}
 		},
   },

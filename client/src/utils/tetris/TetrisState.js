@@ -21,7 +21,8 @@ const TetrisProvider = ({ value = [], ...props}) => {
 		gameOver: false,
 		speed: 1000,
 		rowsCleared: 0,
-		gameId: null
+		gameId: null,
+		level: 1
 	});
 
 	return <Provider value={[gameState, dispatch]} {...props}/>;

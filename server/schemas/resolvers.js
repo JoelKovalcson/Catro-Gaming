@@ -11,7 +11,7 @@ const resolvers = {
 		},
 		getGame: async (_, args, context) => {
 			if(context.user) {
-				const game = await ActiveGame.findById(args.gameId);
+				const game = await ActiveGame.findById(args.gameId).populate('participants').select('-__v -password');
 				return game;
 			}
 			throw new AuthenticationError('You must be logged in to check for an active game!')
@@ -46,8 +46,19 @@ const resolvers = {
 
 			return games;
 			
+		},
+		getActiveGames: async(_, __, context) => {
+			const games = await ActiveGame.find(
+				{
+					isComplete: false,
+					participants: context.user._id
+				}
+			).populate('participants', '-password -__v');
+			if (!games) {
+				throw new ForbiddenError('No active games');
+			}
+			return games;
 		}
-		
 	},
 	Mutation: {
 		addUser: async (_, args) => {
@@ -102,7 +113,8 @@ const resolvers = {
 					// Filters
 					{
 						_id: args.gameId,
-						participants: context.user._id
+						participants: context.user._id,
+						isComplete: false
 					},
 					// Update
 					{
@@ -121,15 +133,28 @@ const resolvers = {
 
 					switch(game.get('gameName')) {
 						case 'tetris':
-							const {rowsCleared, score} = gameState;
+							let {rowsCleared, score, level} = gameState;
 
 							const tetris = scores.get('tetris');
 							tetris.set({
 								rowsCleared: tetris.rowsCleared+rowsCleared,
 								bestScore: (tetris.bestScore < score) ? score : tetris.bestScore,
-								playedGames: tetris.playedGames + 1
+								playedGames: tetris.playedGames + 1,
+								highestLevel: (tetris.highestLevel < level) ? level : tetris.highestLevel
 							});
 							scores.set({tetris:tetris});
+
+							break;
+						case 'yahtzee':
+							const {players} = gameState;
+							const player = players.find(player => player.name === user.username);
+							const yahtzee = scores.get('yahtzee');
+
+							yahtzee.set({
+								bestScore: yahtzee.bestScore < player.score ? player.score : yahtzee.bestScore,
+								playedGames: yahtzee.playedGames + 1
+							});
+							scores.set({yahtzee: yahtzee});
 
 							break;
 						default: 
@@ -141,8 +166,8 @@ const resolvers = {
 					
 					return game;
 				}
-				// Else the user wasn't part of that game
-				throw new ForbiddenError('You are not part of that game!');
+				// Else the user wasn't part of that game or it is over
+				throw new ForbiddenError('You are not part of that game or the game is over!');
 			}
 			throw new AuthenticationError('You need to be logged in!');
 		},

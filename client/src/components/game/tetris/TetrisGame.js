@@ -110,10 +110,33 @@ const TetrisGame = () => {
 	useEffect(() => {
 		renderBoardTick.current = requestAnimationFrame(gameTick);
 		return () => cancelAnimationFrame(renderBoardTick.current);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [gameState.isRunning]);
 
+	const handleKeyboardInput = (event) => {
+		event.preventDefault();
+		switch (event.code) {
+			case "ArrowDown":
+			case "Space":
+				dispatch({type: MOVE_DOWN});
+				break;
+			case "ArrowLeft":
+				dispatch({type: MOVE_LEFT});
+				break;
+			case "ArrowRight":
+				dispatch({type: MOVE_RIGHT});
+				break;
+			case "ArrowUp":
+				dispatch({type: ROTATE_CW});
+				break;
+			case "Enter":
+				toggleRunning();
+				break;
+		}
+	}
+
 	return (
-		<div className='flex flex-wrap justify-around w-3/4 md:w-4/5 lg:w-3/5'>
+		<div onKeyDown={handleKeyboardInput} className='flex flex-wrap justify-around w-3/4 md:w-4/5 lg:w-3/5'>
 			<div>
 				<Grid gridPadding={'mr-1'} gridInfo={gameBoard} name={'Tetris'} rows={tetrisConfig.grid.rows} cols={tetrisConfig.grid.cols} classInfo={'h-4 w-4 sm:h-6 sm:w-6 ml-1 mt-1'}/>
 				<div className='w-full mt-3'>
@@ -148,7 +171,7 @@ const TetrisGame = () => {
 				</div>
 			</div>
 			<div className='grid content-center text-center'>
-				<Score score={gameState.score} rowsCleared={gameState.rowsCleared} gameType={'tetris'}/>
+				<Score score={gameState.score} rowsCleared={gameState.rowsCleared} gameType={'tetris'} speed={gameState.speed} level={gameState.level}/>
 				<span className='mt-2 sm:mt-16'>Next Block</span>
 				<Grid gridInfo={gameState.nextShape[gameState.nextRotation]} name={'NextBlock'} rows={tetrisConfig.nextBlock.rows} cols={tetrisConfig.nextBlock.cols} classInfo={'h-4 w-4 sm:h-6 sm:w-6 ml-1 mt-1'}/>
 			</div>
