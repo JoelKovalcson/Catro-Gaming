@@ -88,8 +88,8 @@ export const reducer = (state, action) => {
 				nextShape: newShape,
 				nextRotation: newRotation,
 				rowsCleared: rowsCleared + rowCount,
-				level: Math.floor((rowsCleared + rowCount) / 2) + 1,
-				speed: Math.round(1000 * Math.pow(0.9, Math.floor((rowsCleared + rowCount) / 2)))
+				level: Math.floor((rowsCleared + rowCount) / 5) + 1,
+				speed: Math.round(999 * Math.pow(0.9, Math.floor((rowsCleared + rowCount) / 5))) + 1
 			};
 		case ROTATE_CW:
 			if (!isRunning || gameOver) return state;

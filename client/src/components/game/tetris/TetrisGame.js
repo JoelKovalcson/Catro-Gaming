@@ -111,7 +111,7 @@ const TetrisGame = () => {
 		renderBoardTick.current = requestAnimationFrame(gameTick);
 		return () => cancelAnimationFrame(renderBoardTick.current);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [gameState.isRunning]);
+	}, [gameState.isRunning, gameState.speed]);
 
 	const handleKeyboardInput = (event) => {
 		event.preventDefault();
