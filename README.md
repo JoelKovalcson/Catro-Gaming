@@ -29,7 +29,7 @@ Run the application locally with `npm start`.
 
 Follow this link to view our project hosted on Heroku [here](https://catro-gaming.herokuapp.com).
 
-![Screenshot](https://github.com/JoelKovalcson/Catro-Gaming/client/src/assets/images/catrogaming-profile.png)
+![Screenshot](./client/src/assets/images/catrogaming-profile.png)
 
 ## License
 Copyright © 2022 JoelKovalcson, JMaurizio, ericc97, and jaywooski
