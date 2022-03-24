@@ -60,7 +60,7 @@ Worked on dynamically displaying content through React and implemented game logi
 Worked on planning, building and implementing the backend server. Also worked on writing mutation and queries to display data from the server on the front end.
 ## Questions
 
-With any questions email the repository owners at John Wooley (john.m.wooley@gmail.com), Josh Maurizio (josh.maurizio@gmail.com), Eric Coleman (ericcoleman9217@gmail.com), Joel Kovalcson ()
+With any questions email the repository owners at John Wooley (john.m.wooley@gmail.com), Josh Maurizio (josh.maurizio@gmail.com), Eric Coleman (ericcoleman9217@gmail.com), Joel Kovalcson (joelkovalcson@gmail.com)
 
 ## Links
 
