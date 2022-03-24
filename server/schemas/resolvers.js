@@ -132,6 +132,10 @@ const resolvers = {
 							scores.set({tetris:tetris});
 
 							break;
+						case 'yahtzee':
+							console.log('Need to score yahtzee here');
+
+							break;
 						default: 
 							throw new ForbiddenError('This is an invalid game type (How did this get here?)');
 					}
@@ -202,6 +206,7 @@ const resolvers = {
 				// Set score if score passed in
 				if (args.score) {
 					let scores = game.get('scores');
+					console.log(scores, args.score);
 					scores[index] = args.score;
 					game.set({
 						scores: scores

@@ -14,7 +14,7 @@ const Upperscore = (props) => {
 						</div>
 						<div>
 							{
-								(props.players.length && !props.players[props.playerNum-1].upperScore[0])
+								(props.players.length && !(props.players[props.playerNum-1].upperScore[0] >= 0))
 								?
 									(
 										<button onClick={props.scoreClickHandler} name="upper-0" className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full bg-dark-blue/50 hover:bg-dark-blue ease-in-out transition duration-150">
@@ -31,7 +31,7 @@ const Upperscore = (props) => {
 						</div>
 						<div>
 							{
-								(props.players.length && !props.players[props.playerNum-1].upperScore[1])
+								(props.players.length && !(props.players[props.playerNum-1].upperScore[1] >= 0))
 								?
 									(
 										<button onClick={props.scoreClickHandler} name="upper-1" className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full bg-dark-blue/50 hover:bg-dark-blue ease-in-out transition duration-150">
@@ -48,7 +48,7 @@ const Upperscore = (props) => {
 						</div>
 						<div>
 							{
-								(props.players.length && !props.players[props.playerNum-1].upperScore[2])
+								(props.players.length && !(props.players[props.playerNum-1].upperScore[2] >= 0))
 								?
 									(
 										<button onClick={props.scoreClickHandler} name="upper-2" className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full bg-dark-blue/50 hover:bg-dark-blue ease-in-out transition duration-150">
@@ -65,7 +65,7 @@ const Upperscore = (props) => {
 						</div>
 						<div>
 							{
-								(props.players.length && !props.players[props.playerNum-1].upperScore[3])
+								(props.players.length && !(props.players[props.playerNum-1].upperScore[3] >= 0))
 								?
 									(
 										<button onClick={props.scoreClickHandler} name="upper-3" className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full bg-dark-blue/50 hover:bg-dark-blue ease-in-out transition duration-150">
@@ -82,7 +82,7 @@ const Upperscore = (props) => {
 						</div>
 						<div>
 							{
-								(props.players.length && !props.players[props.playerNum-1].upperScore[4])
+								(props.players.length && !(props.players[props.playerNum-1].upperScore[4] >= 0))
 								?
 									(
 										<button onClick={props.scoreClickHandler} name="upper-4" className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full bg-dark-blue/50 hover:bg-dark-blue ease-in-out transition duration-150">
@@ -99,7 +99,7 @@ const Upperscore = (props) => {
 						</div>
 						<div>
 							{
-								(props.players.length && !props.players[props.playerNum-1].upperScore[5])
+								(props.players.length && !(props.players[props.playerNum-1].upperScore[5] >= 0))
 								?
 									(
 										<button onClick={props.scoreClickHandler} name="upper-5" className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full bg-dark-blue/50 hover:bg-dark-blue ease-in-out transition duration-150">
@@ -152,8 +152,8 @@ const Upperscore = (props) => {
 									</div>
 									{player.upperScore.map((value, scoreIndex) => {
 										return (
-											<div key={`${value}---${scoreIndex}`} className={`${(value) ? '' : 'text-slate-400'} rounded border border-light-blue mt-0.5`}>
-												{(value) ? value : ((playerIndex+1===props.playerNum && scoreIndex !== 6 && scoreIndex !== 7 && scoreIndex !== 8) ? player.possibleUpper[scoreIndex] : <br/>)}
+											<div key={`${value}---${scoreIndex}`} className={`${(value >= 0) ? '' : 'text-slate-400'} rounded border border-light-blue mt-0.5`}>
+												{(value >= 0) ? value : ((playerIndex+1===props.playerNum && scoreIndex !== 6 && scoreIndex !== 7 && scoreIndex !== 8) ? player.possibleUpper[scoreIndex] : <br/>)}
 											</div>
 										)
 									})}

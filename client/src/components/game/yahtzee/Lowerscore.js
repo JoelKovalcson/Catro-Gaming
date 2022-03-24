@@ -11,7 +11,7 @@ const Lowerscore = (props) => {
 					</div>
 					<div>
 						{
-							(props.players.length && !props.players[props.playerNum-1].lowerScore[0])
+							(props.players.length && !(props.players[props.playerNum-1].lowerScore[0] >= 0))
 							?
 								(
 									<button onClick={props.scoreClickHandler} name="lower-0" className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full bg-dark-blue/50 hover:bg-dark-blue ease-in-out transition duration-150">
@@ -28,7 +28,7 @@ const Lowerscore = (props) => {
 					</div>
 					<div>
 						{
-							(props.players.length && !props.players[props.playerNum-1].lowerScore[1])
+							(props.players.length && !(props.players[props.playerNum-1].lowerScore[1] >= 0))
 							?
 								(
 									<button onClick={props.scoreClickHandler} name="lower-1" className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full bg-dark-blue/50 hover:bg-dark-blue ease-in-out transition duration-150">
@@ -45,7 +45,7 @@ const Lowerscore = (props) => {
 					</div>
 					<div>
 						{
-							(props.players.length && !props.players[props.playerNum-1].lowerScore[2])
+							(props.players.length && !(props.players[props.playerNum-1].lowerScore[2] >= 0))
 							?
 								(
 									<button onClick={props.scoreClickHandler} name="lower-2" className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full bg-dark-blue/50 hover:bg-dark-blue ease-in-out transition duration-150">
@@ -62,7 +62,7 @@ const Lowerscore = (props) => {
 					</div>
 					<div>
 						{
-							(props.players.length && !props.players[props.playerNum-1].lowerScore[3])
+							(props.players.length && !(props.players[props.playerNum-1].lowerScore[3] >= 0))
 							?
 								(
 									<button onClick={props.scoreClickHandler} name="lower-3" className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full bg-dark-blue/50 hover:bg-dark-blue ease-in-out transition duration-150">
@@ -79,7 +79,7 @@ const Lowerscore = (props) => {
 					</div>
 					<div>
 						{
-							(props.players.length && !props.players[props.playerNum-1].lowerScore[4])
+							(props.players.length && !(props.players[props.playerNum-1].lowerScore[4] >= 0))
 							?
 								(
 									<button onClick={props.scoreClickHandler} name="lower-4" className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full bg-dark-blue/50 hover:bg-dark-blue ease-in-out transition duration-150">
@@ -96,7 +96,7 @@ const Lowerscore = (props) => {
 					</div>
 					<div>
 						{
-							(props.players.length && !props.players[props.playerNum-1].lowerScore[5])
+							(props.players.length && !(props.players[props.playerNum-1].lowerScore[5] >= 0))
 							?
 								(
 									<button onClick={props.scoreClickHandler} name="lower-5" className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full bg-dark-blue/50 hover:bg-dark-blue ease-in-out transition duration-150">
@@ -113,7 +113,7 @@ const Lowerscore = (props) => {
 					</div>
 					<div>
 						{
-							(props.players.length && !props.players[props.playerNum-1].lowerScore[6])
+							(props.players.length && !(props.players[props.playerNum-1].lowerScore[6] >= 0))
 							?
 								(
 									<button onClick={props.scoreClickHandler} name="lower-6" className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full bg-dark-blue/50 hover:bg-dark-blue ease-in-out transition duration-150">
@@ -130,7 +130,7 @@ const Lowerscore = (props) => {
 					</div>
 					<div>
 						{
-							(props.players.length && props.players[props.playerNum-1].lowerScore[5] && props.players[props.playerNum-1].possibleLower[7])
+							(props.players.length && (props.players[props.playerNum-1].lowerScore[5] >= 0) && props.players[props.playerNum-1].possibleLower[7])
 							?
 								(
 									<button onClick={props.scoreClickHandler} name="lower-7" className="pl-1 text-left rounded border border-light-blue mt-0.5 w-full bg-dark-blue/50 hover:bg-dark-blue ease-in-out transition duration-150">
@@ -177,8 +177,8 @@ const Lowerscore = (props) => {
 									</div>
 									{player.lowerScore.map((value, scoreIndex) => {
 										return (
-											<div key={`${value}---${scoreIndex}`} className={`${(value) ? '' : 'text-slate-400'} rounded border border-light-blue mt-0.5`}>
-												{(value) ? value : ((playerIndex+1===props.playerNum && scoreIndex !==8 ) ? ((scoreIndex === 7 && !(player.lowerScore[5])) ? <br/> : player.possibleLower[scoreIndex]) : <br/>)}
+											<div key={`${value}---${scoreIndex}`} className={`${(value >= 0) ? '' : 'text-slate-400'} rounded border border-light-blue mt-0.5`}>
+												{(value >= 0) ? value : ((playerIndex+1===props.playerNum && scoreIndex !==8 ) ? ((scoreIndex === 7 && !(player.lowerScore[5] >= 0)) ? <br/> : player.possibleLower[scoreIndex]) : <br/>)}
 											</div>
 										)
 									})}
