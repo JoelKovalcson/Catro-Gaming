@@ -91,3 +91,17 @@ export const GQL_GET_JOINABLE_GAMES = gql`
 		}
   }
 `;
+
+export const GQL_GET_ACTIVE_GAMES = gql`
+	query getActiveGames {
+		getActiveGames {
+			gameName
+			_id
+			maxPlayers
+			participants {
+				username
+			}
+			turn
+		}
+	}
+`;

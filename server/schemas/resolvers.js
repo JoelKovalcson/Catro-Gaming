@@ -46,8 +46,19 @@ const resolvers = {
 
 			return games;
 			
+		},
+		getActiveGames: async(_, __, context) => {
+			const games = await ActiveGame.find(
+				{
+					isComplete: false,
+					participants: context.user._id
+				}
+			).populate('participants', '-password -__v');
+			if (!games) {
+				throw new ForbiddenError('No active games');
+			}
+			return games;
 		}
-		
 	},
 	Mutation: {
 		addUser: async (_, args) => {

@@ -68,6 +68,7 @@ const typeDefs = gql`
 		getGame(gameId: ID!): ActiveGame
 		getProfile(username: String!): User
 		getJoinableGames: [ActiveGame]
+		getActiveGames: [ActiveGame]
 	}
 
 	type Mutation {
