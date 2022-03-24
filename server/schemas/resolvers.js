@@ -25,9 +25,10 @@ const resolvers = {
 		},
 		getJoinableGames: async (_, __, context) => {
 			// get all games where user isn't already a participant
-			const games = await ActiveGame.find(
+			let games = await ActiveGame.find(
 				{
 					isComplete: false,
+					// Doesn't work with free atlas
 					//$where: "this.participants.length<this.maxPlayers",
 					participants: {
 						$nin: [context.user._id]
@@ -39,6 +40,11 @@ const resolvers = {
 					}
 				}
 			).populate('participants', '-password -__v');
+			// Doing this instead of where clause
+			games = games.filter((game) => {
+				if (game.participants.length < game.maxPlayers) return true;
+				else return false;
+			})
 			// if there are no games give an empty array
 			if(!games){
 				return [];
@@ -69,18 +75,21 @@ const resolvers = {
 		joinGame: async (_, args, context) => {
 			if(context.user) {
 
-				const game = await ActiveGame.findOneAndUpdate(
+				let game = await ActiveGame.findOneAndUpdate(
 					{
 						_id: args.gameId,
 						participants: {
 							$nin: [context.user._id]
 						},
-						$where: "this.participants.length<this.maxPlayers",
+						// Not allowed in free atlas tier
+						//$where: "this.participants.length<this.maxPlayers",
 						isComplete: false
 					}, 
 					{$addToSet: {participants: context.user._id}, $push: {scores: 0}}, 
 					{new: true, runValidators: true}
 				).populate('participants', '-password -__v');
+				// Doing this instead for atlas
+				if (game.participants.length >= game.maxPlayers) game = null;
 
 				if(!game) {
 					throw new ForbiddenError('Game is full or you are already in it!');
