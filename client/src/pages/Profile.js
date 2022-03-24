@@ -18,7 +18,8 @@ const Profile = () => {
 	const {loading: profileLoading, data: profileData} = useQuery(GQL_GET_PROFILE, {
 		variables: {
 			username: (username) ? username : Auth.getProfile().data.username
-		}
+		},
+		pollInterval: 10000
 	});
 
 	const {loading: gamesLoading, data: gamesData} = useQuery(GQL_GET_ACTIVE_GAMES);

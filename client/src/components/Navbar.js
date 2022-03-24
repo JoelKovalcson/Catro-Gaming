@@ -21,7 +21,7 @@ const Navbar = () => {
                             duration-150
                             ease-in-out
                             border-4 border-double border-pastel-purple`}>{Auth.loggedIn() ? Auth.getProfile().data.username : ''}</Link>
-            <button onClick={Auth.logout} to="/" className='text-light-blue p-2 text-lg 2xl:text-2xl mr-4 rounded hover:text-light-blue hover:shadow-lg
+            <button onClick={Auth.logout} className='text-light-blue p-2 text-lg 2xl:text-2xl mr-4 rounded hover:text-light-blue hover:shadow-lg
                             focus:text-light-blue focus:shadow-lg focus:outline-none focus:ring-0
                             active:bg-blue-800 active:shadow-lg
                             transition

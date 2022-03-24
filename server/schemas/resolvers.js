@@ -39,9 +39,9 @@ const resolvers = {
 					}
 				}
 			).populate('participants', '-password -__v');
-			// if there are no games throw error
+			// if there are no games give an empty array
 			if(!games){
-				throw new ForbiddenError('No joinable games')
+				return [];
 			} 
 
 			return games;
@@ -55,7 +55,7 @@ const resolvers = {
 				}
 			).populate('participants', '-password -__v');
 			if (!games) {
-				throw new ForbiddenError('No active games');
+				return [];
 			}
 			return games;
 		}
