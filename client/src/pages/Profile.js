@@ -1,4 +1,4 @@
-import {useParams} from 'react-router-dom';
+import {useParams, useNavigate} from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import React, { useEffect, useState } from 'react';
 import Stats from '../components/Stats'
@@ -9,7 +9,7 @@ import Joingame from '../components/Joingame';
 
 const Profile = () => {
 
-	//const navigate = useNavigate();
+	const navigate = useNavigate();
 
 	const [state, setState] = useState({gameId: null, gameName: null})
 
@@ -32,7 +32,7 @@ const Profile = () => {
 
 	useEffect(() => {
 		if(state.gameId) {
-			//navigate(`/${state.gameName}`)
+			navigate(`/${state.gameName}`, {state: state});
 		}
 	}, [state])
 

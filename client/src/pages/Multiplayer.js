@@ -165,7 +165,8 @@ const Multiplayer = () => {
 						{ // If we have a gameId from creating or joining, render a link to go there
 						gameSelection.gameId ? (
 							<>
-								<Link to={{pathname: `/${gameSelection.game.toLowerCase()}`, state: gameSelection}}
+								<Link to={`/${gameSelection.game.toLowerCase()}`}
+									state={gameSelection}
 									className="
 									w-full px-6 py-2.5 bg-light-background border-4 border-double border-light-blue
 									text-light-blue text-sm font-bold leading-tight uppercase rounded shadow-md

@@ -97,7 +97,10 @@ const SignUp = () => {
         }
 		
 	}
-
+	if(Auth.loggedIn()) {
+		window.location.assign('/Homepage');
+		return <></>
+	}
 	return ( 
 		<div className="mx-auto p-6 rounded-lg bg-light-background max-w-sm border border-4 border-double border-pastel-purple">
 			<ul className="nav nav-tabs flex justify-around flex-wrap list-none border-b-0 pl-0 mb-4" id="tabs-tab"

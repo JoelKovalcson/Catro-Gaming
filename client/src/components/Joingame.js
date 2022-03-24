@@ -18,7 +18,7 @@ const Joingame = (props) => {
 												<h4 className="text-lg font-semibold">{game.gameName[0].toUpperCase() + game.gameName.slice(1)}</h4>
 												<h5>Host: {game.participants[0].username}</h5>
 												<h5>Player: {game.participants.length}/{game.maxPlayers}</h5>
-												<button name={game.gameName} data-game-id={game._id} onClick={props.joinGame} className="rounded bg-pastel-purple hover:bg-opacity-80 text-dark-blue py-1 px-3 my-2 mx-1">Rejoin Game</button>
+												<button name={game.gameName} data-cur-players={game.participants.length} data-max-players={game.maxPlayers} data-game-id={game._id} onClick={props.joinGame} className="rounded bg-pastel-purple hover:bg-opacity-80 text-dark-blue py-1 px-3 my-2 mx-1">Rejoin Game</button>
 											</div>
 										</li>
 									)

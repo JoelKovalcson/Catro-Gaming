@@ -6,8 +6,11 @@ import { GQL_END_GAME, GQL_UPDATE_GAME_STATE } from '../utils/mutations';
 import { useMutation, useQuery } from '@apollo/client';
 import { GQL_GET_GAME_DETAILS } from '../utils/queries';
 import Auth from '../utils/auth';
+import { useLocation } from 'react-router-dom';
 
 const Yahtzee = (props) => {
+	const location = useLocation();
+	console.log(location.state);
 	// State to hold data as it goes to and from the database
 	const [gameState, setGameState] = useState({
 		players: [], // Filled in from database query
@@ -23,7 +26,7 @@ const Yahtzee = (props) => {
 
 	const {loading} = useQuery(GQL_GET_GAME_DETAILS, {
 		variables: {
-			gameId: props.location?.state?.gameId
+			gameId: location?.state?.gameId
 		},
 		onCompleted: (data) => {
 			// If there is no existing game state and the host joined, initialize it and send a update to the server
@@ -516,8 +519,8 @@ const Yahtzee = (props) => {
 				</div>
 					
 				<div className='flex flex-wrap justify-evenly mb-4'>	
-					<Upperscore scoreClickHandler={scoreClickHandler} maxPlayers={props.location.state.maxPlayers} players={gameState.players} playerNum={gameState.playerNum}/>
-					<Lowerscore scoreClickHandler={scoreClickHandler} maxPlayers={props.location.state.maxPlayers} players={gameState.players} playerNum={gameState.playerNum}/>
+					<Upperscore scoreClickHandler={scoreClickHandler} maxPlayers={location.state.maxPlayers} players={gameState.players} playerNum={gameState.playerNum}/>
+					<Lowerscore scoreClickHandler={scoreClickHandler} maxPlayers={location.state.maxPlayers} players={gameState.players} playerNum={gameState.playerNum}/>
 				</div>
 			</>
 		)
