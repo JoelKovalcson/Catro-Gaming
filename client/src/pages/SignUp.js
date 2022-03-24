@@ -103,8 +103,7 @@ const SignUp = () => {
 	}
 	return ( 
 		<div className="mx-auto p-6 rounded-lg bg-light-background max-w-sm border border-4 border-double border-pastel-purple">
-			<ul className="nav nav-tabs flex justify-around flex-wrap list-none border-b-0 pl-0 mb-4" id="tabs-tab"
-				role="tablist">
+			<ul className="nav nav-tabs flex justify-around flex-wrap list-none border-b-0 pl-0 mb-4" id="tabs-tab">
 				<li className="nav-item" role="presentation">
 					<button href="#tabs-signup" className="
 						rounded
@@ -116,12 +115,8 @@ const SignUp = () => {
 						px-6
 						py-3
 						my-2
-						bg-background
 						hover:border-light-blue hover:bg-dark-blue
-						focus:border-light-blue
-						active
-						" id="tabs-signup-tab" data-bs-toggle="pill" data-bs-target="#tabs-signup" role="tab" aria-controls="tabs-signup"
-						aria-selected="true" onClick={changeForm}>
+						" id="tabs-signup-tab" onClick={changeForm}>
 							Sign Up
 					</button>
 				</li>
@@ -136,12 +131,8 @@ const SignUp = () => {
 						px-6
 						py-3
 						my-2
-						bg-background
 						hover:border-light-blue hover:bg-dark-blue
-						focus:border-light-blue
-						active
-						" id="tabs-login-tab" data-bs-toggle="pill" data-bs-target="#tabs-login" role="tab" aria-controls="tabs-login"
-						aria-selected="false" onClick={changeForm}>
+						" id="tabs-login-tab" onClick={changeForm}>
 							Login
 					</button>
 				</li>
