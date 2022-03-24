@@ -25,12 +25,10 @@ const Profile = () => {
 				<div className='flex flex-row flex-wrap justify-evenly m-4'>
 					<div className='flex flex-col justify-center border-4 border-double border-light-blue p-2 rounded'>
 						<h1 className='self-center text-xl font-bold'>{data.getProfile.username}</h1>
-						<h3 className='self-center'>Total games played:{data.getProfile.scores.totalGames}</h3>
+						<h3 className='self-center'>Total games played: {data.getProfile.scores.totalGames}</h3>
 						<Stats
-						username={data.getProfile.username}
-						tetrisgames={data.getProfile.scores.tetris.playedGames}
-						tetrisrows={data.getProfile.scores.tetris.rowsCleared}
-						tetrishighscore={data.getProfile.scores.tetris.bestScore}
+							username={data.getProfile.username}
+							scores={data.getProfile.scores}
 						/>
 					</div>
 					<div className='flex flex-col border-4 border-double border-light-blue rounded p-2'>

@@ -70,6 +70,10 @@ export const GQL_GET_PROFILE = gql`
 					rowsCleared
 					bestScore
 				}
+				yahtzee {
+					playedGames
+					bestScore
+				}
 			}
     }
   }
