@@ -102,7 +102,8 @@ const resolvers = {
 					// Filters
 					{
 						_id: args.gameId,
-						participants: context.user._id
+						participants: context.user._id,
+						isComplete: false
 					},
 					// Update
 					{
@@ -121,7 +122,7 @@ const resolvers = {
 
 					switch(game.get('gameName')) {
 						case 'tetris':
-							const {rowsCleared, score} = gameState;
+							let {rowsCleared, score} = gameState;
 
 							const tetris = scores.get('tetris');
 							tetris.set({
@@ -133,7 +134,15 @@ const resolvers = {
 
 							break;
 						case 'yahtzee':
-							console.log('Need to score yahtzee here');
+							const {players} = gameState;
+							const player = players.find(player => player.name === user.username);
+							const yahtzee = scores.get('yahtzee');
+
+							yahtzee.set({
+								bestScore: yahtzee.bestScore < player.score ? player.score : yahtzee.bestScore,
+								playedGames: yahtzee.playedGames + 1
+							});
+							scores.set({yahtzee: yahtzee});
 
 							break;
 						default: 
@@ -145,8 +154,8 @@ const resolvers = {
 					
 					return game;
 				}
-				// Else the user wasn't part of that game
-				throw new ForbiddenError('You are not part of that game!');
+				// Else the user wasn't part of that game or it is over
+				throw new ForbiddenError('You are not part of that game or the game is over!');
 			}
 			throw new AuthenticationError('You need to be logged in!');
 		},
@@ -206,7 +215,6 @@ const resolvers = {
 				// Set score if score passed in
 				if (args.score) {
 					let scores = game.get('scores');
-					console.log(scores, args.score);
 					scores[index] = args.score;
 					game.set({
 						scores: scores
