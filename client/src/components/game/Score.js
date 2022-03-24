@@ -10,6 +10,8 @@ const Score = (props) => {
 				(props.gameType === 'tetris') ? (
 					<>
 						<br/> Rows Cleared: {props.rowsCleared}
+						<br/> Level: {props.level}
+						<br/> Speed: {props.speed}ms
 					</>
 				): ''}
 			</div>

@@ -34,6 +34,7 @@ const Profile = () => {
 		if(state.gameId) {
 			navigate(`/${state.gameName}`, {state: state});
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [state])
 
 	if(profileLoading) {

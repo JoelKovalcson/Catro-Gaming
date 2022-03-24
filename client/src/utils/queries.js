@@ -69,6 +69,7 @@ export const GQL_GET_PROFILE = gql`
 					playedGames
 					rowsCleared
 					bestScore
+					highestLevel
 				}
 				yahtzee {
 					playedGames

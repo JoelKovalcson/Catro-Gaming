@@ -133,13 +133,14 @@ const resolvers = {
 
 					switch(game.get('gameName')) {
 						case 'tetris':
-							let {rowsCleared, score} = gameState;
+							let {rowsCleared, score, level} = gameState;
 
 							const tetris = scores.get('tetris');
 							tetris.set({
 								rowsCleared: tetris.rowsCleared+rowsCleared,
 								bestScore: (tetris.bestScore < score) ? score : tetris.bestScore,
-								playedGames: tetris.playedGames + 1
+								playedGames: tetris.playedGames + 1,
+								highestLevel: (tetris.highestLevel < level) ? level : tetris.highestLevel
 							});
 							scores.set({tetris:tetris});
 
