@@ -28,7 +28,7 @@ const resolvers = {
 			const games = await ActiveGame.find(
 				{
 					isComplete: false,
-					$where: "this.participants.length<this.maxPlayers",
+					//$where: "this.participants.length<this.maxPlayers",
 					participants: {
 						$nin: [context.user._id]
 					},

@@ -144,7 +144,7 @@ const Yahtzee = (props) => {
 				});
 			}
 		},
-		pollInterval: 1000
+		pollInterval: 10000
 	});
 
 	const getPossible = (thisPlayer) => {
