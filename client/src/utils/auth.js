@@ -30,6 +30,11 @@ class AuthService {
 
 		window.location.assign('/homepage');
 	}
+
+	logout() {
+		localStorage.removeItem('id_token');
+		window.location.assign('/');
+	}
 }
 
 export default new AuthService();

@@ -310,6 +310,8 @@ const Yahtzee = (props) => {
 				clearInterval(interval);
 			}
 		}
+		// Had to include this, because if I include `gameState` as a dependency the dice roll forever, will look into fixing later
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [gameState.rolling, gameState.gameId, updateGame])
 
 	const rollDice = () => {
@@ -427,6 +429,10 @@ const Yahtzee = (props) => {
 		})
 	}
 
+	if(!Auth.loggedIn()) {
+		window.location.assign('/');
+		return <></>
+	}
 	if(loading || gameState.players.length === 0) {
 		return (
 			<>

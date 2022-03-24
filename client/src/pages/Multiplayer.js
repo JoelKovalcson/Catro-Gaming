@@ -4,9 +4,10 @@ import { Link } from "react-router-dom";
 import {MULTIPLAYER_GAMES} from '../utils/homepage/games';
 import { GQL_JOIN_GAME, GQL_START_GAME } from "../utils/mutations";
 import { GQL_GET_JOINABLE_GAMES } from "../utils/queries";
+import Auth from '../utils/auth';
 
 const Multiplayer = () => {
-
+	
 	const [gameSelection, setGameSelection] = useState({game: '', maxPlayers: '2', showModal: false, gameId: '', MIN: 1, MAX: 4, curPlayers: 1});
 
 	const {loading, data: joinableGamesQuery, refetch: refetchJoinableGames} = useQuery(GQL_GET_JOINABLE_GAMES);
@@ -101,7 +102,11 @@ const Multiplayer = () => {
 
 		refetchJoinableGames();
 	}
-
+	
+	if(!Auth.loggedIn()) {
+		window.location.assign('/');
+		return <></>
+	}
 	return (
 		<>
 			<div className="hidden bg-yahtzee"/>

@@ -1,8 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Auth from '../utils/auth';
 
 const Singleplayer = () => {
 
+	if(!Auth.loggedIn()) {
+		window.location.assign('/');
+		return <></>
+	}
     return (
         <>
         <div className="flex flex-wrap justify-center w-screen">

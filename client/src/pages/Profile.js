@@ -9,10 +9,12 @@ import Joingame from '../components/Joingame';
 
 const Profile = () => {
 
-	const {username: username} = useParams();
+	const {username} = useParams();
 	
 	const {loading, data} = useQuery(GQL_GET_PROFILE, {
-		variables: {username: (username) ? username : Auth.getProfile().data.username}
+		variables: {
+			username: (username) ? username : Auth.getProfile().data.username
+		}
 	});
 	
 	// console.log(data.getProfile.scores.tetris.playedGames);
