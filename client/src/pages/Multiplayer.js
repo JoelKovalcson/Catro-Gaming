@@ -104,11 +104,8 @@ const Multiplayer = () => {
 
 	return (
 		<>
+			<div className="hidden bg-yahtzee"/>
 			{/* Modal */}
-
-
-			
-
 			<div className={`${(gameSelection.showModal) ? "" : "hidden"} grid z-40 bg-background/[.85] fixed top-0 bottom-0 right-0 left-0 justify-center items-center overflow-y-auto overflow-x-hidden h-modal md:h-full md:inset-0`}>
 				<form onSubmit={handleFormSubmit} className="relative z-50 p-5 bg-light-background rounded-lg max-w-sm border-4 border-double border-pastel-purple">
 					<button type="button" className="absolute top-1 right-1 transition ease-in-out duration-150 border border-pastel-purple text-light-blue bg-background hover:bg-dark-blue text-right rounded-lg text-sm p-1.5  items-center" onClick={closeModal}>
@@ -207,12 +204,15 @@ const Multiplayer = () => {
 						MULTIPLAYER_GAMES.map((game) => {
 							return (
 								<a key={game.name} name={game.name} data-min-players={game.minPlayers} data-max-players={game.maxPlayers} data-route={game.route} onClick={openModal} href="#0" 
-									className="card-image flex flex-col justify-center mx-4 mt-4 h-48 w-48 rounded bg-cover bg-center bg-chuck-norris">    
+									className={`card-image flex flex-col justify-center mx-4 mt-4 h-48 w-48 rounded bg-cover bg-center bg-${game.name.toLowerCase()}`}>    
 									<div className="card-text self-center text-bold text-xl">{game.name}</div>
 								</a>
 							)
 						})
 					}
+					<Link to='/multiplayer' className="card-image flex flex-col justify-center mx-4 mt-4 h-48 w-48 rounded bg-cover bg-center bg-chuck-norris">    
+            <div className="card-text text-center text-2xl">More Coming Soon</div>
+          </Link>
 				</div>
 			</section>
 
@@ -234,7 +234,7 @@ const Multiplayer = () => {
 						joinableGamesQuery.getJoinableGames.map((game) => {
 							return (
 								<a href="#0" onClick={joinGame} key={game._id} data-game-id={game._id} data-game-name={game.gameName} data-max-players={game.maxPlayers} data-cur-players={game.participants.length}
-									className="card-image flex flex-col justify-center mx-4 mt-4 h-48 w-48 rounded bg-cover bg-center bg-chuck-norris">    
+									className={`card-image flex flex-col justify-center mx-4 mt-4 h-48 w-48 rounded bg-cover bg-center bg-${game.gameName}`}>    
 									<div className="card-text self-center text-bold text-xl">{game.gameName.charAt(0).toUpperCase() + game.gameName.slice(1)}</div>
 									<div className="text-light-blue card-text self-center text-bold text-l">Host: {game.participants[0].username}</div>
 									<div className="text-light-blue card-text self-center text-bold text-l">{game.participants.length}/{game.maxPlayers} Players</div>

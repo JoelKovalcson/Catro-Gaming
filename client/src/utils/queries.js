@@ -35,6 +35,7 @@ export const GQL_GET_GAME = gql`
 export const GQL_GET_GAME_DETAILS = gql`
   query getGame($gameId: ID!) {
     getGame(gameId: $gameId) {
+			_id
 			turn
       participants {
         username
@@ -67,6 +68,10 @@ export const GQL_GET_PROFILE = gql`
 				tetris {
 					playedGames
 					rowsCleared
+					bestScore
+				}
+				yahtzee {
+					playedGames
 					bestScore
 				}
 			}
