@@ -75,22 +75,27 @@ const resolvers = {
 		joinGame: async (_, args, context) => {
 			if(context.user) {
 
-				let game = await ActiveGame.findOneAndUpdate(
-					{
-						_id: args.gameId,
-						participants: {
-							$nin: [context.user._id]
-						},
-						// Not allowed in free atlas tier
-						//$where: "this.participants.length<this.maxPlayers",
-						isComplete: false
-					}, 
-					{$addToSet: {participants: context.user._id}, $push: {scores: 0}}, 
-					{new: true, runValidators: true}
-				).populate('participants', '-password -__v');
-				// Doing this instead for atlas
+				let game = await ActiveGame.findOne({
+					_id: args.gameId,
+					participants: {
+						$nin: [context.user._id]
+					},
+					isComplete: false
+				}).populate('participants', '-password -__v');
+				
 				if (game.participants.length >= game.maxPlayers) game = null;
-
+				else {
+					const participants = game.participants;
+					const scores = game.scores;
+					participants.push(context.user._id);
+					scores.push(0);
+					game.set({
+						participants: participants,
+						scores: scores
+					});
+					game.save();
+				}
+				
 				if(!game) {
 					throw new ForbiddenError('Game is full or you are already in it!');
 				}
