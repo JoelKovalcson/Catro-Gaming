@@ -116,6 +116,7 @@ const SignUp = () => {
 						px-6
 						py-3
 						my-2
+						bg-background
 						hover:border-light-blue hover:bg-dark-blue
 						focus:border-light-blue
 						active
@@ -135,6 +136,7 @@ const SignUp = () => {
 						px-6
 						py-3
 						my-2
+						bg-background
 						hover:border-light-blue hover:bg-dark-blue
 						focus:border-light-blue
 						active
