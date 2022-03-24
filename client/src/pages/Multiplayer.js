@@ -8,9 +8,17 @@ import Auth from '../utils/auth';
 
 const Multiplayer = () => {
 	
-	const [gameSelection, setGameSelection] = useState({game: '', maxPlayers: '2', showModal: false, gameId: '', MIN: 1, MAX: 4, curPlayers: 1});
+	const [gameSelection, setGameSelection] = useState({game: '', maxPlayers: '2', showModal: false, gameId: '', MIN: 1, MAX: 4, curPlayers: 1, joinableGames: []});
 
-	const {loading, data: joinableGamesQuery, refetch: refetchJoinableGames} = useQuery(GQL_GET_JOINABLE_GAMES);
+	const {loading, data: joinableGamesQuery, refetch: refetchJoinableGames} = useQuery(GQL_GET_JOINABLE_GAMES, {
+		onCompleted: data => {
+			setGameSelection({
+				...gameSelection,
+				joinableGames: data.getJoinableGames
+			})
+		},
+		pollInterval: 10000
+	});
 	const [joinGameQuery] = useMutation(GQL_JOIN_GAME);
 	const [startGame] = useMutation(GQL_START_GAME);
 	
@@ -237,22 +245,16 @@ const Multiplayer = () => {
 						</div>
 						// Else they are loaded
 						:
-							((joinableGamesQuery.getJoinableGames)
-							?
-								joinableGamesQuery.getJoinableGames.map((game) => {
-									return (
-										<a href="#0" onClick={joinGame} key={game._id} data-game-id={game._id} data-game-name={game.gameName} data-max-players={game.maxPlayers} data-cur-players={game.participants.length}
-											className={`card-image flex flex-col justify-center mx-4 mt-4 h-48 w-48 rounded bg-cover bg-center bg-${game.gameName}`}>    
-											<div className="card-text self-center text-bold text-xl">{game.gameName.charAt(0).toUpperCase() + game.gameName.slice(1)}</div>
-											<div className="text-light-blue card-text self-center text-bold text-l">Host: {game.participants[0].username}</div>
-											<div className="text-light-blue card-text self-center text-bold text-l">{game.participants.length}/{game.maxPlayers} Players</div>
-										</a>
-									)
-								})
-							: 
-								<div className="text-blue-500 h-48 mx-4 mt-4 text-xl">
-									You have no games!
-								</div>)
+						gameSelection.joinableGames.map((game) => {
+							return (
+								<a href="#0" onClick={joinGame} key={game._id} data-game-id={game._id} data-game-name={game.gameName} data-max-players={game.maxPlayers} data-cur-players={game.participants.length}
+									className={`card-image flex flex-col justify-center mx-4 mt-4 h-48 w-48 rounded bg-cover bg-center bg-${game.gameName}`}>    
+									<div className="card-text self-center text-bold text-xl">{game.gameName.charAt(0).toUpperCase() + game.gameName.slice(1)}</div>
+									<div className="text-light-blue card-text self-center text-bold text-l">Host: {game.participants[0].username}</div>
+									<div className="text-light-blue card-text self-center text-bold text-l">{game.participants.length}/{game.maxPlayers} Players</div>
+								</a>
+							)
+						})	
 					}
 				</div>
 			</section>
