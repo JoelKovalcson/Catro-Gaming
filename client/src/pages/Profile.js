@@ -51,7 +51,7 @@ const Profile = () => {
 							scores={profileData.getProfile.scores}
 						/>
 					</div>
-					<div className='flex flex-col border-4 border-double border-light-blue rounded p-2'>
+					<div className={`${username ? 'hidden': ''} flex flex-col border-4 border-double border-light-blue rounded p-2`}>
 						<Joingame loading={gamesLoading} games={gamesData} joinGame={joinGame}/>
 					</div>
 					<div className='flex flex-col justify-between border-4 border-double border-light-blue rounded'>
