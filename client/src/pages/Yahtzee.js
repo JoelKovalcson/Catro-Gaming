@@ -85,7 +85,7 @@ const Yahtzee = (props) => {
 				});
 			}
 		},
-		pollInterval: 10000
+		pollInterval: 5000
 	});
 	
 	useEffect(() => {
@@ -177,98 +177,71 @@ const Yahtzee = (props) => {
 		});
 	}
 
-	const tmpPlayers = [
-		{
-			name: 'Rick',
-			upperScore: [3, 0, 0, 0, 0, 0, 0, 0, 0],
-			possibleUpper: [5, 5, 5, 5, 5, 5, 5, 5, 5],
-			lowerScore: [2, 0, 0, 0, 0, 0, 0, 0, 0],
-			possibleLower: [5, 5, 5, 5, 5, 5, 5, 5, 5],
-			score: 0
-		},
-		{
-			name: 'Jerry',
-			upperScore: [3, 0, 0, 0, 0, 0, 0, 0, 0],
-			possibleUpper: [5, 5, 5, 5, 5, 5, 5, 5, 5],
-			lowerScore: [2, 0, 0, 0, 0, 0, 0, 0, 0],
-			possibleLower: [5, 5, 5, 5, 5, 5, 5, 5, 5],
-			score: 0
-		},
-		{
-			name: 'Morty',
-			upperScore: [3, 0, 0, 0, 0, 0, 0, 0, 0],
-			possibleUpper: [5, 5, 5, 5, 5, 5, 5, 5, 5],
-			lowerScore: [2, 0, 0, 0, 0, 0, 0, 0, 0],
-			possibleLower: [5, 5, 5, 5, 5, 5, 5, 5, 5],
-			score: 0
-		},
-		{
-			name: 'Mee6',
-			upperScore: [3, 0, 0, 0, 0, 0, 0, 0, 0],
-			possibleUpper: [5, 5, 5, 5, 5, 5, 5, 5, 5],
-			lowerScore: [2, 0, 0, 0, 0, 0, 0, 0, 0],
-			possibleLower: [5, 5, 5, 5, 5, 5, 5, 5, 5],
-			score: 0
-		}
-	];
-	const tmpPlayerNum = 2;
-
-
-
-	return (
-		<>
-			{/* Had to include the custom background images to trick tailwind into including them in the page's CSS */}
-			<div className='hidden bg-dice1 bg-dice2 bg-dice3 bg-dice4 bg-dice5 bg-dice6'/>
-			<div className='flex flex-wrap justify-around text-xl'>
-				<div className='flex-row flex-wrap justify-center m-4'>
-						<div className='flex flex-wrap justify-center'>
-							{diceSelected.selectedArr.map((value, index) => {
-								return (
-									<Dice key={`dice-${index}`} toggleSelect={toggleSelect} selected={value} num={diceSelected.valueArr[index]} index={index}/>
-								);
-							})}
-						</div>
-						<div className='mt-2 flex flex-row justify-center'>
-							<button disabled={(diceSelected.rolling) ? true : false} onClick={rollDice} 
-								className='text-light-blue p-2 min-w-60 m-auto rounded border-4 border-double border-pastel-purple hover:bg-dark-blue text-center'>
-									Roll Dice ({(gameState.players.length) ? gameState.players[gameState.playerNum-1].rollsLeft : 0})
-							</button>	
-						</div>
+	if(loading || gameState.players.length === 0) {
+		return (
+			<div className='flex justify-center'>
+				<div className='p-4 text-xl sm:text-3xl text-center rounded border-4 border-double border-light-blue'>
+					Setting up game...
 				</div>
-				<table className='rounded border border-light-blue border-separate p-0.5 m-1'>
-					<thead>
-						<tr className='text-center'>
-							<th className='border-b border-light-blue px-1'>
-								Player Name
-							</th>
-							<th className='border-b border-light-blue px-1'>
-								Total Score
-							</th>
-						</tr>
-					</thead>
-					<tbody>
-						{tmpPlayers.map((player) => {
-							return (
-								<tr key={`${player.name}-${player.score}`}>
-									<td className='border-r border-light-blue'>
-										{player.name}
-									</td>
-									<td className='border-l border-light-blue text-center'>
-										{player.score}
-									</td>
-								</tr>
-							)
-						})}
-					</tbody>
-				</table>
 			</div>
-				
-			<div className='flex flex-wrap justify-evenly mb-4'>	
-				<Upperscore scoreClickHandler={scoreClickHandler} maxPlayers={props.location.state.maxPlayers} players={gameState.players} playerNum={gameState.playerNum}/>
-				<Lowerscore scoreClickHandler={scoreClickHandler} maxPlayers={props.location.state.maxPlayers} players={gameState.players} playerNum={gameState.playerNum}/>
-			</div>
-		</>
-	)
+		)
+	}
+	else {
+		return (
+			<>
+				{/* Had to include the custom background images to trick tailwind into including them in the page's CSS */}
+				<div className='hidden bg-dice1 bg-dice2 bg-dice3 bg-dice4 bg-dice5 bg-dice6'/>
+				<div className='flex flex-wrap justify-around text-xl'>
+					<div className='flex-row flex-wrap justify-center m-4'>
+							<div className='flex flex-wrap justify-center'>
+								{diceSelected.selectedArr.map((value, index) => {
+									return (
+										<Dice key={`dice-${index}`} toggleSelect={toggleSelect} selected={value} num={diceSelected.valueArr[index]} index={index}/>
+									);
+								})}
+							</div>
+							<div className='mt-2 flex flex-row justify-center'>
+								<button disabled={(diceSelected.rolling) ? true : false} onClick={rollDice} 
+									className='text-light-blue p-2 min-w-60 m-auto rounded border-4 border-double border-pastel-purple hover:bg-dark-blue text-center'>
+										Roll Dice ({(gameState.players.length) ? gameState.players[gameState.playerNum-1].rollsLeft : 0})
+								</button>	
+							</div>
+					</div>
+					<table className='rounded border border-light-blue border-separate p-0.5 m-1'>
+						<thead>
+							<tr className='text-center'>
+								<th className='border-b border-light-blue px-1'>
+									Player Name
+								</th>
+								<th className='border-b border-light-blue px-1'>
+									Total Score
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							{gameState.players.map((player) => {
+								return (
+									<tr key={`${player.name}-${player.score}`}>
+										<td className='border-r border-light-blue'>
+											{player.name}
+										</td>
+										<td className='border-l border-light-blue text-center'>
+											{player.score}
+										</td>
+									</tr>
+								)
+							})}
+						</tbody>
+					</table>
+				</div>
+					
+				<div className='flex flex-wrap justify-evenly mb-4'>	
+					<Upperscore scoreClickHandler={scoreClickHandler} maxPlayers={props.location.state.maxPlayers} players={gameState.players} playerNum={gameState.playerNum}/>
+					<Lowerscore scoreClickHandler={scoreClickHandler} maxPlayers={props.location.state.maxPlayers} players={gameState.players} playerNum={gameState.playerNum}/>
+				</div>
+			</>
+		)
+	}
 }
 
 export default Yahtzee;
